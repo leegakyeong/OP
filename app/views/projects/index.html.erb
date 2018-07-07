@@ -1,21 +1,8 @@
-<h1>OP</h1>
-<%# <form>
-  <input type='text' name='' placeholder='프로젝트 찾아보기'>
-  <button>검색</button>
-</form> %>
-<a href='/new'>새 프로젝트(연구?) 시작하기</a>
-
-<% @projects.reverse.each do |p| %>
-  <div style='border: 1px solid black;'>
-    <a href='/<%= p.id %>' data-method='DELETE'>delete</a>
-    <div><%= p.name %></div>
-    <div><%= p.description %></div>
-  </div>
-  <div>
-    <button>참여하기</button>
-    <button>질문하기</button>
-  </div>
-<% end %>
-
-<!--버튼 이름 같은 거 어떤 식으로 정할 지 생각해 보기-->
-<!--'프로젝트' 말고 아예 다른 이름 생각해 보기?-->
+<form action='/search' method='POST'> <!-- 'post'라고 써도 상관 없는 듯 -->
+  <input type='text' name='name'/> <!-- 굳이 type을 search라고 할 필요는 없을 듯..? 보기 편한 거 빼면 text랑 똑같으니까 아마! -->
+  <!-- 필터는 일단 좀 나중에! 
+  <input type='radio' name=''/>search by project name
+  <input type='radio' name=''/>search by admin id
+  -->
+  <button>search</button>
+</form>
