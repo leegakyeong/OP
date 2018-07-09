@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20180706062000) do
   create_table "projects", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
+    t.integer "maxMember"
+    t.string "skills"
+    t.string "description"
+    t.boolean "isKorean"
+    t.boolean "isOnline"
+    t.string "tools"
+    t.string "files"
+    t.string "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
