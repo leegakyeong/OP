@@ -1,8 +1,16 @@
-<form action='/search' method='POST'> <!-- 'post'라고 써도 상관 없는 듯 -->
-  <input type='text' name='title'/> <!-- 굳이 type을 search라고 할 필요는 없을 듯..? 보기 편한 거 빼면 text랑 똑같으니까 아마! -->
-  <!-- 필터는 일단 좀 나중에! 
-  <input type='radio' name=''/>search by project name
-  <input type='radio' name=''/>search by admin id
-  -->
+<form action='/search' method='POST'>
+  <input type='search' name='keyword'/> <!--search를 쓸까 text를 쓸까 브라우저 지원 현황은 동일한 것 같은데-->
+  <select name='filter'>
+    <option value='title'>title</option>
+    <option value='admin'>admin_id</option> <!--user의 name을 아직 설정 안 해서 일단 아이디로 검색되게 해 놓음-->
+  </select>
   <button>search</button>
 </form>
+<% if user_signed_in? %>
+  <a href='/signout'>sign out</a>
+<% else %>
+  <a href='/signin'>sign in</a>
+  <a href='/signup'>sign up</a>
+<% end %>
+<a href='/create'>new project</a>
+<a href='/mypage'>mypage</a>
