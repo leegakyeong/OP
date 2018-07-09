@@ -1,0 +1,29 @@
+<h1>새 프로젝트 추가</h1>
+
+<form action='/' method='POST'>
+    <!-- https://www.w3schools.com/tags/att_input_type.asp -->
+    <input type='hidden' name='admin_id' value=1>
+    <p>프로젝트 제목: <input type='text' name='title'/></p>
+    <p>최대 인원: <input type='number' name='maxMember' min='1'/></p>
+    <p>필요한 스킬: <input type='text' name='skills'/></p>
+    <p>프로젝트 설명:</p>
+    <textarea rows='5' cols='50' name='description'></textarea>
+    <p>사용 언어: 
+        <select name='isKorean'>
+            <option value='true'>한국어</option>
+            <option value='false'>English</option>
+        </select>
+    </p>
+    <p>협업 방식: 
+        <select name='isOnline'>
+            <option value='true'>재택/온라인</option>
+            <option value='false'>오프라인 모임</option>
+        </select>
+    </p>
+    <p>협업툴: <input type='text' name='tools'/></p>
+    <p>첨부파일 (파일이 여러개일 경우 zip파일로 모아서 첨부해주세요.): <input type='file' name='files'/></p>
+    <p>태그 (쉼표로 구분하여 입력해주세요): <input type='text' name='tags'/>
+    <br><br>
+
+    <input type='submit'/>
+</form>
