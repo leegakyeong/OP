@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  # index
   get '/' => 'projects#index'
 
+  # create
   get '/new' => 'projects#new'
   post '/' => 'projects#create'
 
+  # read
   get '/:id' => 'projects#show'
 
-  delete '/:id' => 'projects#destroy'
+  # update
+  get '/:id/edit' => 'projects#edit'
+  patch '/:id' => 'projects#update'
 
-  #delete '/:id' => 'projects#destroy'
+  # destroy
+  delete '/:id' => 'projects#destroy'
 end
