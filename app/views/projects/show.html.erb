@@ -1,0 +1,5 @@
+<h1><%= @project.id%>번 글! <%= @project.title %></h1>
+<%= @project.admin_id%>의 글입니다.
+<a href='/'>목록</a>
+<a href='/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'>삭제</a>
+<a href='/<%= @project.id%>/edit'>수정</a>
