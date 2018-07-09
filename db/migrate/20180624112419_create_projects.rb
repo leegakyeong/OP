@@ -12,6 +12,7 @@ class CreateProjects < ActiveRecord::Migration[5.1]
       t.string   :tools
       t.string   :files
       t.string   :tags
+      t.boolean  :isClosed
 
       t.timestamps
     end

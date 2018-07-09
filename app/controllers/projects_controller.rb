@@ -1,4 +1,8 @@
-class ProjectsController < ApplicationController
+class ProjectsController < ApplicationController 
+    def index
+        render 'index'
+    end  
+   
     def new
     end
 
@@ -17,10 +21,6 @@ class ProjectsController < ApplicationController
         project.save
 
         redirect_to "/#{project.id}"
-    end
-    
-    def index
-        render 'index'
     end
 
     def search
@@ -44,6 +44,28 @@ class ProjectsController < ApplicationController
         end
     def show
         @project = Project.find(params[:id])
+    end
+
+    def edit
+        @project = Project.find(params[:id])
+    end
+
+    def update
+        project = Project.find(params[:id])
+        project.admin_id = params[:admin_id]
+        project.title = params[:title]
+        project.maxMember = params[:maxMember]
+        project.skills = params[:skills]
+        project.description = params[:description]
+        project.isKorean = params[:isKorean]
+        project.isOnline = params[:isOnline]
+        project.tools = params[:tools]
+        project.files = params[:files]
+        project.tags = params[:tags]
+        project.isClosed = params[:isClosed]
+        project.save
+
+        redirect_to "/#{project.id}"
     end
 
     def destroy
