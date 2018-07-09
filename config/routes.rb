@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   # index
   get '/' => 'projects#index'
+  post '/search' => 'projects#search'
 
   # create
   get '/new' => 'projects#new'

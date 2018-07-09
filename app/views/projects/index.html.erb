@@ -1,3 +1,19 @@
+<form action='/search' method='POST'>
+  <input type='search' name='keyword'/> <!--search를 쓸까 text를 쓸까 브라우저 지원 현황은 동일한 것 같은데-->
+  <select name='filter'>
+    <option value='title'>title</option>
+    <option value='admin'>admin_id</option> <!--user의 name을 아직 설정 안 해서 일단 아이디로 검색되게 해 놓음-->
+  </select>
+  <button>search</button>
+</form>
+<% if user_signed_in? %>
+  <a href='/signout'>sign out</a>
+<% else %>
+  <a href='/signin'>sign in</a>
+  <a href='/signup'>sign up</a>
+<% end %>
+<a href='/create'>new project</a>
+<a href='/mypage'>mypage</a>
 <h1>OP</h1>
 
 <a href='/new'><button type="button">새 프로젝트 추가</button></a>
