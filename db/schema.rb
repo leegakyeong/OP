@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180706062000) do
     t.string "tools"
     t.string "files"
     t.string "tags"
+    t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
