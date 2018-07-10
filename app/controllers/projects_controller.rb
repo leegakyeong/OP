@@ -17,8 +17,15 @@ class ProjectsController < ApplicationController
         project.isOnline = params[:isOnline]
         project.tools = params[:tools]
         project.files = params[:files]
-        project.tags = params[:tags]
         project.save
+
+        input_tag = params[:tags]
+        input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
+        tag_array = input_tag.split("\n") 
+        tag_array.each do |tag|
+            new_tag = Tag.create(project_id: project.id, content: tag)
+            project.tags << Tag.find(new_tag.id)
+        end
 
         redirect_to "/#{project.id}"
     end
@@ -42,6 +49,8 @@ class ProjectsController < ApplicationController
                 @results = Project.all
             end
         end
+    end
+    
     def show
         @project = Project.find(params[:id])
     end
@@ -61,8 +70,15 @@ class ProjectsController < ApplicationController
         project.isOnline = params[:isOnline]
         project.tools = params[:tools]
         project.files = params[:files]
-        project.tags = params[:tags]
         project.isClosed = params[:isClosed]
+        project.tags.destroy_all
+        input_tag = params[:tags]
+        input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
+        tag_array = input_tag.split("\n") 
+        tag_array.each do |tag|
+            new_tag = Tag.create(project_id: project.id, content: tag)
+            project.tags << Tag.find(new_tag.id)
+        end
         project.save
 
         redirect_to "/#{project.id}"
