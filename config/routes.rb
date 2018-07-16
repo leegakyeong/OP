@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
+  # signin/signup customizing
+  devise_scope :user do
+    get '/signin' => 'devise/sessions#new'
+    get '/signup' => 'devise/registrations#new'
+  end
+
   # index
   get '/' => 'projects#index'
   post '/search' => 'projects#search'
@@ -14,6 +20,9 @@ Rails.application.routes.draw do
   # create
   get '/new' => 'projects#new'
   post '/' => 'projects#create'
+
+  # mypage
+  # get '/mypage' => 'projects#show_mypage'
 
   # read
   get '/:id' => 'projects#show'
