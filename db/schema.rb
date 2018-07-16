@@ -24,18 +24,8 @@ ActiveRecord::Schema.define(version: 20180709131118) do
   create_table "projects", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
-    t.integer "maxMember"
-    t.string "skills"
-    t.string "description"
-    t.boolean "isKorean"
-    t.boolean "isOnline"
-    t.string "tools"
-    t.string "files"
-    t.integer "tag_id"
-    t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_projects_on_tag_id"
   end
 
   create_table "projects_tags", id: false, force: :cascade do |t|

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   # get '/mypage' => 'projects#show_mypage'
 
   # read
-  get '/:id' => 'projects#show'
+  get ':id' => 'projects#show'
 
   # update
   get '/:id/edit' => 'projects#edit'
