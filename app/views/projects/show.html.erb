@@ -17,7 +17,10 @@
         오프라인 모임<% end %></p>
 <strong><p>협업툴:</strong> <%= @project.tools%></p>
 <strong><p>첨부파일명:</strong> <%= @project.files%></p>
-<strong><p>태그:</strong> <%= @project.tags%></p>
+<strong><p>태그:</strong></p>
+    <% @project.tags.each do |tag|%>
+        <p><%= tag.content%></p>
+    <% end %>   
 <strong><p>완료 여부:</strong>
     <% if @project.isClosed == true %>
         완료
