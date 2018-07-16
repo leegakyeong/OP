@@ -28,5 +28,14 @@
         진행 중<% end %></p>
 
 <a href='/'><button type="button">메인 화면으로</button></a>
-<a href='/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
-<a href='/<%= @project.id%>/edit'><button type="button">수정</button></a>
+
+<% if current_user != @project.admin %>
+    <% if current_user.requestees.include? @project.admin %>
+        <a href="/<%= @project.id%>/apply"><button type="button">멤버 취소하기</button></a>
+    <% else %>
+        <A href="/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
+    <% end %>
+<% else %>
+    <a href='/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
+    <a href='/<%= @project.id%>/edit'><button type="button">수정</button></a>
+<% end %> 

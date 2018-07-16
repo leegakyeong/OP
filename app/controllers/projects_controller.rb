@@ -90,4 +90,17 @@ class ProjectsController < ApplicationController
 
         redirect_to '/'
     end
+
+    def apply
+        request_hash = {requester_id: current_user.id, requestee_id: Project.find(params[:id]).admin_id}
+        request = Request.where(request_hash)
+        if request.empty?
+            Request.create(request_hash)
+        else
+            Request.destroy_all
+        end
+    
+        redirect_to action: "show"
+    end
 end
+  

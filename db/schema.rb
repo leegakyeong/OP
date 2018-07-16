@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709131118) do
+ActiveRecord::Schema.define(version: 20180716073914) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20180709131118) do
     t.integer "tag_id", null: false
     t.index ["project_id", "tag_id"], name: "index_projects_tags_on_project_id_and_tag_id"
     t.index ["tag_id", "project_id"], name: "index_projects_tags_on_tag_id_and_project_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer "requester_id", null: false
+    t.integer "requestee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["requestee_id"], name: "index_requests_on_requestee_id"
+    t.index ["requester_id"], name: "index_requests_on_requester_id"
   end
 
   create_table "tags", force: :cascade do |t|
