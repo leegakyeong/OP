@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   post '/' => 'projects#create'
 
   # mypage
-  get '/mypage' => 'users#show_mypage'
+  get '/mypage' => 'user#mypage'
+  get '/mypage/edit' => 'user#edit'
+  post '/mypage/edit' => 'user#update'
 
   # read
   get ':id' => 'projects#show'
@@ -33,4 +35,6 @@ Rails.application.routes.draw do
 
   # destroy
   delete '/:id' => 'projects#destroy'
+
+  
 end
