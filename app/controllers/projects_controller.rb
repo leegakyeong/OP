@@ -2,9 +2,6 @@ class ProjectsController < ApplicationController
     def index
         render 'index'
     end  
-   
-    def new
-    end
 
     def create
         project = Project.new
@@ -90,5 +87,4 @@ class ProjectsController < ApplicationController
 
         redirect_to '/'
     end
-
 end
