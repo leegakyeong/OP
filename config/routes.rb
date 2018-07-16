@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/' => 'projects#create'
 
   # mypage
-  # get '/mypage' => 'projects#show_mypage'
+  get '/mypage' => 'users#show_mypage'
 
   # read
   get ':id' => 'projects#show'
