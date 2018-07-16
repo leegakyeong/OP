@@ -87,8 +87,4 @@ class ProjectsController < ApplicationController
 
         redirect_to '/'
     end
-
-    def show_mypage
-        @my_projects = Project.where(admin_id:current_user.id)
-    end
 end
