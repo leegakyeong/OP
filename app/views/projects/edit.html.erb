@@ -8,7 +8,7 @@
     <p>최대 인원: <input type='number' name='maxMember' min='1' value=<%= @project.maxMember%>></input></p>
     <p>필요한 스킬: <input type='text' name='skills' value="<%= @project.skills%>"></input></p>
     <p>프로젝트 설명:</p>
-    <textarea rows='5' cols='50' name='description' placeholder="<%= @project.description%>"></textarea>
+    <textarea rows='5' cols='50' name='description'><%= @project.description%></textarea>
     <p>사용 언어: 
         <select name='isKorean'>
             <option value='true' <% if @project.isKorean == true %> selected <% end%>>한국어</option>
@@ -24,7 +24,7 @@
     <p>협업툴: <input type='text' name='tools' value="<%= @project.tools%>"></input></p>
     <p>첨부파일 (파일이 여러개일 경우 zip파일로 모아서 첨부해주세요.) <input type='file' name='files' value=<%= @project.files%>></input></p>
     <!-- TODO: 수정 시 첨부파일 사라지는 문제 해결하기-->
-    <p>태그 (쉼표로 구분하여 입력해주세요): <input type='text' name='tags' value="<%= @project.tags%>"></input></p>
+    <p>태그 (쉼표로 구분하여 입력해주세요): <textarea rows='5' cols='20' name='tags'><% @project.tags.each do |tag|%><%=tag.content%>&#13;&#10;<%end%></textarea></p>
     <p>프로젝트 완료 여부: <input type="checkbox" name="isClosed" value="true" <% if @project.isClosed == true %>checked <% end %>>완료</p>
 
     <input type='submit'/>

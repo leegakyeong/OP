@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706062000) do
+ActiveRecord::Schema.define(version: 20180709131118) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -31,15 +31,35 @@ ActiveRecord::Schema.define(version: 20180706062000) do
     t.boolean "isOnline"
     t.string "tools"
     t.string "files"
-    t.string "tags"
+    t.integer "tag_id"
     t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_projects_on_tag_id"
+  end
+
+  create_table "projects_tags", id: false, force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["project_id", "tag_id"], name: "index_projects_tags_on_project_id_and_tag_id"
+    t.index ["tag_id", "project_id"], name: "index_projects_tags_on_tag_id_and_project_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_tags_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "name"
+    t.string "institution"
+    t.string "research_interests"
+    t.text "introduction"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

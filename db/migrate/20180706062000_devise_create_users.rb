@@ -10,8 +10,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       ## addtional information
       t.string   :name
       t.string   :institution
-      t.string   :research interests
-      t.text     :introdution
+      t.string   :research_interests
+      t.text     :introduction
 
       ## Recoverable
       t.string   :reset_password_token

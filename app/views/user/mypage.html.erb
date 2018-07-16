@@ -1,10 +1,18 @@
 <h1>My Page </h1>
+<h2>My Information</h2>
+<div><strong>Name: </strong><%= @user.name%></div>
+<div><strong>Institution: </strong><%= @user.institution%></div>
+<div><strong>Research Interest(s): </strong> <%= @user.research_interests%></div>
+<div><strong>E-mail: </strong> <%= @user.email %></div>
+<div><strong>Introduction: </strong> <%= @user.introduction%></div>
 
-<strong>Name: </strong> <p> 홍길동 </p>
-<strong>Institution: </strong> <p> College of Liberal Studies, Seoul National University </p>
-<strong>Research Interest(s): </strong> <p> Open Project, Like Lion </p>
-<strong>E-mail: </strong> <p> OP@snu.ac.kr </p>
-<strong>Introduction: </strong> <p> </p>
+<a href='/mypage/edit'><button type="button">Edit my Information</button></a>
 
 <h2><strong>My Projects</strong></h2>
-<strong>프로젝트 제목:</strong> <p><%= @my_project.title %></p>
+<div>
+    <% @my_project.each do |p| %>
+        <div><strong>프로젝트 제목:</strong><%= p.title %></div>
+    <% end %>
+</div>
+
+<a href='/'><button type="button">메인 화면으로</button></a>
