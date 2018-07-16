@@ -2,7 +2,7 @@
 
 <form action='/' method='POST'>
     <!-- https://www.w3schools.com/tags/att_input_type.asp -->
-    <input type='hidden' name='admin_id' value=1>
+    <input type='hidden' name='admin_id' value=<%= current_user.id%>>
     <p>프로젝트 제목: <input type='text' name='title'/></p>
     <p>최대 인원: <input type='number' name='maxMember' min='1'/></p>
     <p>필요한 스킬: <input type='text' name='skills'/></p>

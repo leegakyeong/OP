@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716073914) do
+ActiveRecord::Schema.define(version: 20180716134709) do
+
+  create_table "applications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_applications_on_project_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -19,6 +28,15 @@ ActiveRecord::Schema.define(version: 20180716073914) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_likes_on_project_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_memberships_on_project_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -45,15 +63,6 @@ ActiveRecord::Schema.define(version: 20180716073914) do
     t.index ["tag_id", "project_id"], name: "index_projects_tags_on_tag_id_and_project_id"
   end
 
-  create_table "requests", force: :cascade do |t|
-    t.integer "requester_id", null: false
-    t.integer "requestee_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["requestee_id"], name: "index_requests_on_requestee_id"
-    t.index ["requester_id"], name: "index_requests_on_requester_id"
-  end
-
   create_table "tags", force: :cascade do |t|
     t.integer "project_id"
     t.string "content"
@@ -65,6 +74,10 @@ ActiveRecord::Schema.define(version: 20180716073914) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "name"
+    t.string "institution"
+    t.string "research_interests"
+    t.text "introduction"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

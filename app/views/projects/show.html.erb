@@ -21,21 +21,47 @@
     <% @project.tags.each do |tag|%>
         <p><%= tag.content%></p>
     <% end %>   
+<strong><p>함께하는 멤버:</strong>
+    <% if @project.members.empty? %>
+        없음</p>
+    <% else %>
+        <% @project.members.each do |member| %>
+            <a href='/user/<%= member.id %>'>
+            <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= member.name %></a>
+            <% if member == current_user %>(나)<% end %>
+            <% if @project.admin == current_user %>
+                <a href='/<%= @project.id%>/accept/<%= member.id%>'><button type="button">멤버 없애기(?)</button></a>
+            <% end %></div>
+        <% end %></p>
+    <% end %>
+    
 <strong><p>완료 여부:</strong>
     <% if @project.isClosed == true %>
         완료
     <% else %>
         진행 중<% end %></p>
 
-<a href='/'><button type="button">메인 화면으로</button></a>
-
 <% if current_user != @project.admin %>
-    <% if current_user.requestees.include? @project.admin %>
-        <a href="/<%= @project.id%>/apply"><button type="button">멤버 취소하기</button></a>
-    <% else %>
-        <A href="/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
+    <% if Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
+        <% if @project.appliers.include? current_user %>
+            <a href="/<%= @project.id%>/apply"><button type="button">멤버 신청 취소하기</button></a>
+        <% else %>
+            <a href="/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
+        <% end %>
     <% end %>
 <% else %>
+    <strong><p>멤버 신청자: </strong>
+        <% if @project.appliers.empty? %>없음</p>
+        <% else %>
+            <% @project.appliers.each do |applier| %>
+                <a href='/user/<%= applier.id %>'>
+                <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
+                <a href='/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
+                <a href='/<%= @project.id%>/decline/<%= applier.id%>'><button type="button">거절</button></a></div>
+            <% end %></p>
+        <% end %>
     <a href='/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
     <a href='/<%= @project.id%>/edit'><button type="button">수정</button></a>
 <% end %> 
+
+<a href='/'><button type="button">메인 화면으로</button></a>

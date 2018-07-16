@@ -2,11 +2,11 @@ class ProjectsController < ApplicationController
     def index
         render 'index'
     end  
-   
-    def new
-    end
 
     def create
+        puts '======================='
+        puts current_user.id
+        puts '====================='
         project = Project.new
         project.admin_id = params[:admin_id]
         project.title = params[:title]
@@ -92,15 +92,46 @@ class ProjectsController < ApplicationController
     end
 
     def apply
-        request_hash = {requester_id: current_user.id, requestee_id: Project.find(params[:id]).admin_id}
-        request = Request.where(request_hash)
-        if request.empty?
-            Request.create(request_hash)
+        application_hash = {user_id: current_user.id, project_id: params[:id]}
+        application = Application.where(application_hash)
+        if application.empty?
+            Application.create(application_hash)
         else
-            Request.destroy_all
+            application.destroy_all
         end
     
-        redirect_to action: "show"
+        redirect_to "/#{params[:id]}"
+    end
+
+    def user
+        user_id = params[:id]
+        @user = User.find(user_id)
+        @projects = Project.where(admin_id: user_id)
+    end
+
+    def accept
+        membership_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        membership = Membership.where(membership_hash)
+        puts membership
+        if membership.empty?
+            Membership.create(membership_hash)
+        else
+            membership.destroy
+        end
+
+        application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        application = Application.where(application_hash)
+        application.destroy_all
+    
+        redirect_to "/#{params[:project_id]}"
+    end
+
+    def decline
+        application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        application = Application.where(application_hash)
+        application.destroy_all
+
+        redirect_to "/#{params[:project_id]}"
     end
 end
   

@@ -1,0 +1,23 @@
+<h1>ID <%= @user.id%>님의 페이지입니다. </h1>
+<h2>신청자 정보</h2>
+<div><strong>이름: </strong><%= @user.name%></div>
+<div><strong>소속: </strong><%= @user.institution%></div>
+<div><strong>관심 연구 분야: </strong> <%= @user.research_interests%></div>
+<div><strong>이메일: </strong> <%= @user.email %></div>
+<div><strong>자기소개: </strong> <%= @user.introduction%></div>
+
+<h2><strong>제안한 프로젝트</strong></h2>
+<div>
+    <% @projects.each do |p| %>
+        <div><strong>제목:</strong> <a href='/<%= p.id%>'><%= p.title %></a></div>
+    <% end %>
+</div>
+
+<h2><strong>참여 중인 프로젝트</strong></h2>
+<div>
+    <% Membership.where(user_id: @user.id).each do |m| %>
+        <div><strong>제목:</strong> <a href='/<%= m.project_id%>'><%= Project.find(m.project_id).title %></a></div>
+    <% end %>
+</div>
+<br>
+<a href='/'><button type="button">메인 화면으로</button></a>

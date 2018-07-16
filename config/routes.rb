@@ -17,10 +17,12 @@ Rails.application.routes.draw do
   post '/' => 'projects#create'
 
   # mypage
-  # get '/mypage' => 'projects#show_mypage'
+  get '/mypage' => 'user#mypage'
+  get '/mypage/edit' => 'user#edit'
+  post '/mypage/edit' => 'user#update'
 
   # read
-  get '/:id' => 'projects#show'
+  get ':id' => 'projects#show'
 
   # update
   get '/:id/edit' => 'projects#edit'
@@ -31,5 +33,12 @@ Rails.application.routes.draw do
 
   # request
   get '/:id/apply' => 'projects#apply'
+
+  # user information
+  get '/user/:id' => 'projects#user'
+
+  # accept
+  get '/:project_id/accept/:requester_id' => 'projects#accept'
+  get '/:project_id/decline/:requester_id' => 'projects#decline'
 end
  
