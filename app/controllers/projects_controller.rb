@@ -2,9 +2,6 @@ class ProjectsController < ApplicationController
     def index
         render 'index'
     end  
-   
-    def new
-    end
 
     def create
         project = Project.new
@@ -42,6 +39,8 @@ class ProjectsController < ApplicationController
                 @results = Project.all
             end
         end
+    end
+
     def show
         @project = Project.find(params[:id])
     end
@@ -73,5 +72,9 @@ class ProjectsController < ApplicationController
         project.destroy
 
         redirect_to '/'
+    end
+
+    def show_mypage
+        @my_projects = Project.where(admin_id:current_user.id)
     end
 end

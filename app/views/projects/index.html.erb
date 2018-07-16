@@ -1,21 +1,22 @@
+<h1>OP</h1>
+
+<% if user_signed_in? %>
+  <a href='users/sign_out' data-method='DELETE'>로그아웃</a>
+<% else %>
+  <a href='users/sign_in'>로그인</a>
+  <a href='users/sign_up'>회원가입</a>
+<% end %>
+<a href='/new'>새 프로젝트 만들기</a>
+<a href='/mypage'>내 페이지(?)</a>
+
 <form action='/search' method='POST'>
   <input type='search' name='keyword'/> <!--search를 쓸까 text를 쓸까 브라우저 지원 현황은 동일한 것 같은데-->
   <select name='filter'>
-    <option value='title'>title</option>
-    <option value='admin'>admin_id</option> <!--user의 name을 아직 설정 안 해서 일단 아이디로 검색되게 해 놓음-->
+    <option value='title'>제목</option>
+    <option value='admin'>책임자 아이디</option> <!--user의 name을 아직 설정 안 해서 일단 아이디로 검색되게 해 놓음-->
   </select>
-  <button>search</button>
+  <button>검색</button>
 </form>
-<% if user_signed_in? %>
-  <a href='/signout'>sign out</a>
-<% else %>
-  <a href='/signin'>sign in</a>
-  <a href='/signup'>sign up</a>
-<% end %>
-<a href='/create'>new project</a>
-<a href='/mypage'>mypage</a>
-<h1>OP</h1>
 
-<a href='/new'><button type="button">새 프로젝트 추가</button></a>
-<br><br>
+
 
