@@ -28,26 +28,55 @@ class ProjectsController < ApplicationController
     end
 
     def search
-        puts params[:isKorean]
-        puts params[:isOnline]
         # keyword = params[:keyword]
-        # filter = params[:filter]
+        # maxMember = params[:maxMember]
+        # isKorean = params[:isKorean]
+        # isOnline = params[:isOnline]
         # @results = []
 
-        # Project.all.each do |p|
-        #     case filter
-        #     when 'title'
-        #         if p.title.include? keyword
-        #             @results.push(p)
-        #         end
-        #     when 'admin'
-        #         if p.admin.id == keyword.to_i
-        #             @results.push(p)
-        #         end
-        #     else
-        #         @results = Project.all
-        #     end
-        # end
+        Project.all.each do |p|
+            # keyword = params[:keyword]
+            # maxMember = params[:maxMember]
+            # isKorean = params[:isKorean]
+            # isOnline = params[:isOnline]
+            @results = []
+
+            def search_by_title_or_name(p)
+                keyword = params[:keyword]
+                maxMember = params[:maxMember]
+
+                if p.title.include? keyword or p.admin.name.include? keyword # 왜 or 말고 ||는 안 됨? 
+                    if p.maxMember <= maxMember.to_i
+                        return true
+                    end
+                end
+            end
+
+            def filter_by_isKorean_and_isOnline(p)
+                isKorean = params[:isKorean]
+                isOnline = params[:isOnline]
+
+                if isKorean and isOnline
+                    if p.isKorean.to_s == isKorean and p.isOnline.to_s == isOnline
+                        return true
+                    end
+                elsif isKorean
+                    if p.isKorean.to_s == isKorean
+                        return true
+                    end
+                elsif isOnline
+                    if p.isOnline.to_s == isOnline
+                        return true
+                    end
+                else
+                    return true
+                end
+            end
+
+            if search_by_title_or_name(p) and filter_by_isKorean_and_isOnline(p)
+                @results.push(p)
+            end
+        end
     end
     
     def show

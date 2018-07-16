@@ -1,5 +1,5 @@
 <h1>OP</h1>
-
+<!--이 부분은 application.html.erb로 옮겨서 항상 보이게 하는 게 낫겠다-->
 <% if user_signed_in? %>
   <a href='users/sign_out' data-method='DELETE'>로그아웃</a>
   <a href='/new'>새 프로젝트 만들기</a>
@@ -12,13 +12,13 @@
 <form action='/search' method='POST'>
   <input type='search' name='keyword'/>
   <button>검색</button>
-  <span id="filter" data-value="filter">필터</span>
+  <span id="filter">필터</span>
   <div id="filter-board" style="display: none;">
     <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
     # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
     <div class="filter-board-attribute">
-      <label>최대 인원: </label>
-      <input type="range" name="maxMember" value="maxMember" min="1" max="20">
+      <label>최대 인원(1~20): </label>
+      <input type="range" name="maxMember" min="1" max="20" value="20">
     </div>
     <div class="filter-board-attribute">
       <label>사용 언어: </label>
