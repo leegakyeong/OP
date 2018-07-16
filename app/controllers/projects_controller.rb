@@ -28,24 +28,26 @@ class ProjectsController < ApplicationController
     end
 
     def search
-        keyword = params[:keyword]
-        filter = params[:filter]
-        @results = []
+        puts params[:isKorean]
+        puts params[:isOnline]
+        # keyword = params[:keyword]
+        # filter = params[:filter]
+        # @results = []
 
-        Project.all.each do |p|
-            case filter
-            when 'title'
-                if p.title.include? keyword
-                    @results.push(p)
-                end
-            when 'admin'
-                if p.admin.id == keyword.to_i
-                    @results.push(p)
-                end
-            else
-                @results = Project.all
-            end
-        end
+        # Project.all.each do |p|
+        #     case filter
+        #     when 'title'
+        #         if p.title.include? keyword
+        #             @results.push(p)
+        #         end
+        #     when 'admin'
+        #         if p.admin.id == keyword.to_i
+        #             @results.push(p)
+        #         end
+        #     else
+        #         @results = Project.all
+        #     end
+        # end
     end
     
     def show
