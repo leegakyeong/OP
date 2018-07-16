@@ -42,6 +42,8 @@ class ProjectsController < ApplicationController
                 @results = Project.all
             end
         end
+    end
+
     def show
         @project = Project.find(params[:id])
     end
@@ -74,4 +76,5 @@ class ProjectsController < ApplicationController
 
         redirect_to '/'
     end
+
 end
