@@ -4,9 +4,6 @@ class ProjectsController < ApplicationController
     end  
 
     def create
-        puts '======================='
-        puts current_user.id
-        puts '====================='
         project = Project.new
         project.admin_id = params[:admin_id]
         project.title = params[:title]
