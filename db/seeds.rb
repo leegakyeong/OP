@@ -33,3 +33,12 @@ Project.create(title: 'banana', admin_id: 1, isKorean: false, isOnline: true, ma
 Project.create(title: 'carrot', admin_id: 2, isKorean: true, isOnline: true, maxMember: 10)
 Project.create(title: 'deer', admin_id: 2, isKorean: false, isOnline: false, maxMember: 4)
 Project.create(title: 'electricity', admin_id: 3, isKorean: true, isOnline: false, maxMember: 12)
+
+Application.create(user_id: 3, project_id: 1)
+Application.create(user_id: 3, project_id: 2)
+Application.create(user_id: 3, project_id: 4)
+Application.create(user_id: 2, project_id: 1)
+Application.create(user_id: 2, project_id: 6)
+Membership.create(user_id: 1, project_id: 2)
+Membership.create(user_id: 1, project_id: 6)
+Membership.create(user_id: 2, project_id: 6)
