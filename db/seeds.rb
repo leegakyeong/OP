@@ -39,3 +39,12 @@ Project.create(
     title: 'electricity', admin_id: 3, isKorean: true, 
     isOnline: false, maxMember: 12,
     description: 'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat')
+
+Application.create(user_id: 3, project_id: 1)
+Application.create(user_id: 3, project_id: 2)
+Application.create(user_id: 3, project_id: 4)
+Application.create(user_id: 2, project_id: 1)
+Application.create(user_id: 2, project_id: 6)
+Membership.create(user_id: 1, project_id: 2)
+Membership.create(user_id: 1, project_id: 6)
+Membership.create(user_id: 2, project_id: 6)

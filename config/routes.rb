@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :requests # 이게 뭐지? 
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
@@ -32,5 +31,14 @@ Rails.application.routes.draw do
   # destroy
   delete '/:id' => 'projects#destroy'
 
-  
+  # request
+  get '/:id/apply' => 'projects#apply'
+
+  # user information
+  get '/user/:id' => 'projects#user'
+
+  # accept
+  get '/:project_id/accept/:requester_id' => 'projects#accept'
+  get '/:project_id/decline/:requester_id' => 'projects#decline'
 end
+ 
