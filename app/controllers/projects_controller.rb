@@ -87,4 +87,48 @@ class ProjectsController < ApplicationController
 
         redirect_to '/'
     end
+
+    def apply
+        application_hash = {user_id: current_user.id, project_id: params[:id]}
+        application = Application.where(application_hash)
+        if application.empty?
+            Application.create(application_hash)
+        else
+            application.destroy_all
+        end
+    
+        redirect_to "/#{params[:id]}"
+    end
+
+    def user
+        user_id = params[:id]
+        @user = User.find(user_id)
+        @projects = Project.where(admin_id: user_id)
+    end
+
+    def accept
+        membership_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        membership = Membership.where(membership_hash)
+        puts membership
+        if membership.empty?
+            Membership.create(membership_hash)
+        else
+            membership.destroy_all
+        end
+
+        application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        application = Application.where(application_hash)
+        application.destroy_all
+    
+        redirect_to "/#{params[:project_id]}"
+    end
+
+    def decline
+        application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
+        application = Application.where(application_hash)
+        application.destroy_all
+
+        redirect_to "/#{params[:project_id]}"
+    end
 end
+  
