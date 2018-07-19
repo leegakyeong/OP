@@ -11,7 +11,11 @@
 <h2><strong>My Projects</strong></h2>
 <div>
     <% @my_project.each do |p| %>
-        <div><strong>프로젝트 제목:</strong><%= p.title %></div>
+        <div><strong>프로젝트 제목:</strong>
+            <a href='/<%= p.id %>'>
+                <%= p.title %>
+                </a>
+            </div>
     <% end %>
 </div>
 
