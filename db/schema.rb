@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709131118) do
+ActiveRecord::Schema.define(version: 20180716134709) do
+
+  create_table "applications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_applications_on_project_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -21,11 +30,30 @@ ActiveRecord::Schema.define(version: 20180709131118) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_memberships_on_project_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
+    t.integer "maxMember"
+    t.string "skills"
+    t.string "description"
+    t.boolean "isKorean"
+    t.boolean "isOnline"
+    t.string "tools"
+    t.string "files"
+    t.integer "tag_id"
+    t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_projects_on_tag_id"
   end
 
   create_table "projects_tags", id: false, force: :cascade do |t|

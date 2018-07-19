@@ -1,55 +1,59 @@
 <h1>OP</h1>
-
+<!--이 부분은 application.html.erb로 옮겨서 항상 보이게 하는 게 낫겠다-->
 <% if user_signed_in? %>
   <a href='users/sign_out' data-method='DELETE'>로그아웃</a>
+  <a href='/new'>새 프로젝트 만들기</a>
+<a href='/mypage'>내 페이지(?)</a>
 <% else %>
   <a href='signin'>로그인</a>
   <a href='signup'>회원가입</a>
 <% end %>
-<a href='/new'>새 프로젝트 만들기</a>
-<a href='/mypage'>내 페이지(?)</a>
 
 <form action='/search' method='POST'>
-  <input type='search' name='keyword'/> <!--search를 쓸까 text를 쓸까 브라우저 지원 현황은 동일한 것 같은데-->
-  <!--
-  <select name='filter'>
-    <option value='title'>제목</option>
-    <option value='admin'>책임자 아이디</option>
-  </select>
-  -->
-  <span id="filter" data-value="filter">필터</span>
+  <input type='search' name='keyword'/>
   <button>검색</button>
+  <span id="filter">필터</span>
+  <div id="filter-board" style="display: none;">
+    <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
+    # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
+    <div class="filter-board-attribute">
+      <label>최대 인원(1~20): </label>
+      <input type="range" name="maxMember" min="1" max="20" value="20">
+    </div>
+    <div class="filter-board-attribute">
+      <label>사용 언어: </label>
+      <input type="radio" name="isKorean" value="true">한국어
+      <input type="radio" name="isKorean" value="false">English
+    </div>
+    <div class="filter-board-attribute">
+      <label>협업 방식: </label>
+      <input type="radio" name="isOnline" value="true">재택/온라인
+      <input type="radio" name="isOnline" value="false">오프라인 모임
+    </div>
+    <div class="filter-board-attribute">
+      <label>필요한 스킬: </label>
+    </div>
+    <div class="filter-board-attribute">
+      <label>도구: </label>
+    </div>
+    <div class="filter-board-attribute">
+      <label>모집 마감 여부: </label>
+    </div>
+    <div class="filter-board-attribute">
+      <label>태그: </label>
+    </div>
+  </div>
 </form>
-<div id="filter-board" style="display: none;">
-  <div class="filter-board-attribute">
-    <label>책임자 아이디</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>프로젝트명</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>최대 인원</label>
-    <input type="checkbox" value="maxMember"><span>1명</span>
-    <input type="checkbox" value="maxMember"><span>1명</span>
-  </div>
-  <div class="filter-board-attribute">
-    <label>필요한 스킬</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>언어</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>온라인 여부</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>도구</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>모집 마감 여부</label>
-  </div>
-  <div class="filter-board-attribute">
-    <label>태그</label>
-  </div>
+
+<h2>featured projects</h2> <!-- 일단은 최근 것 3개만 보여 줌(보여 주는 알고리즘은 나중에 보완하기) -->
+<div class="featured-projects-box">
+  <% @projects.reverse.each_with_index do |p, i| %>
+      <div style="border: 1px solid black">
+        <div>제목: <a href='/<%= p.id%>'><%= p.title %></a></div>
+        <div>책임자: <a href='/user/<%= p.admin.id%>'><%= p.admin.name %></a></div>
+        <div>설명: <%= p.description %></div>
+      </div>
+  <% end %>
 </div>
 
 <script>
@@ -59,4 +63,3 @@
     })
   })
 </script>
-

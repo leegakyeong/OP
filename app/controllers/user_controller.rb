@@ -2,6 +2,7 @@ class UserController < ApplicationController
     def mypage
         @user = current_user
         @my_project = Project.where(admin_id: current_user.id)
+        @participating_project = Membership.where(user_id: current_user.id)
         render 'mypage'
     end
 

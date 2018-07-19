@@ -12,10 +12,17 @@
 <div>
     <% @my_project.each do |p| %>
         <div><strong>프로젝트 제목:</strong>
-            <a href='/<%= p.id %>'>
-                <%= p.title %>
-                </a>
-            </div>
+            <a href='/<%= p.id %>'><%= p.title %></a>
+        </div>
+    <% end %>
+</div>
+
+<h2><strong>참여중인 프로젝트</strong></h2>
+<div>
+    <% @participating_project.each do |p| %>
+        <div><strong>프로젝트 제목:</strong> 
+            <a href='/<%= p.project_id%>'><%= p.title %></a>
+        </div>
     <% end %>
 </div>
 
