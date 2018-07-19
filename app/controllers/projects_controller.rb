@@ -113,7 +113,7 @@ class ProjectsController < ApplicationController
         if membership.empty?
             Membership.create(membership_hash)
         else
-            membership.destroy
+            membership.destroy_all
         end
 
         application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
