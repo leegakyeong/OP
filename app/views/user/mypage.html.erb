@@ -21,7 +21,7 @@
 <div>
     <% @participating_project.each do |p| %>
         <div><strong>프로젝트 제목:</strong> 
-            <a href='/<%= p.project_id%>'><%= p.title %></a>
+            <a href='/<%= p.project_id%>'><%= Project.find(p.project_id).title %></a>
         </div>
     <% end %>
 </div>
