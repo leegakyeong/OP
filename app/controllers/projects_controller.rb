@@ -91,12 +91,16 @@ class ProjectsController < ApplicationController
     def apply
         application_hash = {user_id: current_user.id, project_id: params[:id]}
         application = Application.where(application_hash)
-        if application.empty?
-            Application.create(application_hash)
-        else
-            application.destroy_all
-        end
+        Application.create(application_hash)
     
+        redirect_to "/#{params[:id]}"
+    end
+
+    def cancel_apply
+        application_hash = {user_id: current_user.id, project_id: params[:id]}
+        application = Application.where(application_hash)
+        application.destroy_all
+        
         redirect_to "/#{params[:id]}"
     end
 
@@ -107,15 +111,13 @@ class ProjectsController < ApplicationController
     end
 
     def accept
+        # add as member
         membership_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
         membership = Membership.where(membership_hash)
         puts membership
-        if membership.empty?
-            Membership.create(membership_hash)
-        else
-            membership.destroy_all
-        end
+        Membership.create(membership_hash)
 
+        # remove from appliers
         application_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
         application = Application.where(application_hash)
         application.destroy_all
@@ -128,6 +130,14 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
 
+        redirect_to "/#{params[:project_id]}"
+    end
+
+    def kick_user
+        membership_hash = {user_id: params[:member_id], project_id: params[:project_id]}
+        membership = Membership.where(membership_hash)
+        membership.destroy_all
+        
         redirect_to "/#{params[:project_id]}"
     end
 end

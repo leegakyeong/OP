@@ -33,12 +33,16 @@ Rails.application.routes.draw do
 
   # request
   get '/:id/apply' => 'projects#apply'
+  delete '/:id/apply' => 'projects#cancel_apply'
 
   # user information
   get '/user/:id' => 'projects#user'
 
   # accept
   get '/:project_id/accept/:requester_id' => 'projects#accept'
-  get '/:project_id/decline/:requester_id' => 'projects#decline'
+  delete '/:project_id/accept/:requester_id' => 'projects#decline'
+
+  # kick user
+  delete '/:project_id/:member_id' => 'projects#kick_user'
 end
  
