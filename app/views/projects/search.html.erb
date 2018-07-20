@@ -1,6 +1,8 @@
+<h1>Results</h1>
 <% @results.reverse.each do |r| %>
   <div style="border: 1px solid black">
     <div>제목: <%= r.title %></div>
-    <div>책임자: <%= r.admin.id %></div>
+    <div>책임자: <%= r.admin.name %></div>
+    <div>설명: <%= r.description %></div>
   </div>
 <% end %>
