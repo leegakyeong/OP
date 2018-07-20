@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716134709) do
+ActiveRecord::Schema.define(version: 20180719065235) do
 
   create_table "applications", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180716134709) do
     t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "reference"
     t.index ["tag_id"], name: "index_projects_on_tag_id"
   end
 
@@ -61,6 +62,13 @@ ActiveRecord::Schema.define(version: 20180716134709) do
     t.integer "tag_id", null: false
     t.index ["project_id", "tag_id"], name: "index_projects_tags_on_project_id_and_tag_id"
     t.index ["tag_id", "project_id"], name: "index_projects_tags_on_tag_id_and_project_id"
+  end
+
+  create_table "resumes", force: :cascade do |t|
+    t.string "name"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
