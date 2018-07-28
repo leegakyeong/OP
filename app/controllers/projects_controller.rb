@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController 
     def index
+        @projects = Project.all
         render 'index'
     end  
 
@@ -28,26 +29,33 @@ class ProjectsController < ApplicationController
     end
 
     def search
-        puts params[:isKorean]
-        puts params[:isOnline]
-        # keyword = params[:keyword]
-        # filter = params[:filter]
-        # @results = []
+        keyword = params[:keyword]
+        maxMember = params[:maxMember]
+        isKorean = params[:isKorean]
+        isOnline = params[:isOnline]
+        @results = []
 
-        # Project.all.each do |p|
-        #     case filter
-        #     when 'title'
-        #         if p.title.include? keyword
-        #             @results.push(p)
-        #         end
-        #     when 'admin'
-        #         if p.admin.id == keyword.to_i
-        #             @results.push(p)
-        #         end
-        #     else
-        #         @results = Project.all
-        #     end
-        # end
+        Project.all.each do |p|
+            if p.title.include? keyword or p.admin.name.include? keyword # 왜 or 말고 ||는 안 됨? 
+                if p.maxMember <= maxMember.to_i
+                    if isKorean and isOnline
+                        if p.isKorean.to_s == isKorean and p.isOnline.to_s == isOnline
+                            @results.push(p)
+                        end
+                    elsif isKorean
+                        if p.isKorean.to_s == isKorean
+                            @results.push(p)
+                        end
+                    elsif isOnline
+                        if p.isOnline.to_s == isOnline
+                            @results.push(p)
+                        end
+                    else
+                        @results.push(p)
+                    end
+                end
+            end
+        end
     end
     
     def show
