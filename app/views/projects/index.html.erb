@@ -57,6 +57,7 @@
   </form>
 </div>
 
+<<<<<<< HEAD
   <h2>featured projects</h2> <!-- 일단은 최근 것 3개만 보여 줌(보여 주는 알고리즘은 나중에 보완하기) -->
   <div id="featured-projects-box">
     <% @projects.reverse.each_with_index do |p, i| %>
@@ -70,6 +71,18 @@
       <% end %>
     <% end %>
   </div>
+=======
+<h2>진행 중인 프로젝트</h2> <!-- 일단은 최근 것 3개만 보여 줌(보여 주는 알고리즘은 나중에 보완하기) -->
+<div class="featured-projects-box">
+  <% @projects.reverse.each_with_index do |p, i| %>
+      <div style="border: 1px solid black">
+        <div>제목: <a href='/<%=p.id%>'><%= p.title %></a></div>
+        <div>책임자: <a href='/user/<%=p.admin.id%>'><%= p.admin.name %></a></div>
+        <div>설명: <%= p.description %></div>
+      </div>
+  <% end %>
+</div>
+>>>>>>> 1b737cc3d9a1db18f01196af7ab993395a3c4c7e
 
 <script>
   $(document).ready(function() {
@@ -79,3 +92,4 @@
     })
   })
 </script>
+

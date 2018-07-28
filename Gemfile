@@ -5,7 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+<<<<<<< HEAD
 gem 'semantic-ui-sass', '~> 2.3', '>= 2.3.1.2'
+=======
+gem 'carrierwave', '~> 1.0'
+>>>>>>> 1b737cc3d9a1db18f01196af7ab993395a3c4c7e
 gem "rails_db"
 gem "devise"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
