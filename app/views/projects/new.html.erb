@@ -8,30 +8,34 @@
         <input type='text' name='title'/>
     </div>
     <div class="field">
-        <p>최대 인원</p>
-        <input type='number' name='maxMember' min='1'/>
+        <p>프로젝트 설명:</p>
+        <textarea rows='5' cols='50' name='description'></textarea>
+    </div>
+    <div class="field ui three column gird">
+        <div class="ui three column grid">
+            <div class="column">
+                <p>최대 인원</p>
+                <input type='number' name='maxMember' min='1'/>
+            </div>
+            <div class="column">
+                <p>사용 언어</p>
+                <select name='isKorean'>
+                    <option value='true'>한국어</option>
+                    <option value='false'>English</option>
+                </select>
+            </div>
+            <div class="column">
+                <p>협업 방식</p>
+                <select name='isOnline'>
+                    <option value='true'>재택/온라인</option>
+                    <option value='false'>오프라인 모임</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div class="field">
         <p>필요한 스킬</p>
         <input type='text' name='skills'/>
-    </div>
-    <div class="field">
-        <p>프로젝트 설명:</p>
-        <textarea rows='5' cols='50' name='description'></textarea>
-    </div>
-    <div class="field">
-        <p>사용 언어</p>
-        <select name='isKorean'>
-            <option value='true'>한국어</option>
-            <option value='false'>English</option>
-        </select>
-    </div>
-    <div class="field">
-        <p>협업 방식</p>
-        <select name='isOnline'>
-            <option value='true'>재택/온라인</option>
-            <option value='false'>오프라인 모임</option>
-        </select>
     </div>
     <div class="field">
         <p>협업툴</p>
