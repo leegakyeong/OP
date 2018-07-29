@@ -9,9 +9,13 @@
 <a href='/mypage/edit'><button type="button">Edit my Information</button></a>
 
 <h2><strong>My Projects</strong></h2>
-<div>
+<div class="ui grid">
     <% @my_project.each do |p| %>
-        <div><strong>프로젝트 제목:</strong><%= p.title %></div>
+        <div class="four wide column ui segments" style="margin: 1em 0em 1em 1em;">
+            <div class="four wide ui segment"><%= p.title %></div>
+            <div class="four wide ui segment"><%=p.description%></div>
+            <div class="four wide ui segment"><a href="/<%=p.id%>">바로가기</a></div>
+        </div>
     <% end %>
 </div>
 
