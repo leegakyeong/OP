@@ -1,8 +1,9 @@
 <h1>Results</h1>
 <% @results.reverse.each do |r| %>
-  <div style="border: 1px solid black">
+  <div class="ui segment">
     <div>제목: <%= r.title %></div>
     <div>책임자: <%= r.admin.name %></div>
     <div>설명: <%= r.description %></div>
+    <a href="/<%=r.id%>">상세보기</a>
   </div>
 <% end %>
