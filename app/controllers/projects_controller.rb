@@ -152,3 +152,6 @@ class ProjectsController < ApplicationController
     end
 end
   
+def reference_params
+    params.require(:project).permit(:name, references: [])
+end 
