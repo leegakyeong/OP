@@ -22,27 +22,26 @@ Rails.application.routes.draw do
   post '/mypage/edit' => 'user#update'
 
   # read
-  get ':id' => 'projects#show'
+  get '/project/:id' => 'projects#show'
 
   # update
-  get '/:id/edit' => 'projects#edit'
-  patch '/:id' => 'projects#update'
+  get '/project/:id/edit' => 'projects#edit'
+  patch '/project/:id' => 'projects#update'
 
   # destroy
-  delete '/:id' => 'projects#destroy'
+  delete '/project/:id' => 'projects#destroy'
 
   # request
-  get '/:id/apply' => 'projects#apply'
-  delete '/:id/apply' => 'projects#cancel_apply'
+  get '/project/:id/apply' => 'projects#apply'
+  delete '/project/:id/apply' => 'projects#cancel_apply'
 
   # user information
   get '/user/:id' => 'projects#user'
 
   # accept
-  get '/:project_id/accept/:requester_id' => 'projects#accept'
-  delete '/:project_id/accept/:requester_id' => 'projects#decline'
+  get '/project/:project_id/accept/:requester_id' => 'projects#accept'
+  delete '/project/:project_id/accept/:requester_id' => 'projects#decline'
 
   # kick user
-  delete '/:project_id/:member_id' => 'projects#kick_user'
+  delete '/project/:project_id/:member_id' => 'projects#kick_user'
 end
- 

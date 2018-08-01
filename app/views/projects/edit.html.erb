@@ -1,6 +1,6 @@
     <h1><%= @project.id%>번 프로젝트 수정</h1>
 
-    <form action='/<%= @project.id %>' method='POST'>
+    <form action='/project/<%= @project.id %>' method='POST'>
         <!-- https://www.w3schools.com/tags/att_input_type.asp -->
         <input type='hidden' name='_method' value='patch'>
         <input type='hidden' name='admin_id' value=1>
