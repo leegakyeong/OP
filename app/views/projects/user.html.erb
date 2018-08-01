@@ -9,7 +9,7 @@
 <h2><strong>제안한 프로젝트</strong></h2>
 <div>
     <% @projects.each do |p| %>
-        <div><strong>제목:</strong> <a href='/<%= p.id%>'><%= p.title %></a></div>
+        <div><strong>제목:</strong> <a href='/project/<%= p.id%>'><%= p.title %></a></div>
     <% end %>
 </div>
 
