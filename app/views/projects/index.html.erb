@@ -1,48 +1,49 @@
-<h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
+<div class="main ui container">
+  <h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
-<div class="ui stackable">
-  <form action='/search' method='POST'>
-    <div class="ui input huge fluid action">
-      <input type='search' name='keyword'/>
-      <button class="ui icon button huge">
-        <i class="search icon"></i>
-      </button>
-      <span id="filter" class="ui icon button huge">
-        <i class="filter icon"></i>
-      </span>
-    </div>
-    <div class="ui segment" id="filter-board" style="position: fixed; visibility: hidden; z-index: 2;"> <!--display: none;-->
-      <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
-      # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
-      <div class="filter-board-attribute">
-        <label>최대 인원(1~20): </label>
-        <input type="range" name="maxMember" min="1" max="20" value="20">
+  <div class="ui stackable">
+    <form action='/search' method='POST'>
+      <div class="ui input huge fluid action">
+        <input type='search' name='keyword'/>
+        <button class="ui icon button huge">
+          <i class="search icon"></i>
+        </button>
+        <span id="filter" class="ui icon button huge">
+          <i class="filter icon"></i>
+        </span>
       </div>
-      <div class="filter-board-attribute">
-        <label>사용 언어: </label>
-        <input type="radio" name="isKorean" value="true">한국어
-        <input type="radio" name="isKorean" value="false">English
+      <div class="ui segment" id="filter-board" style="position: fixed; visibility: hidden; z-index: 2;"> <!--display: none;-->
+        <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
+        # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
+        <div class="filter-board-attribute">
+          <label>최대 인원(1~20): </label>
+          <input type="range" name="maxMember" min="1" max="20" value="20">
+        </div>
+        <div class="filter-board-attribute">
+          <label>사용 언어: </label>
+          <input type="radio" name="isKorean" value="true">한국어
+          <input type="radio" name="isKorean" value="false">English
+        </div>
+        <div class="filter-board-attribute">
+          <label>협업 방식: </label>
+          <input type="radio" name="isOnline" value="true">재택/온라인
+          <input type="radio" name="isOnline" value="false">오프라인 모임
+        </div>
+        <div class="filter-board-attribute">
+          <label>필요한 스킬: </label>
+        </div>
+        <div class="filter-board-attribute">
+          <label>도구: </label>
+        </div>
+        <div class="filter-board-attribute">
+          <label>모집 마감 여부: </label>
+        </div>
+        <div class="filter-board-attribute">
+          <label>태그: </label>
+        </div>
       </div>
-      <div class="filter-board-attribute">
-        <label>협업 방식: </label>
-        <input type="radio" name="isOnline" value="true">재택/온라인
-        <input type="radio" name="isOnline" value="false">오프라인 모임
-      </div>
-      <div class="filter-board-attribute">
-        <label>필요한 스킬: </label>
-      </div>
-      <div class="filter-board-attribute">
-        <label>도구: </label>
-      </div>
-      <div class="filter-board-attribute">
-        <label>모집 마감 여부: </label>
-      </div>
-      <div class="filter-board-attribute">
-        <label>태그: </label>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
   <h2>featured projects</h2> <!-- 일단은 최근 것 3개만 보여 줌(보여 주는 알고리즘은 나중에 보완하기) -->
   <div id="featured-projects-box">
@@ -57,6 +58,7 @@
       <% end %>
     <% end %>
   </div>
+</div>
 
 <script>
   $(document).ready(function() {

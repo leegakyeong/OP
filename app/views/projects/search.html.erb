@@ -1,9 +1,11 @@
-<h1>Results</h1>
-<% @results.reverse.each do |r| %>
-  <div class="ui segment">
-    <div>제목: <%= r.title %></div>
-    <div>책임자: <%= r.admin.name %></div>
-    <div>설명: <%= r.description %></div>
-    <a href="/project/<%=r.id%>">상세보기</a>
-  </div>
-<% end %>
+<div class="main ui container">
+  <h1>Results</h1>
+  <% @results.reverse.each do |r| %>
+    <div class="ui segment">
+      <div>제목: <%= r.title %></div>
+      <div>책임자: <%= r.admin.name %></div>
+      <div>설명: <%= r.description %></div>
+      <a href="/project/<%=r.id%>">상세보기</a>
+    </div>
+  <% end %>
+</div>

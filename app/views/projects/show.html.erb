@@ -1,27 +1,30 @@
-<h1><%= @project.id%>번 프로젝트입니다.<h1>
-<h2><%= @project.admin.email%>님이 생성하신 프로젝트입니다.</h2>
+<div class="main ui container">
+  <div class="ui menu">
+    <div class="item"><%= @project.title %></div>
+    <div class="item"><%= @project.admin.name %></div>
+  </div>
 
-<strong><p>프로젝트 제목:</strong> <%= @project.title %></p>
-<strong><p>최대 인원:</strong> <%= @project.maxMember%></p>
-<strong><p>필요한 스킬:</strong> <%= @project.skills%></p>
-<strong><p>프로젝트 설명:</strong> <%= @project.description%></p>
-<strong><p>사용 언어:</strong> 
+  <strong><p>프로젝트 제목:</strong> <%= @project.title %></p>
+  <strong><p>최대 인원:</strong> <%= @project.maxMember%></p>
+  <strong><p>필요한 스킬:</strong> <%= @project.skills%></p>
+  <strong><p>프로젝트 설명:</strong> <%= @project.description%></p>
+  <strong><p>사용 언어:</strong> 
     <% if @project.isKorean == true %>
         한국어
     <% else %>
         영어<% end %></p>
-<strong><p>협업 방식:</strong> 
+  <strong><p>협업 방식:</strong> 
     <% if @project.isOnline == true %>
         재택/온라인
     <% else %>
         오프라인 모임<% end %></p>
-<strong><p>협업툴:</strong> <%= @project.tools%></p>
-<strong><p>첨부파일명:</strong> <%= @project.files%></p>
-<strong><p>태그:</strong></p>
+  <strong><p>협업툴:</strong> <%= @project.tools%></p>
+  <strong><p>첨부파일명:</strong> <%= @project.files%></p>
+  <strong><p>태그:</strong></p>
     <% @project.tags.each do |tag|%>
         <p><%= tag.content%></p>
     <% end %>   
-<strong><p>함께하는 멤버:</strong>
+  <strong><p>함께하는 멤버:</strong>
     <% if @project.members.empty? %>
         없음</p>
     <% else %>
@@ -34,34 +37,47 @@
             <% end %></div>
         <% end %></p>
     <% end %>
-    
-<strong><p>완료 여부:</strong>
+  <strong><p>완료 여부:</strong>
     <% if @project.isClosed == true %>
         완료
     <% else %>
         진행 중<% end %></p>
-
-<% if current_user != @project.admin %>
+  <% if current_user != @project.admin %>
     <% if Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
-        <% if @project.appliers.include? current_user %>
-            <a href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
-        <% elsif @project.participating_members.include? current_user %>
-        <% else %>
-            <a href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
-        <% end %>
+      <% if @project.appliers.include? current_user %>
+        <a href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
+      <% elsif @project.participating_members.include? current_user %>
+      <% else %>
+        <a href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
+      <% end %>
     <% end %>
-<% else %>
+  <% else %>
     <strong><p>멤버 신청자: </strong>
-        <% if @project.appliers.empty? %>없음</p>
-        <% else %>
-            <% @project.appliers.each do |applier| %>
-                <a href='/user/<%= applier.id %>'>
-                <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
-                </div>
-            <% end %></p> 
-        <% end %>
+      <% if @project.appliers.empty? %>없음</p>
+      <% else %>
+        <% @project.appliers.each do |applier| %>
+          <a href='/user/<%= applier.id %>'>
+          <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
+          <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
+          <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
+          </div>
+        <% end %></p> 
+      <% end %>
     <a href='/project/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
     <a href='/project/<%= @project.id%>/edit'><button type="button">수정</button></a>
-<% end %> 
+  <% end %> 
+</div>
+
+<% if current_user == @project.admin %>
+  <% unless @project.appliers.empty? %>
+    <div class="ui vertical menu">
+      <% @project.appliers.each do |applier| %>
+        <a href='/user/<%= applier.id %>'>
+        <div><%= applier.name %></a>
+        <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
+        <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
