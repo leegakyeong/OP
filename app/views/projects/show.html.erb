@@ -42,10 +42,11 @@
         진행 중<% end %></p>
 
 <% if current_user != @project.admin %>
-    <% if Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
+    <% if !user_signed_in? %>
+    <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
         <% if @project.appliers.include? current_user %>
             <a href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
-        <% elsif @project.participating_members.include? current_user %>
+        <% elsif @project.members.include? current_user %>
         <% else %>
             <a href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
         <% end %>
