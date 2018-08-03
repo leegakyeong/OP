@@ -24,8 +24,8 @@ class ProjectsController < ApplicationController
             new_tag = Tag.create(project_id: project.id, content: tag)
             project.tags << Tag.find(new_tag.id)
         end
-
-        redirect_to "/#{project.id}"
+ 
+        redirect_to "/project/#{project.id}"
     end
 
     def search
