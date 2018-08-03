@@ -1,17 +1,4 @@
-<div class="ui attached stackable menu">
-  <div class="ui container">
-    <div class="item">OP</div>
-    <!--이 부분은 application.html.erb로 옮겨서 항상 보이게 하는 게 낫겠다-->
-    <% if user_signed_in? %>
-      <a class="item" href='users/sign_out' data-method='DELETE'>로그아웃</a>
-      <a class="item" href='/new'>새 프로젝트 만들기</a>
-      <a class="item" href='/mypage'>내 페이지(?)</a>
-    <% else %>
-      <a class="item" href='signin'>로그인</a>
-      <a class="item" href='signup'>회원가입</a>
-    <% end %>
-  </div>
-</div>
+<h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
 <div class="ui stackable">
   <form action='/search' method='POST'>
@@ -65,7 +52,7 @@
           제목: <%= p.title %><br>
           책임자: <%= p.admin.name %><br>
           설명: <%= p.description %><br>
-          <a href="/<%=p.id%>">상세보기</a>
+          <a href="/project/<%=p.id%>">상세보기</a>
         </div>
       <% end %>
     <% end %>

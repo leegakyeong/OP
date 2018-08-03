@@ -1,10 +1,25 @@
 <h1>My Information Edit Page</h1>
 
-<form action='/mypage/edit' method='POST'>
-    <div><strong>Name: </strong> <input type = "text" value = "<%= @user.name %>" name = "name"> </div>
-    <div><strong>Institution: </strong> <input type="text" value = "<%= @user.institution %>" name = "institution"> </div>
-    <div><strong>Research Interest(s): </strong> <input type="text" value = "<%= @user.research_interests %>" name = "research_interests"> </div>
-    <div><strong>E-mail: </strong> <input type="text" value = "<%= @user.email %>" name = "email"> </div>
-    <div><strong>Introduction: </strong> <input type="text" value = "<%= @user.introduction %>" name = "introduction"> </div>
-    <button>Done</button>
+<form class="ui form" action='/mypage/edit' method='POST'>
+	<div class="field">
+		<p>Name</p> 
+		<input type = "text" value = "<%= @user.name %>" name = "name"> 
+	</div>
+	<div class="field">
+		<p>Institution</p>  
+		<input type="text" value = "<%= @user.institution %>" name = "institution"> 
+	</div>
+	<div class="field">
+		<p>Research Interest(s)</p>  
+		<input type="text" value = "<%= @user.research_interests %>" name = "research_interests"> 
+	</div>
+	<div class="field">
+		<p>E-mail</p> 
+		<input type="text" value = "<%= @user.email %>" name = "email"> 
+	</div>
+	<div class="field">
+		<p>Introduction</p>  
+		<input type="text" value = "<%= @user.introduction %>" name = "introduction"> 
+	</div>
+	<button>Done</button>
 </form>
