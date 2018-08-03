@@ -88,7 +88,7 @@ class ProjectsController < ApplicationController
         end
         project.save
 
-        redirect_to "/#{project.id}"
+        redirect_to "/project/#{project.id}"
     end
 
     def destroy
@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         Application.create(application_hash)
     
-        redirect_to "/#{params[:id]}"
+        redirect_to "/project/#{params[:id]}"
     end
 
     def cancel_apply
@@ -111,7 +111,7 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
         
-        redirect_to "/#{params[:id]}"
+        redirect_to "/project/#{params[:id]}"
     end
 
     def user
@@ -132,7 +132,7 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
     
-        redirect_to "/#{params[:project_id]}"
+        redirect_to "/project/#{params[:project_id]}"
     end
 
     def decline
@@ -140,7 +140,7 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
 
-        redirect_to "/#{params[:project_id]}"
+        redirect_to "/project/#{params[:project_id]}"
     end
 
     def kick_user
@@ -148,7 +148,7 @@ class ProjectsController < ApplicationController
         membership = Membership.where(membership_hash)
         membership.destroy_all
         
-        redirect_to "/#{params[:project_id]}"
+        redirect_to "/project/#{params[:project_id]}"
     end
 end
   
