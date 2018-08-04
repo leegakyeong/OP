@@ -16,4 +16,7 @@ class Project < ApplicationRecord
     # membership
     has_many :memberships
     has_many :members, through: :memberships, source: :user, dependent: :destroy
+
+    # tagging
+    acts_as_taggable
 end

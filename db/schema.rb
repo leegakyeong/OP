@@ -49,11 +49,9 @@ ActiveRecord::Schema.define(version: 20180804051928) do
     t.boolean "isOnline"
     t.string "tools"
     t.string "files"
-    t.integer "tag_id"
     t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_projects_on_tag_id"
   end
 
   create_table "projects_tags", id: false, force: :cascade do |t|
