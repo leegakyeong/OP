@@ -45,7 +45,7 @@
   <% if !user_signed_in? %>
   <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
     <% if @project.appliers.include? current_user %>
-      <a class="apply" href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
+      <a class="apply" href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청 취소하기</button></a>
     <% elsif @project.members.include? current_user %>
     <% else %>
       <a class="apply" href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
@@ -67,15 +67,3 @@
   <a href='/project/<%= @project.id%>/edit'><button type="button">수정</button></a>
 <% end %> 
 
-<script>/*
-  $(document).ready(function() {
-    $(".apply").click(function() {
-      event.preventDefault();
-      event.stopPropagation();
-
-      $.ajax({
-        type: 
-      })
-    })
-  })*/
-</script>

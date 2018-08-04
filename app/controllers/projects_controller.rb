@@ -107,8 +107,7 @@ class ProjectsController < ApplicationController
         else
             application.destroy_all
         end
-        puts application
-        puts '=================================='
+        
         redirect_to "/project/#{params[:id]}"
     end
 
