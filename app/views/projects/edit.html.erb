@@ -47,10 +47,10 @@
 		<input type='file' name='files' value=<%= @project.files%>/>
 		<!-- TODO: 수정 시 첨부파일 사라지는 문제 해결하기-->
 	</div>
-	<!--<div class="field">
+	<div class="field">
 		<p>태그 (쉼표로 구분하여 입력해주세요)</p>
-		<textarea rows='5' cols='20' name='tags'><%# @project.tags.each do |tag|%><%=tag.content%>&#13;&#10;<%#end%></textarea>
-	</div>-->
+		<input type='text' name='tags' value="<% @project.tag_list.each do |tag|%><%=tag%>, <%end%>"/>
+	</div>
 	<div class="field">
 		<p>프로젝트 완료 여부</p>
 		<input type="checkbox" name="isClosed" value="true" <% if @project.isClosed == true %>checked <% end %>>완료

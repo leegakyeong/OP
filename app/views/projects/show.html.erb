@@ -17,10 +17,10 @@
         오프라인 모임<% end %></p>
 <strong><p>협업툴:</strong> <%= @project.tools%></p>
 <strong><p>첨부파일명:</strong> <%= @project.files%></p>
-<!--<strong><p>태그:</strong></p>
-    <%# @project.tags.each do |tag|%>
-        <p><%#= tag.content%></p>
-    <%# end %>-->   
+<strong><p>태그:</strong>
+    <% @project.tag_list.each do |tag|%>
+        <span><%= tag %>, </span>
+    <% end %></p>  
 <strong><p>함께하는 멤버:</strong>
     <% if @project.members.empty? %>
         없음</p>

@@ -35,7 +35,7 @@
         <div class="ui container">
           <div class="item">프로젝트 메뉴 바 자리!</div>
           <% if user_signed_in? and @project.admin == current_user %>
-            <a class="item" href="/project/<%=@project.id%>/edit">수정</a>
+            <a class="item" href="/project/<%=@project.id%>/edit">정보 수정</a>
             <a class="item" href="/project/<%=@project.id%>" data-method="DELETE">삭제</a>
           <% end %>
         </div>

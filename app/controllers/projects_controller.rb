@@ -15,6 +15,8 @@ class ProjectsController < ApplicationController
         project.isOnline = params[:isOnline]
         project.tools = params[:tools]
         project.files = params[:files]
+        tags = params[:tags]
+        project.tag_list.add(tags, parse: true)
         project.save
 
         # input_tag = params[:tags]
@@ -86,6 +88,8 @@ class ProjectsController < ApplicationController
         #     new_tag = Tag.create(project_id: project.id, content: tag)
         #     project.tags << Tag.find(new_tag.id)
         # end
+        tags = params[:tags]
+        project.tag_list.add(tags, parse: true)
         project.save
 
         redirect_to "/project/#{project.id}"
