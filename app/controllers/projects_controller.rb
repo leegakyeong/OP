@@ -101,18 +101,24 @@ class ProjectsController < ApplicationController
     def apply
         application_hash = {user_id: current_user.id, project_id: params[:id]}
         application = Application.where(application_hash)
-        Application.create(application_hash)
-    
+
+        if application.empty?
+            Application.create(application_hash)
+        else
+            application.destroy_all
+        end
+        puts application
+        puts '=================================='
         redirect_to "/project/#{params[:id]}"
     end
 
-    def cancel_apply
-        application_hash = {user_id: current_user.id, project_id: params[:id]}
-        application = Application.where(application_hash)
-        application.destroy_all
+    # def cancel_apply
+    #     application_hash = {user_id: current_user.id, project_id: params[:id]}
+    #     application = Application.where(application_hash)
+    #     application.destroy_all
         
-        redirect_to "/project/#{params[:id]}"
-    end
+    #     redirect_to "/project/#{params[:id]}"
+    # end
 
     def user
         user_id = params[:id]

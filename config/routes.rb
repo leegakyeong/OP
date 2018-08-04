@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   # request
   get '/project/:id/apply' => 'projects#apply'
-  delete '/project/:id/apply' => 'projects#cancel_apply'
+  # delete '/project/:id/apply' => 'projects#cancel_apply'
 
   # user information
   get '/user/:id' => 'projects#user'

@@ -6,63 +6,76 @@
 <strong><p>필요한 스킬:</strong> <%= @project.skills%></p>
 <strong><p>프로젝트 설명:</strong> <%= @project.description%></p>
 <strong><p>사용 언어:</strong> 
-    <% if @project.isKorean == true %>
-        한국어
-    <% else %>
-        영어<% end %></p>
+  <% if @project.isKorean == true %>
+    한국어
+  <% else %>
+    영어<% end %></p>
 <strong><p>협업 방식:</strong> 
-    <% if @project.isOnline == true %>
-        재택/온라인
-    <% else %>
-        오프라인 모임<% end %></p>
+  <% if @project.isOnline == true %>
+    재택/온라인
+  <% else %>
+    오프라인 모임<% end %></p>
 <strong><p>협업툴:</strong> <%= @project.tools%></p>
 <strong><p>첨부파일명:</strong> <%= @project.files%></p>
 <strong><p>태그:</strong></p>
-    <% @project.tags.each do |tag|%>
-        <p><%= tag.content%></p>
-    <% end %>   
+  <% @project.tags.each do |tag|%>
+    <p><%= tag.content%></p>
+  <% end %>   
 <strong><p>함께하는 멤버:</strong>
-    <% if @project.members.empty? %>
-        없음</p>
-    <% else %>
-        <% @project.members.each do |member| %>
-            <a href='/user/<%= member.id %>'>
-            <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= member.name %></a>
-            <% if member == current_user %>(나)<% end %>
-            <% if @project.admin == current_user %>
-                <a href='/project/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">멤버 없애기(?)</button></a>
-            <% end %></div>
-        <% end %></p>
-    <% end %>
+  <% if @project.members.empty? %>
+    없음</p>
+  <% else %>
+    <% @project.members.each do |member| %>
+      <a href='/user/<%= member.id %>'>
+      <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= member.name %></a>
+      <% if member == current_user %>(나)<% end %>
+      <% if @project.admin == current_user %>
+        <a href='/project/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">멤버 없애기(?)</button></a>
+      <% end %></div>
+    <% end %></p>
+  <% end %>
     
 <strong><p>완료 여부:</strong>
-    <% if @project.isClosed == true %>
-        완료
-    <% else %>
-        진행 중<% end %></p>
+  <% if @project.isClosed == true %>
+      완료
+  <% else %>
+      진행 중<% end %></p>
 
 <% if current_user != @project.admin %>
-    <% if !user_signed_in? %>
-    <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
-        <% if @project.appliers.include? current_user %>
-            <a href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
-        <% elsif @project.members.include? current_user %>
-        <% else %>
-            <a href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
-        <% end %>
+  <% if !user_signed_in? %>
+  <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
+    <% if @project.appliers.include? current_user %>
+      <a class="apply" href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
+    <% elsif @project.members.include? current_user %>
+    <% else %>
+      <a class="apply" href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
     <% end %>
+  <% end %>
 <% else %>
-    <strong><p>멤버 신청자: </strong>
-        <% if @project.appliers.empty? %>없음</p>
-        <% else %>
-            <% @project.appliers.each do |applier| %>
-                <a href='/user/<%= applier.id %>'>
-                <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
-                </div>
-            <% end %></p> 
-        <% end %>
-    <a href='/project/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
-    <a href='/project/<%= @project.id%>/edit'><button type="button">수정</button></a>
+  <strong><p>멤버 신청자: </strong>
+    <% if @project.appliers.empty? %>없음</p>
+    <% else %>
+      <% @project.appliers.each do |applier| %>
+        <a href='/user/<%= applier.id %>'>
+        <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
+          <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
+          <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
+        </div>
+      <% end %></p> 
+    <% end %>
+  <a href='/project/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
+  <a href='/project/<%= @project.id%>/edit'><button type="button">수정</button></a>
 <% end %> 
+
+<script>/*
+  $(document).ready(function() {
+    $(".apply").click(function() {
+      event.preventDefault();
+      event.stopPropagation();
+
+      $.ajax({
+        type: 
+      })
+    })
+  })*/
+</script>
