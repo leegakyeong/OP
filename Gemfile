@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'acts-as-taggable-on', '~> 6.0'
 gem 'semantic-ui-sass', '~> 2.3', '>= 2.3.1.2'
 gem 'carrierwave', '~> 1.0'
 gem "rails_db"
