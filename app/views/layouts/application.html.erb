@@ -33,7 +33,8 @@
     <% if request.fullpath.start_with? '/project/' %>
       <div class="ui attached stackable menu">
         <div class="ui container">
-          <div class="item">프로젝트 메뉴 바 자리!</div>
+          <div class="item"><%= @project.title %></div>
+          <div class="item"><%= @project.admin.name %></div>
         </div>
       </div>
     <% end %>
