@@ -150,5 +150,9 @@ class ProjectsController < ApplicationController
         
         redirect_to "/project/#{params[:project_id]}"
     end
+
+    def project_params
+        params.require(:project).permit(:id, :tag_list)
+    end
 end
   
