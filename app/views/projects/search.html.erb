@@ -1,11 +1,19 @@
-<div class="main ui container">
-  <h1>Results</h1>
-  <% @results.reverse.each do |r| %>
-    <div class="ui segment">
-      <div>제목: <%= r.title %></div>
-      <div>책임자: <%= r.admin.name %></div>
-      <div>설명: <%= r.description %></div>
-      <a href="/project/<%=r.id%>">상세보기</a>
-    </div>
-  <% end %>
-</div>
+<h1>Results</h1>
+<% @results.reverse.each_with_index do |r, i| %>
+  <div class="ui segment result" <% if i > 3 %> style="display: none;" <% end %>>
+    <div>제목: <%= r.title %></div>
+    <div>책임자: <%= r.admin.name %></div>
+    <div>설명: <%= r.description %></div>
+    <a href="/project/<%=r.id%>">상세보기</a>
+  </div>
+<% end %>
+<div class="fluid ui button" id="show-results">전체보기</div>
+
+<script>
+  $(document).ready(function() {
+    $("#show-results").click(function() {
+      $(".result").show();
+      $(this).hide();
+    })
+  })
+</script>
