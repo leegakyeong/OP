@@ -6,7 +6,7 @@
 <div><strong>E-mail: </strong> <%= @user.email %></div>
 <div><strong>Introduction: </strong> <%= @user.introduction%></div>
 
-<a href='/mypage/edit'><button type="button">Edit my Information</button></a>
+<button type="button"><%= link_to "내 정보 수정하기", mypage_edit_url %></button>
 
 <h2><strong>My Projects</strong></h2>
 <div class="ui grid">
