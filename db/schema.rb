@@ -49,10 +49,15 @@ ActiveRecord::Schema.define(version: 20180730162609) do
     t.boolean "isOnline"
     t.string "tools"
     t.string "files"
+    t.string "tag_string"
     t.integer "tag_id"
     t.boolean "isClosed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "reference_file_name"
+    t.string "reference_content_type"
+    t.bigint "reference_file_size"
+    t.datetime "reference_updated_at"
     t.index ["tag_id"], name: "index_projects_on_tag_id"
   end
 
@@ -88,10 +93,6 @@ ActiveRecord::Schema.define(version: 20180730162609) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "reference_file_name"
-    t.string "reference_content_type"
-    t.integer "reference_file_size"
-    t.datetime "reference_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

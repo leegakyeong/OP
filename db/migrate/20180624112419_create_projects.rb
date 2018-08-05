@@ -10,7 +10,7 @@ class CreateProjects < ActiveRecord::Migration[5.1]
       t.boolean  :isKorean
       t.boolean  :isOnline
       t.string   :tools
-      t.string   :files
+      t.string   :tag_string
       t.references  :tag, index: true, foreign_key: true
       t.boolean  :isClosed
 

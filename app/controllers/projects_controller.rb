@@ -12,27 +12,18 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        project = Project.new
-        project.admin_id = params[:admin_id]
-        project.title = params[:title]
-        project.maxMember = params[:maxMember]
-        project.skills = params[:skills]
-        project.description = params[:description]
-        project.isKorean = params[:isKorean]
-        project.isOnline = params[:isOnline]
-        project.tools = params[:tools]
-        project.files = params[:files]
-        project.save
+        @project = Project.new(project_params)
+        @project.save
 
-        input_tag = params[:tags]
-        input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
-        tag_array = input_tag.split("\n") 
+        input_tag = @project.tag_string
+        input_tag = input_tag.gsub(", ", ",")
+        tag_array = input_tag.split(',')
         tag_array.each do |tag|
-            new_tag = Tag.create(project_id: project.id, content: tag)
-            project.tags << new_tag
+            new_tag = Tag.create(project_id: @project.id, content: tag)
+            @project.tags << new_tag
         end
        
-        redirect_to project
+        redirect_to @project
      end
 
     def search
@@ -69,29 +60,20 @@ class ProjectsController < ApplicationController
     end
 
     def edit
+        check_user
     end
 
     def update
-        @project.admin_id = params[:admin_id]
-        @project.title = params[:title]
-        @project.maxMember = params[:maxMember]
-        @project.skills = params[:skills]
-        @project.description = params[:description]
-        @project.isKorean = params[:isKorean]
-        @project.isOnline = params[:isOnline]
-        @project.tools = params[:tools]
-        @project.files = params[:files]
-        @project.isClosed = params[:isClosed]
+        @project.update(project_params)
 
         @project.tags.destroy_all
-        input_tag = params[:tags]
-        input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
-        tag_array = input_tag.split("\n") 
+        input_tag = @project.tag_string
+        input_tag = input_tag.gsub(", ", ",") # windows에서는 \r\n인데 mac에서는 \n이다.
+        tag_array = input_tag.split(",") 
         tag_array.each do |tag|
             new_tag = Tag.create(project_id: @project.id, content: tag)
             @project.tags << Tag.find(new_tag.id)
         end
-        @project.save
 
         redirect_to @project
     end
@@ -162,12 +144,12 @@ class ProjectsController < ApplicationController
         end
 
         def project_params
-            params.require(:project).permit(:admin_id, :title, :maxMember, :skills, :description, :isKorean, :isOnline, :tools, :files, :isClosed, :tags)
+            params.require(:project).permit(:admin_id, :title, :maxMember, :skills, :description, :isKorean, :isOnline, :tools, :reference, :isClosed, :tag_string)
         end
 
         def check_user
-            if @project.user != current_user
+            if @project.admin != current_user
                 redirect_to new_user_session_path
             end
         end
-end
+end 
