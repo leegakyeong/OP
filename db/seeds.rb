@@ -41,7 +41,7 @@ Project.create(
     description: 'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat')
 
 (1..100).each do |i|
-    Project.create(title: "project#{i}", admin_id: 2, description: "this is a temporary project")
+    Project.create(title: "project#{i}", admin_id: 2, description: "this is a temporary project", isKorean: true, isOnline: false, maxMember: 5)
 end
 
 Application.create(user_id: 3, project_id: 1)
