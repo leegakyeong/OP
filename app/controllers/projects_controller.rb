@@ -133,9 +133,8 @@ class ProjectsController < ApplicationController
 
     def accept
         # add as member
-        membership_hash = {user_id: params[:member_id], project_id: params[:project_id]}
+        membership_hash = {user_id: params[:requester_id], project_id: params[:project_id]}
         membership = Membership.where(membership_hash)
-        puts membership
         Membership.create(membership_hash)
 
         # remove from appliers

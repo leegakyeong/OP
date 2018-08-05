@@ -20,5 +20,5 @@ class User < ApplicationRecord
   has_many :memberships
   has_many :participating_projects, through: :memberships, source: :project, dependent: :destroy
 
-  has_attached_file :reference
+  #has_attached_file :reference
 end
