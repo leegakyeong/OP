@@ -20,7 +20,7 @@
         <div class="right menu">
           <% if user_signed_in? %>
             <%= link_to "새 프로젝트 만들기", new_project_url, class: "item" %>
-            <a class="item" href='/mypage'>내 페이지(?)</a>
+            <a class="item" href='/mypage'><%= current_user.email %></a>
             <a class="item" href='/users/sign_out' data-method='DELETE'>로그아웃</a>
           <% else %>
             <a class="item" href='/signin'>로그인</a>

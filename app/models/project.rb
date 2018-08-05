@@ -16,4 +16,7 @@ class Project < ActiveRecord::Base
     # membership
     has_many :memberships
     has_many :members, through: :memberships, source: :user, dependent: :destroy
+
+    has_attached_file :reference
+    do_not_validate_attachment_file_type :reference
 end

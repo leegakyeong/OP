@@ -1,26 +1,67 @@
 <h1><%= @project.id%>번 프로젝트입니다.<h1>
 <h2><%= @project.admin.email%>님이 생성하신 프로젝트입니다.</h2>
 
-<strong><p>프로젝트 제목:</strong> <%= @project.title %></p>
-<strong><p>최대 인원:</strong> <%= @project.maxMember%></p>
-<strong><p>필요한 스킬:</strong> <%= @project.skills%></p>
-<strong><p>프로젝트 설명:</strong> <%= @project.description%></p>
+<strong><p>프로젝트 제목:</strong> 
+    <% if @project.title.empty? || @project.title.nil? %>
+        -</p>
+    <% else %>
+        <%= @project.title %></p>
+    <% end %>
+    
+<strong><p>최대 인원:</strong> 
+    <% if @project.maxMember.nil? %>
+        -</p>
+    <% else %>
+        <%= @project.maxMember%></p>
+    <% end %>
+    
+<strong><p>필요한 스킬:</strong> 
+    <% if @project.skills.empty? || @project.skills.nil? %>
+        -</p>
+    <% else %>
+        <%= @project.skills%></p>
+    <% end %>
+
+<strong><p>프로젝트 설명:</strong> 
+    <% if @project.description.empty? || @project.description.nil? %>
+        -</p>
+    <% else %>
+        <%= @project.description%></p>
+    <% end %>
+
 <strong><p>사용 언어:</strong> 
     <% if @project.isKorean == true %>
         한국어
     <% else %>
-        영어<% end %></p>
+        English
+    <% end %></p>
+
 <strong><p>협업 방식:</strong> 
     <% if @project.isOnline == true %>
         재택/온라인
     <% else %>
-        오프라인 모임<% end %></p>
-<strong><p>협업툴:</strong> <%= @project.tools%></p>
-<strong><p>첨부파일명:</strong> <%= @project.files%></p>
+        오프라인 모임
+    <% end %></p>
+
+<strong><p>협업툴:</strong> 
+    <% if @project.tools.empty? || @project.tools.nil? %>
+        -</p>
+    <% else %>
+        <%= @project.tools%></p>
+    <% end %>
+
+<strong><p>첨부파일명:</strong> 
+    <% if @project.reference_file_name.nil? %>
+        -</p>
+    <% else %>
+        <%= link_to @project.reference_file_name, @project.reference.url(:original), download: @project.reference.original_filename %></p>
+    <% end %>
+
 <strong><p>태그:</strong></p>
     <% @project.tags.each do |tag|%>
         <p><%= tag.content%></p>
     <% end %>   
+
 <strong><p>함께하는 멤버:</strong>
     <% if @project.members.empty? %>
         없음</p>

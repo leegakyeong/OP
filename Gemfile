@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem "kaminari"
-gem "paperclip", "~> 4.1"
+gem "paperclip", "~> 6.1.0"
 gem 'semantic-ui-sass', '~> 2.3', '>= 2.3.1.2'
 gem "rails_db"
 gem "devise"

@@ -13,7 +13,7 @@
     <% @my_project.each do |p| %>
         <div class="four wide column ui segments" style="margin: 1em 0em 1em 1em;">
             <div class="four wide ui segment"><%= p.title %></div>
-            <div class="four wide ui segment"><%=p.description%></div>
+            <div class="four wide ui segment"><%= p.description%></div>
             <div class="four wide ui segment"><%= link_to "바로가기", p %></div>
         </div>
     <% end %>
