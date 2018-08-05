@@ -31,12 +31,12 @@
 
         <div class="field">
             <%= f.label "필요한 스킬" %>
-            <%= f.text_field :skills %>
+            <%= f.text_field :skills, placeholder: "ex) C 프로그래밍, 스와힐리어, ..." %>
         </div>
 
         <div class="field">
             <%= f.label "협업툴" %>
-            <%= f.text_field :tools %>
+            <%= f.text_field :tools, placeholder: "ex) slack, github, trello, ..." %>
         </div>
 
         <div class="field">
@@ -46,7 +46,7 @@
 
         <div class="field">
             <%= f.label "태그 (쉼표로 구분하여 입력해주세요)" %>
-            <%= f.text_field :tag_string %>
+            <%= f.text_field :tag_string, placeholder: "ex) 심리학, 손 세정제, 어피치, ..." %>
         </div>
 
         <div class="field">
