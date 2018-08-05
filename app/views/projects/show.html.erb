@@ -30,7 +30,7 @@
             <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= member.name %></a>
             <% if member == current_user %>(나)<% end %>
             <% if @project.admin == current_user %>
-                <a href='/project/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">멤버 없애기(?)</button></a>
+                <a href='/projects/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">멤버 없애기(?)</button></a>
             <% end %></div>
         <% end %></p>
     <% end %>
@@ -45,10 +45,10 @@
     <% if !user_signed_in? %>
     <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
         <% if @project.appliers.include? current_user %>
-            <a href="/project/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
+            <a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
         <% elsif @project.members.include? current_user %>
         <% else %>
-            <a href="/project/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
+            <a href="/projects/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
         <% end %>
     <% end %>
 <% else %>
@@ -58,11 +58,11 @@
             <% @project.appliers.each do |applier| %>
                 <a href='/user/<%= applier.id %>'>
                 <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
-                  <a href='/project/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
+                  <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
+                  <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
                 </div>
             <% end %></p> 
         <% end %>
-    <a href='/project/<%= @project.id%>' data-confirm='삭제하시겠습니까?' data-method='delete'><button type="button">삭제</button></a>
-    <a href='/project/<%= @project.id%>/edit'><button type="button">수정</button></a>
+    <button type="button"><%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"} %></button>
+    <button type="button"><%= link_to "수정", edit_project_url(@project.id) %></button>
 <% end %> 

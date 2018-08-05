@@ -9,7 +9,7 @@
 <h2><strong>제안한 프로젝트</strong></h2>
 <div>
     <% @projects.each do |p| %>
-        <div><strong>제목:</strong> <a href='/project/<%= p.id%>'><%= p.title %></a></div>
+        <div><strong>제목:</strong> <%= link_to p.title, p %>
     <% end %>
     <%= paginate @projects %>
 </div>
@@ -17,7 +17,7 @@
 <h2><strong>참여 중인 프로젝트</strong></h2>
 <div>
     <% Membership.where(user_id: @user.id).each do |m| %>
-        <div><strong>제목:</strong> <a href='/<%= m.project_id%>'><%= Project.find(m.project_id).title %></a></div>
+        <div><strong>제목:</strong> <%= link_to Project.find(m.project_id).title, project_url(m.project_id) %>
     <% end %>
 </div>
 

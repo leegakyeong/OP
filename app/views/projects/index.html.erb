@@ -53,7 +53,7 @@
           제목: <%= p.title %><br>
           책임자: <%= p.admin.name %><br>
           설명: <%= p.description %><br>
-          <a href="/project/<%=p.id%>">상세보기</a>
+          <%= link_to "상세보기", p %>
         </div>
       <% end %>
     <% end %>
@@ -66,7 +66,7 @@
       <div class="ui segment">
         제목: <%= p.title %><br>
         설명: <%= p.description %><br>
-        <a href="/project/<%=p.id%>">상세보기</a>
+        <%= link_to "상세보기", p %>
       </div>
     <% end %>
   </div>

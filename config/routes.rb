@@ -8,30 +8,12 @@ Rails.application.routes.draw do
     get '/signup' => 'devise/registrations#new'
   end
 
-  # resources :projects
-  # root 'projects#index'
-
-  # index
-  get '/' => 'projects#index'
-  post '/search' => 'projects#search'
-
-  # create
-  get '/new' => 'projects#new'
-  post '/' => 'projects#create'
-
-  # read
-  get '/project/:id' => 'projects#show'
-
-  # update
-  get '/project/:id/edit' => 'projects#edit'
-  patch '/project/:id' => 'projects#update'
-
-  # destroy
-  delete '/project/:id' => 'projects#destroy'
+  resources :projects
+  root 'projects#index'
 
   # request
-  get '/project/:id/apply' => 'projects#apply'
-  delete '/project/:id/apply' => 'projects#cancel_apply'
+  get '/projects/:id/apply' => 'projects#apply'
+  delete '/projects/:id/apply' => 'projects#cancel_apply'
 
   # mypage
   get '/mypage' => 'user#mypage'
@@ -42,9 +24,9 @@ Rails.application.routes.draw do
   get '/user/:id' => 'projects#user'
 
   # accept
-  get '/project/:project_id/accept/:requester_id' => 'projects#accept'
-  delete '/project/:project_id/accept/:requester_id' => 'projects#decline'
+  get '/projects/:id/accept/:requester_id' => 'projects#accept'
+  delete '/projects/:id/accept/:requester_id' => 'projects#decline'
 
   # kick user
-  delete '/project/:project_id/:member_id' => 'projects#kick_user'
+  delete '/projects/:id/:member_id' => 'projects#kick_user'
 end

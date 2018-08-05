@@ -1,6 +1,6 @@
 <h1><%= @project.id%>번 프로젝트 수정</h1>
 
-<form class="ui form" action='/project/<%= @project.id %>' method='POST'>
+<form class="ui form" action='/projects/<%= @project.id %>' method='POST'>
 	<!-- https://www.w3schools.com/tags/att_input_type.asp -->
 	<input type='hidden' name='_method' value='patch'>
 	<input type='hidden' name='admin_id' value=1>
@@ -48,7 +48,7 @@
 		<!-- TODO: 수정 시 첨부파일 사라지는 문제 해결하기-->
 	</div>
 	<div class="field">
-		<p>태그 (쉼표로 구분하여 입력해주세요)</p>
+		<p>태그 (엔터키로 구분하여 입력해주세요)</p>
 		<textarea rows='5' cols='20' name='tags'><% @project.tags.each do |tag|%><%=tag.content%>&#13;&#10;<%end%></textarea>
 	</div>
 	<div class="field">
