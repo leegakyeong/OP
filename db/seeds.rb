@@ -40,6 +40,10 @@ Project.create(
     isOnline: false, maxMember: 12,
     description: 'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat')
 
+(1..100).each do |i|
+    Project.create(title: "project#{i}", admin_id: 2, description: "this is a temporary project")
+end
+
 Application.create(user_id: 3, project_id: 1)
 Application.create(user_id: 3, project_id: 2)
 Application.create(user_id: 3, project_id: 4)

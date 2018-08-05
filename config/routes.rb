@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     get '/signup' => 'devise/registrations#new'
   end
 
+  # resources :projects
+  # root 'projects#index'
+
   # index
   get '/' => 'projects#index'
   post '/search' => 'projects#search'
@@ -15,11 +18,6 @@ Rails.application.routes.draw do
   # create
   get '/new' => 'projects#new'
   post '/' => 'projects#create'
-
-  # mypage
-  get '/mypage' => 'user#mypage'
-  get '/mypage/edit' => 'user#edit'
-  post '/mypage/edit' => 'user#update'
 
   # read
   get '/project/:id' => 'projects#show'
@@ -34,6 +32,11 @@ Rails.application.routes.draw do
   # request
   get '/project/:id/apply' => 'projects#apply'
   delete '/project/:id/apply' => 'projects#cancel_apply'
+
+  # mypage
+  get '/mypage' => 'user#mypage'
+  get '/mypage/edit' => 'user#edit'
+  post '/mypage/edit' => 'user#update'
 
   # user information
   get '/user/:id' => 'projects#user'
