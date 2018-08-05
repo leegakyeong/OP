@@ -29,4 +29,7 @@ Rails.application.routes.draw do
 
   # kick user
   delete '/projects/:id/:member_id' => 'projects#kick_user'
+
+  # search
+  post '/search' => 'projects#search'
 end
