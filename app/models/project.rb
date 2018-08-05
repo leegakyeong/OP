@@ -16,4 +16,6 @@ class Project < ActiveRecord::Base
     # membership
     has_many :memberships
     has_many :members, through: :memberships, source: :user, dependent: :destroy
+
+    has_attached_file :reference
 end
