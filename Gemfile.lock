@@ -269,6 +269,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   jbuilder (~> 2.5)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   paperclip (~> 4.1)
   puma (~> 3.7)
