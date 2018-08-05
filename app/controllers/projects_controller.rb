@@ -10,17 +10,17 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        @project = Project.new
-        @project.admin_id = params[:admin_id]
-        @project.title = params[:title]
-        @project.maxMember = params[:maxMember]
-        @project.skills = params[:skills]
-        @project.description = params[:description]
-        @project.isKorean = params[:isKorean]
-        @project.isOnline = params[:isOnline]
-        @project.tools = params[:tools]
-        @project.files = params[:files]
-        if @project.save
+        project = Project.new
+        project.admin_id = params[:admin_id]
+        project.title = params[:title]
+        project.maxMember = params[:maxMember]
+        project.skills = params[:skills]
+        project.description = params[:description]
+        project.isKorean = params[:isKorean]
+        project.isOnline = params[:isOnline]
+        project.tools = params[:tools]
+        project.files = params[:files]
+        if project.save
             input_tag = params[:tags]
             input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
             tag_array = input_tag.split("\n") 
@@ -29,13 +29,11 @@ class ProjectsController < ApplicationController
                 project.tags << Tag.find(new_tag.id)
             end
 
-            redirect_to "/#{project.id}"
+            redirect_to "/project/#{project.id}"
         else
             redirect_to "/"
         end
- 
-        redirect_to "/project/#{project.id}"
-    end
+     end
 
     def search
         keyword = params[:keyword]
@@ -98,14 +96,14 @@ class ProjectsController < ApplicationController
         end
         project.save
 
-        redirect_to project
+        redirect_to "/project/#{params[:id]}"
     end
 
     def destroy
         project = Project.find(params[:id])
         project.destroy
 
-        redirect_to projects_path
+        redirect_to '/'
     end
 
     def apply
