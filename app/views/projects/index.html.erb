@@ -44,19 +44,19 @@
   </form>
 </div>
 
-  <h2>featured projects</h2> <!-- 일단은 최근 것 3개만 보여 줌(보여 주는 알고리즘은 나중에 보완하기) -->
+
+  <h2>featured projects</h2>
   <div id="featured-projects-box">
     <% @projects.reverse.each_with_index do |p, i| %>
-      <% if i < 3 %>
-        <div class="ui segment">
-          제목: <%= p.title %><br>
-          책임자: <%= p.admin.name %><br>
-          설명: <%= p.description %><br>
-          <a href="/project/<%=p.id%>">상세보기</a>
-        </div>
-      <% end %>
+      <div class="ui segment">
+        제목: <%= p.title %><br>
+        책임자: <%= p.admin.name %><br>
+        설명: <%= p.description %><br>
+        <a href="/project/<%=p.id%>">상세보기</a>
+      </div>
     <% end %>
   </div>
+  <%= paginate @projects %>
 
 <script>
   $(document).ready(function() {

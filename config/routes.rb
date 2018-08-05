@@ -8,32 +8,35 @@ Rails.application.routes.draw do
     get '/signup' => 'devise/registrations#new'
   end
 
-  # index
-  get '/' => 'projects#index'
-  post '/search' => 'projects#search'
+  resources :projects
+  root 'projects#index'
 
-  # create
-  get '/new' => 'projects#new'
-  post '/' => 'projects#create'
+  # # index
+  # get '/' => 'projects#index'
+  # post '/search' => 'projects#search'
+
+  # # create
+  # get '/new' => 'projects#new'
+  # post '/' => 'projects#create'
+
+  # # read
+  # get '/project/:id' => 'projects#show'
+
+  # # update
+  # get '/project/:id/edit' => 'projects#edit'
+  # patch '/project/:id' => 'projects#update'
+
+  # # destroy
+  # delete '/project/:id' => 'projects#destroy'
+
+  # request
+  get '/project/:id/apply' => 'projects#apply'
+  delete '/project/:id/apply' => 'projects#cancel_apply'
 
   # mypage
   get '/mypage' => 'user#mypage'
   get '/mypage/edit' => 'user#edit'
   post '/mypage/edit' => 'user#update'
-
-  # read
-  get '/project/:id' => 'projects#show'
-
-  # update
-  get '/project/:id/edit' => 'projects#edit'
-  patch '/project/:id' => 'projects#update'
-
-  # destroy
-  delete '/project/:id' => 'projects#destroy'
-
-  # request
-  get '/project/:id/apply' => 'projects#apply'
-  delete '/project/:id/apply' => 'projects#cancel_apply'
 
   # user information
   get '/user/:id' => 'projects#user'
