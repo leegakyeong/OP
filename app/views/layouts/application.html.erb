@@ -19,7 +19,7 @@
         <a class="header item" href='/'>OP</a>
         <div class="right menu">
           <% if user_signed_in? %>
-            <a class="item" href='/new'>새 프로젝트 만들기</a>
+            <%= link_to "새 프로젝트 만들기", new_project_url, class: "item" %>
             <a class="item" href='/mypage'>내 페이지(?)</a>
             <a class="item" href='/users/sign_out' data-method='DELETE'>로그아웃</a>
           <% else %>
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <% if request.fullpath.start_with? '/project/' %>
+    <% if request.fullpath.start_with? '/projects/' %>
       <div class="ui attached stackable menu">
         <div class="ui container">
           <div class="item">프로젝트 메뉴 바 자리!</div>
