@@ -8,26 +8,26 @@ Rails.application.routes.draw do
     get '/signup' => 'devise/registrations#new'
   end
 
-  resources :projects
-  root 'projects#index'
+  # resources :projects
+  # root 'projects#index'
 
-  # # index
-  # get '/' => 'projects#index'
-  # post '/search' => 'projects#search'
+  # index
+  get '/' => 'projects#index'
+  post '/search' => 'projects#search'
 
-  # # create
-  # get '/new' => 'projects#new'
-  # post '/' => 'projects#create'
+  # create
+  get '/new' => 'projects#new'
+  post '/' => 'projects#create'
 
-  # # read
-  # get '/project/:id' => 'projects#show'
+  # read
+  get '/project/:id' => 'projects#show'
 
-  # # update
-  # get '/project/:id/edit' => 'projects#edit'
-  # patch '/project/:id' => 'projects#update'
+  # update
+  get '/project/:id/edit' => 'projects#edit'
+  patch '/project/:id' => 'projects#update'
 
-  # # destroy
-  # delete '/project/:id' => 'projects#destroy'
+  # destroy
+  delete '/project/:id' => 'projects#destroy'
 
   # request
   get '/project/:id/apply' => 'projects#apply'

@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController 
-    before_action :set_project, only: [:show, :edit, :update, :destroy]
-    before_action :authenticate_user!, except: [:show, :index]
+    # before_action :set_project, only: [:show, :edit, :update, :destroy]
+    # before_action :authenticate_user!, except: [:show, :index]
 
     def index
         @projects = Project.all
-        @projects = Project.page params[:page]
+        # @projects = Project.page params[:page]
     end  
 
     def new
@@ -12,48 +12,48 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        @project = Project.new(project_params)
-        @project.save
+        # @project = Project.new(project_params)
+        # @project.save
 
-        if @project.save
-            input_tag = params[:tags]
-            input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
-            tag_array = input_tag.split("\n") 
-            tag_array.each do |tag|
-                new_tag = Tag.create(project_id: @project.id, content: tag)
-                @project.tags << Tag.find(new_tag.id)
-            end
-
-            redirect_to @project
-        else
-            redirect_to root_url
-        end
-        
-        # @project = Project.new
-        # @project.admin_id = params[:admin_id]
-        # @project.title = params[:title]
-        # @project.maxMember = params[:maxMember]
-        # @project.skills = params[:skills]
-        # @project.description = params[:description]
-        # @project.isKorean = params[:isKorean]
-        # @project.isOnline = params[:isOnline]
-        # @project.tools = params[:tools]
-        # @project.files = params[:files]
         # if @project.save
         #     input_tag = params[:tags]
         #     input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
         #     tag_array = input_tag.split("\n") 
         #     tag_array.each do |tag|
-        #         new_tag = Tag.create(project_id: project.id, content: tag)
-        #         project.tags << Tag.find(new_tag.id)
+        #         new_tag = Tag.create(project_id: @project.id, content: tag)
+        #         @project.tags << Tag.find(new_tag.id)
         #     end
 
-        #     redirect_to "/#{project.id}"
+        #     redirect_to @project
         # else
-        #     redirect_to "/"
+        #     redirect_to root_url
         # end
+        
+        @project = Project.new
+        @project.admin_id = params[:admin_id]
+        @project.title = params[:title]
+        @project.maxMember = params[:maxMember]
+        @project.skills = params[:skills]
+        @project.description = params[:description]
+        @project.isKorean = params[:isKorean]
+        @project.isOnline = params[:isOnline]
+        @project.tools = params[:tools]
+        @project.files = params[:files]
+        if @project.save
+            input_tag = params[:tags]
+            input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
+            tag_array = input_tag.split("\n") 
+            tag_array.each do |tag|
+                new_tag = Tag.create(project_id: project.id, content: tag)
+                project.tags << Tag.find(new_tag.id)
+            end
+
+            redirect_to "/#{project.id}"
+        else
+            redirect_to "/"
+        end
  
-        # redirect_to "/project/#{project.id}"
+        redirect_to "/project/#{project.id}"
     end
 
     def search
@@ -91,23 +91,25 @@ class ProjectsController < ApplicationController
     end
 
     def edit
-        check_user
+        # check_user
         # @project = Project.find(params[:id])
     end
 
     def update
-        @project.update(project_params)
-        # project = Project.find(params[:id])
-        # project.admin_id = params[:admin_id]
-        # project.title = params[:title]
-        # project.maxMember = params[:maxMember]
-        # project.skills = params[:skills]
-        # project.description = params[:description]
-        # project.isKorean = params[:isKorean]
-        # project.isOnline = params[:isOnline]
-        # project.tools = params[:tools]
-        # project.files = params[:files]
-        # project.isClosed = params[:isClosed]
+        # @project.update(project_params)
+
+        project = Project.find(params[:id])
+        project.admin_id = params[:admin_id]
+        project.title = params[:title]
+        project.maxMember = params[:maxMember]
+        project.skills = params[:skills]
+        project.description = params[:description]
+        project.isKorean = params[:isKorean]
+        project.isOnline = params[:isOnline]
+        project.tools = params[:tools]
+        project.files = params[:files]
+        project.isClosed = params[:isClosed]
+
         @project.tags.destroy_all
         input_tag = params[:tags]
         input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
@@ -118,7 +120,7 @@ class ProjectsController < ApplicationController
         end
         @project.save
 
-        redirect_to @project
+        # redirect_to @project
     end
 
     def destroy
