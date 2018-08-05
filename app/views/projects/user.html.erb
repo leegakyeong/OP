@@ -11,6 +11,7 @@
     <% @projects.each do |p| %>
         <div><strong>제목:</strong> <a href='/project/<%= p.id%>'><%= p.title %></a></div>
     <% end %>
+    <%= paginate @projects %>
 </div>
 
 <h2><strong>참여 중인 프로젝트</strong></h2>

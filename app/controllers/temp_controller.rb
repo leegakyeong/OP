@@ -1,4 +1,7 @@
+
 class ProjectsController < ApplicationController 
+    # before_action :set_project, only: [:show, :edit, :update, :destroy]
+    # before_action :authenticate_user!, except: [:show, :index]
 
     def index
         @projects = Project.all
@@ -10,6 +13,23 @@ class ProjectsController < ApplicationController
     end
 
     def create
+        # @project = Project.new(project_params)
+        # @project.save
+
+        # if @project.save
+        #     input_tag = params[:tags]
+        #     input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
+        #     tag_array = input_tag.split("\n") 
+        #     tag_array.each do |tag|
+        #         new_tag = Tag.create(project_id: @project.id, content: tag)
+        #         @project.tags << Tag.find(new_tag.id)
+        #     end
+
+        #     redirect_to @project
+        # else
+        #     redirect_to root_url
+        # end
+        
         @project = Project.new
         @project.admin_id = params[:admin_id]
         @project.title = params[:title]
@@ -68,14 +88,17 @@ class ProjectsController < ApplicationController
     end
     
     def show
-        @project = Project.find(params[:id])
+        # @project = Project.find(params[:id])
     end
 
     def edit
-        @project = Project.find(params[:id])
+        # check_user
+        # @project = Project.find(params[:id])
     end
 
     def update
+        # @project.update(project_params)
+
         project = Project.find(params[:id])
         project.admin_id = params[:admin_id]
         project.title = params[:title]
@@ -88,22 +111,24 @@ class ProjectsController < ApplicationController
         project.files = params[:files]
         project.isClosed = params[:isClosed]
 
-        project.tags.destroy_all
+        @project.tags.destroy_all
         input_tag = params[:tags]
         input_tag = input_tag.gsub("\r\n", "\n") # windows에서는 \r\n인데 mac에서는 \n이다.
         tag_array = input_tag.split("\n") 
         tag_array.each do |tag|
-            new_tag = Tag.create(project_id: project.id, content: tag)
-            project.tags << Tag.find(new_tag.id)
+            new_tag = Tag.create(project_id: @project.id, content: tag)
+            @project.tags << Tag.find(new_tag.id)
         end
-        project.save
+        @project.save
 
-        redirect_to project
+        # redirect_to @project
     end
 
     def destroy
-        project = Project.find(params[:id])
-        project.destroy
+        check_user
+        @project.destroy
+        # project = Project.find(params[:id])
+        # project.destroy
 
         redirect_to projects_path
     end
@@ -128,7 +153,6 @@ class ProjectsController < ApplicationController
         user_id = params[:id]
         @user = User.find(user_id)
         @projects = Project.where(admin_id: user_id)
-        @projects = Project.page params[:page]
     end
 
     def accept
@@ -161,4 +185,20 @@ class ProjectsController < ApplicationController
         
         redirect_to "/project/#{params[:project_id]}"
     end
+
+    private
+        def set_project
+            @project = Project.find(params[:id])
+        end
+
+        def project_params
+            params.require(:project).permit(:admin_id, :title, :maxMember, :skills, :description, :isKorean, :isOnline, :tools, :files, :isClosed, :tags)
+        end
+
+        def check_user
+            if @project.user != current_user
+                redirect_to new_user_session_path
+            end
+        end
 end
+  
