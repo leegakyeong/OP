@@ -3,13 +3,13 @@
         <%= f.hidden_field :admin_id, :value => current_user.id %>
 
         <div class="field">
-            <%= f.label "프로젝트 제목" %>
-            <%= f.text_field :title %>
+            <%= f.label "프로젝트 제목 *" %>
+            <%= f.text_field :title, :required => true %>
         </div>
 
         <div class="field">
-            <%= f.label "프로젝트 설명" %>
-            <%= f.text_area :description, size: "50x5" %>
+            <%= f.label "프로젝트 설명 *" %>
+            <%= f.text_area :description, size: "50x5", :required => true %>
         </div>
 
         <div class="field ui three column gird">

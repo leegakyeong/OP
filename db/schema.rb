@@ -40,15 +40,14 @@ ActiveRecord::Schema.define(version: 20180730162609) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.integer "admin_id"
-    t.string "title"
+    t.integer "admin_id", null: false
+    t.string "title", null: false
     t.integer "maxMember"
     t.string "skills"
-    t.string "description"
+    t.string "description", null: false
     t.boolean "isKorean"
     t.boolean "isOnline"
     t.string "tools"
-    t.string "files"
     t.string "tag_string"
     t.integer "tag_id"
     t.boolean "isClosed"
