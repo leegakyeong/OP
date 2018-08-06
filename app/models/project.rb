@@ -1,4 +1,4 @@
-class Project < ApplicationRecord
+class Project < ActiveRecord::Base
     belongs_to :admin, class_name: "User"
     # has_and_belongs_to_many :members, class_name: "User", foreign_key: :user_id
 
@@ -16,4 +16,7 @@ class Project < ApplicationRecord
     # membership
     has_many :memberships
     has_many :members, through: :memberships, source: :user, dependent: :destroy
+
+    has_attached_file :reference
+    do_not_validate_attachment_file_type :reference
 end

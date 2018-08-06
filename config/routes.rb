@@ -8,40 +8,28 @@ Rails.application.routes.draw do
     get '/signup' => 'devise/registrations#new'
   end
 
-  # index
-  get '/' => 'projects#index'
-  post '/search' => 'projects#search'
+  resources :projects
+  root 'projects#index'
 
-  # create
-  get '/new' => 'projects#new'
-  post '/' => 'projects#create'
+  # request
+  get '/projects/:id/apply' => 'projects#apply'
+  delete '/projects/:id/apply' => 'projects#cancel_apply'
 
   # mypage
   get '/mypage' => 'user#mypage'
   get '/mypage/edit' => 'user#edit'
   post '/mypage/edit' => 'user#update'
 
-  # read
-  get '/project/:id' => 'projects#show'
-
-  # update
-  get '/project/:id/edit' => 'projects#edit'
-  patch '/project/:id' => 'projects#update'
-
-  # destroy
-  delete '/project/:id' => 'projects#destroy'
-
-  # request
-  get '/project/:id/apply' => 'projects#apply'
-  delete '/project/:id/apply' => 'projects#cancel_apply'
-
   # user information
   get '/user/:id' => 'projects#user'
 
   # accept
-  get '/project/:project_id/accept/:requester_id' => 'projects#accept'
-  delete '/project/:project_id/accept/:requester_id' => 'projects#decline'
+  get '/projects/:id/accept/:requester_id' => 'projects#accept'
+  delete '/projects/:id/accept/:requester_id' => 'projects#decline'
 
   # kick user
-  delete '/project/:project_id/:member_id' => 'projects#kick_user'
+  delete '/projects/:id/:member_id' => 'projects#kick_user'
+
+  # search
+  post '/search' => 'projects#search'
 end

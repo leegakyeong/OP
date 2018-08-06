@@ -4,7 +4,7 @@
     <div>제목: <%= r.title %></div>
     <div>책임자: <%= r.admin.name %></div>
     <div>설명: <%= r.description %></div>
-    <a href="/project/<%=r.id%>">상세보기</a>
+    <%= link_to "상세보기", r %>
   </div>
 <% end %>
 <div class="fluid ui button" id="show-results">전체보기</div>
