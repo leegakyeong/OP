@@ -1,4 +1,14 @@
 <h1><%= @project.id%>번 프로젝트입니다.<h1>
+<p>
+    <% if @project.liking_users.include? current_user%>
+        <%=link_to '좋아요 취소', "/project/#{@project.id}/like" %>
+    <% else %>
+        <%= link_to '좋아요', "/project/#{@project.id}/like" %>
+    <% end %>
+    좋아요 <%= @project.project_likes.distinct.count(:id)%>
+</p>
+
+
 <h2><%= @project.admin.email%>님이 생성하신 프로젝트입니다.</h2>
 
 <strong><p>프로젝트 제목:</strong> 
@@ -109,4 +119,5 @@
         <% end %>
     <button type="button"><%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"} %></button>
     <button type="button"><%= link_to "수정", edit_project_url(@project.id) %></button>
-<% end %> 
+<% end %>
+

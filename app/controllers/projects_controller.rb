@@ -138,6 +138,18 @@ class ProjectsController < ApplicationController
         redirect_to @project
     end
 
+    def like
+        project_like_hash = {user_id: current_user.id, project_id: params[:id]}
+        like = ProjectLike.where(project_like_hash)
+        if like.empty?
+            ProjectLike.create(project_like_hash)
+        else
+            like.destroy_all
+        end
+
+        redirect_to action: 'show'
+    end
+
     private
         def set_project
             @project = Project.find(params[:id])
