@@ -93,22 +93,13 @@ class ProjectsController < ApplicationController
         redirect_to @project
     end
 
-        if application.empty?
-            Application.create(application_hash)
-        else
-            application.destroy_all
-        end
+    def cancel_apply
+        application_hash = {user_id: current_user.id, project_id: params[:id]}
+        application = Application.where(application_hash)
+        application.destroy_all
         
         redirect_to @project
     end
-
-    # def cancel_apply
-    #     application_hash = {user_id: current_user.id, project_id: params[:id]}
-    #     application = Application.where(application_hash)
-    #     application.destroy_all
-        
-    #     redirect_to "/project/#{params[:id]}"
-    # end
 
     def user
         user_id = params[:id]

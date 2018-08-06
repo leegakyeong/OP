@@ -95,7 +95,6 @@
             <a href="/projects/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
         <% end %>
     <% end %>
-  <% end %>
 <% else %>
     <strong><p>멤버 신청자: </strong>
         <% if @project.appliers.empty? %>없음</p>
