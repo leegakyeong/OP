@@ -31,6 +31,7 @@ class ProjectsController < ApplicationController
         maxMember = params[:maxMember]
         isKorean = params[:isKorean]
         isOnline = params[:isOnline]
+        isClosed = params[:isClosed]
         @results = []
 
         Project.all.each do |p|
