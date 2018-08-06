@@ -1,0 +1,59 @@
+<%= form_for project do |f| %>
+    <div class="ui form">
+        <%= f.hidden_field :admin_id, :value => current_user.id %>
+
+        <div class="field">
+            <%= f.label "프로젝트 제목 *" %>
+            <%= f.text_field :title, :required => true %>
+        </div>
+
+        <div class="field">
+            <%= f.label "프로젝트 설명 *" %>
+            <%= f.text_area :description, size: "50x5", :required => true %>
+        </div>
+
+        <div class="field ui three column gird">
+            <div class="ui three column grid">
+                <div class="column">
+                    <%= f.label "최대 인원" %>
+                    <%= f.number_field :maxMember, min: 1 %>
+                </div>
+                <div class="column">
+                    <%= f.label "사용 언어" %>
+                    <%= f.select :isKorean, options_for_select([["한국어", true], ["English", false]], params[:isKorean]) %>
+                </div>
+                <div class="column">
+                    <%= f.label "협업 방식" %>
+                    <%= f.select :isOnline, options_for_select([["재택/온라인", true], ["오프라인 모임", false]], params[:isOnline]) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <%= f.label "필요한 스킬" %>
+            <%= f.text_field :skills, placeholder: "ex) C 프로그래밍, 스와힐리어, ..." %>
+        </div>
+
+        <div class="field">
+            <%= f.label "협업툴" %>
+            <%= f.text_field :tools, placeholder: "ex) slack, github, trello, ..." %>
+        </div>
+
+        <div class="field">
+            <%= f.label "첨부파일 (파일이 여러 개일 경우 zip파일로 모아서 첨부해주세요." %>
+            <%= f.file_field :reference %>
+        </div>
+
+        <div class="field">
+            <%= f.label "태그 (쉼표로 구분하여 입력해주세요)" %>
+            <%= f.text_field :tag_string, placeholder: "ex) 심리학, 손 세정제, 어피치, ..." %>
+        </div>
+
+        <div class="field">
+            <%= f.label "프로젝트 완료 여부" %>
+            <%= f.check_box :isClosed, :value => params[:isClosed] %>
+        </div>
+        
+        <%= f.submit "제출", :class => 'ui button' %>
+    </div>
+<% end %>
