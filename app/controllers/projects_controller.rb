@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController 
     before_action :set_project, only: [:show, :edit, :update, :destroy, :apply, :cancel_apply, :accept, :decline, :kick_user]
-    before_action :authenticate_user!, except: [:show, :index]
+    before_action :authenticate_user!, except: [:show, :index, :search]
 
     def index
         @projects = Project.all
