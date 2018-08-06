@@ -16,7 +16,7 @@
     <% end %>
     
 <strong><p>필요한 스킬:</strong> 
-    <% if @project.skills.empty? || @project.skills.nil? %>
+    <% if @project.skills.nil? %>
         -</p>
     <% else %>
         <%= @project.skills%></p>
@@ -44,7 +44,7 @@
     <% end %></p>
 
 <strong><p>협업툴:</strong> 
-    <% if @project.tools.empty? || @project.tools.nil? %>
+    <% if @project.tools.nil? %>
         -</p>
     <% else %>
         <%= @project.tools%></p>
@@ -58,8 +58,11 @@
     <% end %>
 
 <strong><p>태그:</strong></p>
-    <% @project.tags.each do |tag|%>
-        <p><%= tag.content%></p>
+    <% @project.tags.nil? %>
+        -</p>
+    <% else %>
+        <% @project.tags.each do |tag|%>
+            <p><%= tag.content%></p>
     <% end %>   
 
 <strong><p>함께하는 멤버:</strong>
