@@ -3,8 +3,8 @@ class Project < ActiveRecord::Base
     # has_and_belongs_to_many :members, class_name: "User", foreign_key: :user_id
 
     # likes
-    has_many :likes
-    has_many :liking_users, through: :likes, source: :user, dependent: :destroy
+    has_many :project_likes
+    has_many :liking_users, through: :project_likes, source: :user
 
     # tags
     has_and_belongs_to_many :tags, dependent: :destroy
