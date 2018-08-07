@@ -14,3 +14,43 @@
  *= require_self
  *= require semantic
  */
+
+@import "variables";
+
+body {
+    background-color: $salami-l4 !important;
+}
+
+.ui {
+    border: none !important;
+}
+
+.ui.main.container {
+    background-color: rgba(0,0,0,0);
+}
+
+.ui.attached.stackable.menu {
+    background-color: $salami-0;
+}
+
+// .ui.segment a.project-title {
+//     color: $salami-d3;
+//     // font-weight: bold;
+// }
+
+// .ui.segment a.project-admin {
+//     color: green;
+// }
+
+.ui.segment {
+    a.project-title {
+        color: $salami-d3;
+    }
+    a.project-admin {
+        color: $salami-d2;
+    }
+    a.project-tag {
+        color: $salami-d1;
+        background-color: $salami-l3;
+    }
+}
