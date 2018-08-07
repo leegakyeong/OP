@@ -22,4 +22,5 @@
 
 .byebug_history
 
+# 파일 첨부 무시
 /public/system

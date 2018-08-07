@@ -9,8 +9,8 @@ class User < ApplicationRecord
   # has_and_belongs_to_many :our_projects, class_name: "Project", foreign_key: :project_id
 
   # likes
-  has_many :likes
-  has_many :liked_projects, through: :likes, source: :project
+  has_many :project_likes
+  has_many :liked_projects, through: :project_likes, source: :project
 
   # requests
   has_many :applications
