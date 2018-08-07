@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <div class="ui attached stackable menu">
+    <div class="ui attached stackable menu" id="bar">
       <div class="ui container">
         <%= link_to "OP", root_url, class: "header item" %>
         <div class="right menu">
@@ -31,7 +31,7 @@
     </div>
 
     <% if request.fullpath.start_with? '/projects/' %>
-      <div class="ui attached stackable menu">
+      <div class="ui attached stackable menu" id="project-bar">
         <div class="ui container">
           <div class="item">프로젝트 메뉴 바 자리!</div>
           <% if user_signed_in? and @project.admin == current_user %>

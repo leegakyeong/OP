@@ -29,18 +29,13 @@ body {
     background-color: rgba(0,0,0,0);
 }
 
-.ui.attached.stackable.menu {
+.ui.attached.stackable.menu#bar {
     background-color: $salami-0;
 }
 
-// .ui.segment a.project-title {
-//     color: $salami-d3;
-//     // font-weight: bold;
-// }
-
-// .ui.segment a.project-admin {
-//     color: green;
-// }
+.ui.attached.stackable.menu#project-bar {
+    background-color: $salami-l1;
+}
 
 .ui.segment {
     a.project-title {
