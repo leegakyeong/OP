@@ -33,24 +33,32 @@ class ProjectsController < ApplicationController
         @isKorean = params[:isKorean] == "true" if params[:isKorean].present?
         @isOnline = params[:isOnline] == "true" if params[:isOnline].present?
         @admin = params[:admin]
-        @skills = ["%"+params[:skill1]+"%", "%"+params[:skill2]+"%", "%"+params[:skill3]+"%"]
-        @skills = @skills.reject { |item| item == '%%' }
-        @tools = ["%"+params[:tool1]+"%", "%"+params[:tool2]+"%", "%"+params[:tool3]+"%"]
-        @tools = @tools.reject { |item| item == '%%' }
         @isClosed = params[:isClosed] == "1" if !params[:isClosed].nil?
+        @tag = params[:tag]
 
-        # all projects
-        @results = Project.order(created_at: :desc)
+        @skills = []
+        @skills.push("%"+params[:skill1]+"%") if !params[:skill1].empty?
+        @skills.push("%"+params[:skill2]+"%") if !params[:skill2].empty?
+        @tools = []
+        @tools.push("%"+params[:tool1]+"%") if !params[:tool1].empty?
+        @tools.push("%"+params[:tool2]+"%") if !params[:tool2].empty?
+        
+        @results = Project.all
 
-        # search_keyword: search for projects which include the keyword in [title, description, tag]
-        @results = @results.search_keyword(@keyword) if @keyword.present?
         @results = @results.where("maxMember <= ?", @maxMember) if @maxMember.present?
         @results = @results.where(isKorean: @isKorean) unless @isKorean.nil?
         @results = @results.where(isOnline: @isOnline) unless @isOnline.nil?
         @results = @results.joins(:admin).where("name like ?", "%#{@admin}%") if @admin.present?
-        @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills)
-        @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools)
+        @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills) unless @skills.empty?
+        @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools) unless @tools.empty?
         @results = @results.where(isClosed: @isClosed) if !@isClosed.nil?
+        if params[:orAnd] == "OR"
+            keywordSearch = Project.all.search_keyword(@keyword) if @keyword.present?
+            @results = @results | keywordSearch
+        else
+            @results = @results.search_keyword(@keyword) if @keyword.present?
+        end
+        # search_keyword: search for projects which include the keyword in [title, description, tags]
     end
     
     def show

@@ -16,6 +16,10 @@
       <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
       # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
       <div class="filter-board-attribute">
+        <%= label_tag "검색 방식" %>
+        <%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]) %>
+      </div>
+      <div class="filter-board-attribute">
         <%= label_tag "책임자 이름: " %>
         <%= text_field_tag "admin" %>
       </div>
@@ -38,17 +42,15 @@
         <label>스킬 (최대 3개 입력 가능): </label>
         <%= text_field_tag "skill1" %>
         <%= text_field_tag "skill2" %>
-        <%= text_field_tag "skill3" %>
       </div>
       <div class="filter-board-attribute">
         <label>도구: </label>
         <%= text_field_tag "tool1" %>
         <%= text_field_tag "tool2" %>
-        <%= text_field_tag "tool3" %>
       </div>
       <div class="filter-board-attribute">
         <label>모집 마감 여부: </label>
-        <%= check_box_tag "isClosed" %>
+        <%= check_box_tag "isClosed" %> 마감
       </div>
     </div>
   </form>
@@ -64,7 +66,8 @@
             <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
             <%= p.description %><br>
             <% p.tags.each do |tag| %>
-              <a class="project-tag"><%= tag.content %></a>
+              <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                :skill1 => "", :skill2 => "", :tool1 => "", :tool2 => ""), class: "project-tag", method: :post %>
             <% end %>
           </div>
         <% end %>
@@ -81,7 +84,7 @@
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
         <%= p.description %><br>
         <% p.tags.each do |tag| %>
-          <a class="project-tag"><%= tag.content %></a>
+          <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20"), class: "project-tag", method: :post %>
         <% end %>
       </div>
     <% end %>
