@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
      end
 
     def search
-        # search parameters
+        # parameters
         @keyword = params[:keyword]
         @maxMember = params[:maxMember].to_i
         @isKorean = params[:isKorean] == "true" if params[:isKorean].present?
@@ -35,16 +35,18 @@ class ProjectsController < ApplicationController
         @admin = params[:admin]
         @isClosed = params[:isClosed] == "1" if !params[:isClosed].nil?
         @tag = params[:tag]
-
         @skills = []
         @skills.push("%"+params[:skill1]+"%") if !params[:skill1].empty?
         @skills.push("%"+params[:skill2]+"%") if !params[:skill2].empty?
+        @skills.push("%"+params[:skill3]+"%") if !params[:skill3].empty?
         @tools = []
         @tools.push("%"+params[:tool1]+"%") if !params[:tool1].empty?
         @tools.push("%"+params[:tool2]+"%") if !params[:tool2].empty?
+        @tools.push("%"+params[:tool3]+"%") if !params[:tool3].empty?
         
         @results = Project.all
 
+        # search
         @results = @results.where("maxMember <= ?", @maxMember) if @maxMember.present?
         @results = @results.where(isKorean: @isKorean) unless @isKorean.nil?
         @results = @results.where(isOnline: @isOnline) unless @isOnline.nil?
@@ -52,6 +54,8 @@ class ProjectsController < ApplicationController
         @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills) unless @skills.empty?
         @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools) unless @tools.empty?
         @results = @results.where(isClosed: @isClosed) if !@isClosed.nil?
+
+        # user can decide whether to AND/OR keyword search results
         if params[:orAnd] == "OR"
             keywordSearch = Project.all.search_keyword(@keyword) if @keyword.present?
             @results = @results | keywordSearch
@@ -59,6 +63,7 @@ class ProjectsController < ApplicationController
             @results = @results.search_keyword(@keyword) if @keyword.present?
         end
         # search_keyword: search for projects which include the keyword in [title, description, tags]
+        # code @ models/project.rb
     end
     
     def show

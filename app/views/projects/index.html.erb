@@ -42,11 +42,13 @@
         <label>스킬 (최대 3개 입력 가능): </label>
         <%= text_field_tag "skill1" %>
         <%= text_field_tag "skill2" %>
+        <%= text_field_tag "skill3" %>
       </div>
       <div class="filter-board-attribute">
-        <label>도구: </label>
+        <label>도구 (최대 3개 입력 가능): </label>
         <%= text_field_tag "tool1" %>
         <%= text_field_tag "tool2" %>
+        <%= text_field_tag "tool3" %>
       </div>
       <div class="filter-board-attribute">
         <label>모집 마감 여부: </label>
@@ -67,7 +69,7 @@
             <%= p.description %><br>
             <% p.tags.each do |tag| %>
               <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :tool1 => "", :tool2 => ""), class: "project-tag", method: :post %>
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
             <% end %>
           </div>
         <% end %>
@@ -84,7 +86,8 @@
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
         <%= p.description %><br>
         <% p.tags.each do |tag| %>
-          <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20"), class: "project-tag", method: :post %>
+          <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
         <% end %>
       </div>
     <% end %>
