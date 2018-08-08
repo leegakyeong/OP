@@ -1,9 +1,9 @@
-<h1><%= @project.id%>번 프로젝트입니다.<h1>
+<h1><%= @project.id%>번 프로젝트입니다.</h1>
 <p>
     <% if @project.liking_users.include? current_user%>
-        <%=link_to '좋아요 취소', "/project/#{@project.id}/like" %>
+        <%=link_to '좋아요 취소', "/projects/#{@project.id}/like" %>
     <% else %>
-        <%= link_to '좋아요', "/project/#{@project.id}/like" %>
+        <%= link_to '좋아요', "/projects/#{@project.id}/like" %>
     <% end %>
     좋아요 <%= @project.project_likes.distinct.count(:id)%>
 </p>
