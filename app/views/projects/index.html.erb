@@ -56,16 +56,20 @@
 
   <h2>Featured Projects</h2>
   <div id="featured-projects-box">
-    <% @projects.reverse.each_with_index do |p, i| %>
-      <% if i < 3 %>
-        <div class="ui segment">
-          제목: <%= p.title %><br>
-          책임자: <%= p.admin.name %><br>
-          설명: <%= p.description %><br>
-          <%= link_to "상세보기", p %>
-        </div>
+    <div class="ui grid">
+      <% @projects.reverse.each_with_index do |p, i| %>
+        <% if i < 4 %>
+          <div class="four wide column ui segment">
+            <%= link_to p.title, p, class: "project-title" %><br>
+            <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
+            <%= p.description %><br>
+            <% p.tags.each do |tag| %>
+              <a class="project-tag"><%= tag.content %></a>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
   
   <br>
@@ -73,9 +77,12 @@
   <div id="featured-projects-box">
     <% @projects.order(created_at: :desc).reverse.each_with_index do |p, i| %>
       <div class="ui segment">
-        제목: <%= p.title %><br>
-        설명: <%= p.description %><br>
-        <%= link_to "상세보기", p %>
+        <%= link_to p.title, p, class: "project-title" %><br>
+        <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
+        <%= p.description %><br>
+        <% p.tags.each do |tag| %>
+          <a class="project-tag"><%= tag.content %></a>
+        <% end %>
       </div>
     <% end %>
   </div>
