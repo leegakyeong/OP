@@ -90,10 +90,10 @@
     <% end %>
     
 <strong><p>완료 여부:</strong>
-    <% if @project.isClosed == true %>
-        완료
-    <% else %>
-        진행 중<% end %></p>
+  <% if @project.isClosed == true %>
+      완료
+  <% else %>
+      진행 중<% end %></p>
 
 <% if current_user != @project.admin %>
     <% if !user_signed_in? %>
