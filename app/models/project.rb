@@ -19,4 +19,6 @@ class Project < ActiveRecord::Base
 
     has_attached_file :reference
     do_not_validate_attachment_file_type :reference
+
+    scope :search_keyword, ->(keyword) { where('title LIKE ? OR description LIKE ? OR tag_string LIKE ?', "%#{keyword}%", "%#{keyword}%", "%#{keyword}%") }
 end

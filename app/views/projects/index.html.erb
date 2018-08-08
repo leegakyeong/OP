@@ -1,7 +1,7 @@
 <br>
 <h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
-<div class="ui stackable">
+<div class="ui stackable", id="this_form">
   <form action='/search' method='POST'>
     <div class="ui input huge fluid action">
       <input type='search' name='keyword'/>
@@ -80,5 +80,7 @@
       $("#filter-board").css("visibility") == "hidden" ? $("#filter-board").css("visibility", "visible") : $("#filter-board").css("visibility", "hidden");
     })
   })
+
+  document.getElementById("this_form").style.visibility = 'none';
 </script>
 

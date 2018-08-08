@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController 
-    before_action :set_project, only: [:show, :edit, :update, :destroy, :apply, :cancel_apply, :accept, :decline, :kick_user]
+    before_action :set_project, only: [:show, :edit, :update, :destroy, :apply, :cancel_apply, :accept, :decline, :kick_user, :like]
     before_action :authenticate_user!, except: [:show, :index, :search]
 
     def index
@@ -28,32 +28,19 @@ class ProjectsController < ApplicationController
 
     def search
         keyword = params[:keyword]
-        maxMember = params[:maxMember]
-        isKorean = params[:isKorean]
-        isOnline = params[:isOnline]
-        @results = []
+        maxMember = params[:maxMember].to_i
+        isKorean = params[:isKorean] == "true" if params[:isKorean].present?
+        isOnline = params[:isOnline] == "true" if params[:isOnline].present?
+        admin = params[:admin]
 
-        Project.all.each do |p|
-            if p.title.include? keyword or p.admin.name.include? keyword # 왜 or 말고 ||는 안 됨? 
-                if p.maxMember <= maxMember.to_i
-                    if isKorean and isOnline
-                        if p.isKorean.to_s == isKorean and p.isOnline.to_s == isOnline
-                            @results.push(p)
-                        end
-                    elsif isKorean
-                        if p.isKorean.to_s == isKorean
-                            @results.push(p)
-                        end
-                    elsif isOnline
-                        if p.isOnline.to_s == isOnline
-                            @results.push(p)
-                        end
-                    else
-                        @results.push(p)
-                    end
-                end
-            end
-        end
+        @results = Project.order(updated_at: :desc)
+
+        # search_keyword: search for projects which include the keyword in [title, description, tag]
+        @results = @results.search_keyword(keyword) if keyword.present?
+        @results = @results.where("maxMember <= ?", maxMember) if maxMember.present?
+        @results = @results.where(isKorean: isKorean) unless isKorean.nil?
+        @results = @results.where(isOnline: isOnline) unless isOnline.nil?
+        @results = @results.where("admin.name like ?", "%#{admin}%") if admin.present?
     end
     
     def show
@@ -147,7 +134,7 @@ class ProjectsController < ApplicationController
             like.destroy_all
         end
 
-        redirect_to action: 'show'
+        redirect_to @project
     end
 
     private
