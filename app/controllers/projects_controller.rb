@@ -27,20 +27,30 @@ class ProjectsController < ApplicationController
      end
 
     def search
-        keyword = params[:keyword]
-        maxMember = params[:maxMember].to_i
-        isKorean = params[:isKorean] == "true" if params[:isKorean].present?
-        isOnline = params[:isOnline] == "true" if params[:isOnline].present?
-        admin = params[:admin]
+        # search parameters
+        @keyword = params[:keyword]
+        @maxMember = params[:maxMember].to_i
+        @isKorean = params[:isKorean] == "true" if params[:isKorean].present?
+        @isOnline = params[:isOnline] == "true" if params[:isOnline].present?
+        @admin = params[:admin]
+        @skills = ["%"+params[:skill1]+"%", "%"+params[:skill2]+"%", "%"+params[:skill3]+"%"]
+        @skills = @skills.reject { |item| item == '%%' }
+        @tools = ["%"+params[:tool1]+"%", "%"+params[:tool2]+"%", "%"+params[:tool3]+"%"]
+        @tools = @tools.reject { |item| item == '%%' }
+        @isClosed = params[:isClosed] == "1" if !params[:isClosed].nil?
 
-        @results = Project.order(updated_at: :desc)
+        # all projects
+        @results = Project.order(created_at: :desc)
 
         # search_keyword: search for projects which include the keyword in [title, description, tag]
-        @results = @results.search_keyword(keyword) if keyword.present?
-        @results = @results.where("maxMember <= ?", maxMember) if maxMember.present?
-        @results = @results.where(isKorean: isKorean) unless isKorean.nil?
-        @results = @results.where(isOnline: isOnline) unless isOnline.nil?
-        @results = @results.where("admin.name like ?", "%#{admin}%") if admin.present?
+        @results = @results.search_keyword(@keyword) if @keyword.present?
+        @results = @results.where("maxMember <= ?", @maxMember) if @maxMember.present?
+        @results = @results.where(isKorean: @isKorean) unless @isKorean.nil?
+        @results = @results.where(isOnline: @isOnline) unless @isOnline.nil?
+        @results = @results.joins(:admin).where("name like ?", "%#{@admin}%") if @admin.present?
+        @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills)
+        @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools)
+        @results = @results.where(isClosed: @isClosed) if !@isClosed.nil?
     end
     
     def show
