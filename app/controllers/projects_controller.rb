@@ -45,11 +45,18 @@ class ProjectsController < ApplicationController
         @tools.push("%"+params[:tool3]+"%") if !params[:tool3].empty?
         
         @results = Project.all
+        keywordSearch = Project.all
 
-        # search
-        @results = @results.where("maxMember <= ?", @maxMember) if @maxMember.present?
-        @results = @results.where(isKorean: @isKorean) unless @isKorean.nil?
-        @results = @results.where(isOnline: @isOnline) unless @isOnline.nil?
+        # main search: search for projects which include the keyword in [title, description, tags]
+        # code @ models/project.rb
+        keywordSearch = keywordSearch.search_keyword(@keyword).distinct if @keyword.present?
+
+        # advanced search
+        if @maxMember != 20
+            @results = @results.where("maxMember <= ?", @maxMember)
+        end
+        @results = @results.where(isKorean: @isKorean) if !@isKorean.nil?
+        @results = @results.where(isOnline: @isOnline) if !@isOnline.nil?
         @results = @results.joins(:admin).where("name like ?", "%#{@admin}%") if @admin.present?
         @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills) unless @skills.empty?
         @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools) unless @tools.empty?
@@ -57,13 +64,19 @@ class ProjectsController < ApplicationController
 
         # user can decide whether to AND/OR keyword search results
         if params[:orAnd] == "OR"
-            keywordSearch = Project.all.search_keyword(@keyword) if @keyword.present?
-            @results = @results | keywordSearch
+            # if any of the advanced search fields is filled
+            if (@maxMember != 20) | !@isKorean.nil? | !@isOnline.nil? | @admin.present? | !@skills.empty? | !@tools.empty? | !@isClosed.nil?
+                # when the keyword search field is empty, search returns all projects by default.
+                # exception in the case where any of the advanced search fields is filled; keyword search result is considered empty.
+                if @keyword.present?
+                    @results = @results | keywordSearch
+                end
+            else
+                @results = keywordSearch
+            end
         else
-            @results = @results.search_keyword(@keyword) if @keyword.present?
+            @results = @results.search_keyword(@keyword).distinct if @keyword.present?
         end
-        # search_keyword: search for projects which include the keyword in [title, description, tags]
-        # code @ models/project.rb
     end
     
     def show
