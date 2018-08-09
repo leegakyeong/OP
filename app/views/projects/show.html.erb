@@ -1,123 +1,192 @@
-<h1><%= @project.id%>번 프로젝트입니다.</h1>
-<p>
-    <% if @project.liking_users.include? current_user%>
-        <%=link_to '좋아요 취소', "/projects/#{@project.id}/like" %>
-    <% else %>
-        <%= link_to '좋아요', "/projects/#{@project.id}/like" %>
-    <% end %>
-    좋아요 <%= @project.project_likes.distinct.count(:id)%>
-</p>
-
-
-<h2><%= @project.admin.email%>님이 생성하신 프로젝트입니다.</h2>
-
-<strong><p>프로젝트 제목:</strong> 
-    <% if @project.title.empty? || @project.title.nil? %>
-        -</p>
-    <% else %>
-        <%= @project.title %></p>
-    <% end %>
-    
-<strong><p>최대 인원:</strong> 
-    <% if @project.maxMember.nil? %>
-        -</p>
-    <% else %>
-        <%= @project.maxMember%></p>
-    <% end %>
-    
-<strong><p>필요한 스킬:</strong> 
-    <% if @project.skills.nil? %>
-        -</p>
-    <% else %>
-        <%= @project.skills%></p>
-    <% end %>
-
-<strong><p>프로젝트 설명:</strong> 
-    <% if @project.description.empty? || @project.description.nil? %>
-        -</p>
-    <% else %>
-        <%= @project.description%></p>
-    <% end %>
-
-<strong><p>사용 언어:</strong> 
-    <% if @project.isKorean == true %>
-        한국어
-    <% else %>
-        English
-    <% end %></p>
-
-<strong><p>협업 방식:</strong> 
-    <% if @project.isOnline == true %>
-        재택/온라인
-    <% else %>
-        오프라인 모임
-    <% end %></p>
-
-<strong><p>협업툴:</strong> 
-    <% if @project.tools.nil? %>
-        -</p>
-    <% else %>
-        <%= @project.tools%></p>
-    <% end %>
-
-<strong><p>첨부파일명:</strong> 
-    <% if @project.reference_file_name.nil? %>
-        -</p>
-    <% else %>
-        <%= link_to @project.reference_file_name, @project.reference.url(:original), download: @project.reference.original_filename %></p>
-    <% end %>
-
-<strong><p>태그:</strong></p>
-    <% @project.tags.nil? %>
-        -</p>
-    <% else %>
-        <% @project.tags.each do |tag|%>
-            <p><%= tag.content%></p>
-    <% end %>   
-
-<strong><p>함께하는 멤버:</strong>
-    <% if @project.members.empty? %>
-        없음</p>
-    <% else %>
-        <% @project.members.each do |member| %>
-            <a href='/user/<%= member.id %>'>
-            <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= member.name %></a>
-            <% if member == current_user %>(나)<% end %>
-            <% if @project.admin == current_user %>
-                <a href='/projects/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">멤버 없애기(?)</button></a>
-            <% end %></div>
-        <% end %></p>
-    <% end %>
-    
-<strong><p>완료 여부:</strong>
-    <% if @project.isClosed == true %>
-        완료
-    <% else %>
-        진행 중<% end %></p>
-
-<% if current_user != @project.admin %>
-    <% if !user_signed_in? %>
-    <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
-        <% if @project.appliers.include? current_user %>
-            <a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button type="button">멤버 신청 취소하기</button></a>
-        <% elsif @project.members.include? current_user %>
-        <% else %>
-            <a href="/projects/<%= @project.id%>/apply"><button type="button">멤버 신청하기</button></a>
-        <% end %>
-    <% end %>
-<% else %>
-    <strong><p>멤버 신청자: </strong>
-        <% if @project.appliers.empty? %>없음</p>
-        <% else %>
-            <% @project.appliers.each do |applier| %>
-                <a href='/user/<%= applier.id %>'>
-                <div style="border: 1px solid black; width: 500px; margin: 10px; padding: 5px;"><%= applier.name %></a>
-                  <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>'><button type="button">승인</button></a>
-                  <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE"><button type="button">거절</button></a>
+<p><%= @project.id%>번 프로젝트입니다.</p>
+<!-- ui grid!-->
+<div class="ui grid">
+    <div class="twelve wide column">
+        <div class="ui segment">
+            <% if @project.isClosed == true %><a class="ui red ribbon label">완료</a>
+            <% else %><a class="ui blue ribbon label">진행중 </a>
+            <% end %>
+            <!--제목!-->
+            <h1 class="ui center aligned header">
+                <% if @project.title.empty? || @project.title.nil? %>-
+                <% else %><%= @project.title %>
+                <% end %>
+            </h1>
+            <div style = "color: grey; text-align: center;">
+                <a href='/user/<%= @project.admin.id %>'><%= @project.admin.name %></a>님이 생성하신 프로젝트입니다
+            </div>
+            <div style = "text-align: center;">
+                <% if @project.description.empty? || @project.description.nil? %>-
+                <% else %><%= @project.description%></p>
+                <% end %>
+            </div>
+            <div>
+                <% if @project.tags.nil? %>-
+                <% else %>
+                    <% @project.tags.each do |tag|%>
+                        <a class="ui black label"><%= tag.content%></a>
+                    <% end %>
+                <% end %> 
+            </div>
+            <!--내용!-->   
+            <table class="ui very basic table">
+                <tbody>
+                    <tr>
+                    <td> 
+                        <strong>최대 인원</strong> 
+                        </td>
+                        <td>
+                            <% if @project.maxMember.nil? %>-
+                            <% else %><%= @project.maxMember%>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>언어</strong> 
+                        </td>
+                        <td>
+                            <% if @project.isKorean == true %>한국어
+                            <% else %>English
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>협업 방식</strong> 
+                        </td>
+                        <td>
+                            <% if @project.isOnline == true %>재택/온라인
+                            <% else %>오프라인 모임
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>필요한 스킬</strong></td>
+                        <td>
+                            <% if @project.skills.nil? %>-
+                            <% else %><%= @project.skills%>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>협업툴</strong></td>
+                        <td>
+                            <% if @project.tools.nil? %>-
+                            <% else %><%= @project.tools%>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>첨부파일</strong></td>
+                        <td>
+                            <% if @project.reference_file_name.nil? %>-
+                            <% else %>
+                                <%= link_to @project.reference_file_name, @project.reference.url(:original), download: @project.reference.original_filename %></p>
+                            <% end %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>        
+        </div>
+    </div>
+    <!--내용 오른쪽 segment!-->            
+    <div class="four wide column">
+        <div class = "ui segment">
+            <div class="ui center aligned red statistic">
+                <div class="value">
+                    <%= @project.project_likes.distinct.count(:id)%>
                 </div>
-            <% end %></p> 
+                <div class="label">
+                    likes
+                </div>
+            </div>
+            <div>
+            <strong>함께하는 멤버</strong>
+                <% if @project.members.empty? %>
+                    없음
+                <% else %>
+                    <table class = "ui very basic table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>E-mail</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @project.members.each do |member| %>
+                                <tr>
+                                    <td><a href='/user/<%= member.id %>'><%= member.name %></a></td>
+                                    <td><a href='/user/<%= member.id %>'><%= member.email %></a></td>
+                                    <% if member == current_user %><tr>(나)</tr><% end %>
+                                    <% if @project.admin == current_user %>
+                                        <td><a href='/projects/<%= @project.id%>/<%= member.id%>' data-method="DELETE"><button type="button">삭제</button></a></td>
+                                    <% end %>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% end %>
+            </div>
+            <br>
+            <div class = "ui buttons">
+                <!-- 좋아요 버튼!-->
+                <% if @project.liking_users.include? current_user%>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui red basic button"> 좋아요 취소 </button></a>
+                <% else %>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui blue basic button"> 좋아요</button></a>
+                <% end %>
+                <!--멤버신청 버튼!-->
+                <% if current_user != @project.admin %>
+                    <% if !user_signed_in? %>
+                    <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
+                        <% if @project.appliers.include? current_user %>
+                            <a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button">멤버 신청 취소하기</button></a>
+                        <% elsif @project.members.include? current_user %>
+                        <% else %>
+                            <a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button">멤버 신청하기</button></a>
+                        <% end %>
+                    <% end %>
+                <%end%>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sixteen wide column">
+        <!--현재유저가 어드민일 때!-->
+        <% if current_user == @project.admin %>
+            <div class="ui segment">
+                <h1 class="ui center aligned header">멤버 신청자</h1>
+                <div>
+                    <% if @project.appliers.empty? %>없음
+                    <% else %>
+                        <table class = "ui very basic table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>E-mail</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @project.appliers.each do |applier| %>
+                                    <tr>
+                                        <td><a href='/user/<%= applier.id %>'><%= applier.name %></a></td>
+                                        <td><a href='/user/<%= applier.id %>'><%=applier.email%></a></td>
+                                        <td>
+                                            <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>'>승인</a>
+                                            <a href='/projects/<%= @project.id%>/accept/<%= applier.id%>' data-method="DELETE">거절</a>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    <% end %>
+                </div>
+                <button type="button"><%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"} %></button>
+                <button type="button"><%= link_to "수정", edit_project_url(@project.id) %></button>
+            </div>
         <% end %>
-    <button type="button"><%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"} %></button>
-    <button type="button"><%= link_to "수정", edit_project_url(@project.id) %></button>
-<% end %>
-
+    </div>
+</div>
