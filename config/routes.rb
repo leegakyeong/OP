@@ -32,4 +32,7 @@ Rails.application.routes.draw do
 
   # search
   post '/search' => 'projects#search'
+
+  # project_like
+  get '/projects/:id/like' => 'projects#like'
 end
