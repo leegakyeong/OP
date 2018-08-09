@@ -21,15 +21,6 @@ ActiveRecord::Schema.define(version: 20180806062726) do
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_likes_on_project_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
-  end
-
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "project_id", null: false
