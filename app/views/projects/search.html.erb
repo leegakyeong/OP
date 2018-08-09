@@ -19,7 +19,8 @@
             <%= highlight "재택/온라인", "재택/온라인" %>
         <% else %>
             <%= highlight "오프라인 모임", "오프라인 모임" %>
-        <% end %></div>
+        <% end %>
+      </div>
     <% end %>
     <% if !@isKorean.nil? %>
       <div>사용 언어:
@@ -27,7 +28,8 @@
             <%= highlight "한국어", "한국어" %>
         <% else %>
             <%= highlight "English", "English" %>
-        <% end %></div>
+        <% end %>
+      </div>
     <% end %>
     <% if @skills != [] %>
       <div><%= highlight "필요한 스킬", "필요한 스킬" %>: <%= highlight r.skills, @skills %></div>
