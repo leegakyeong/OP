@@ -19,4 +19,6 @@ class Project < ActiveRecord::Base
 
     has_attached_file :reference
     do_not_validate_attachment_file_type :reference
+
+    scope :search_keyword, -> (keyword) { joins(:tags).where("content LIKE ? ", "%#{keyword}%") or where('title LIKE ? OR description LIKE ?', "%#{keyword}%", "%#{keyword}%")  }
 end

@@ -1,13 +1,49 @@
 <h1>Results</h1>
 <% @results.reverse.each_with_index do |r, i| %>
-  <div class="ui segment result" <% if i > 3 %> style="display: none;" <% end %>>
-    <div>제목: <%= r.title %></div>
-    <div>책임자: <%= r.admin.name %></div>
-    <div>설명: <%= r.description %></div>
+  <div class="ui segment result" <% if i > 4 %> style="display: none;" <% end %>>
+    <div>제목: <%= highlight r.title, @keyword %></div>
+    <div>책임자: <%= highlight r.admin.name, @admin %></div>
+    <div>상세설명: <%= highlight r.description, @keyword %></div>
+    <div>태그: 
+      <% r.tags.each_with_index do |tag, i| %>
+        <%= highlight tag.content, @keyword %>
+        <% if i != (r.tags.size - 1) %>, <% end %>
+      <% end %>
+    </div>
+    <% if @maxMember != 20 %>
+      <div>최대 인원: <%= highlight r.maxMember.to_s, r.maxMember.to_s %>명</div>
+    <% end %>
+    <% if !@isOnline.nil? && (@isOnline == r.isOnline) %>
+      <div>협업 방식:
+        <% if @isOnline %>
+            <%= highlight "재택/온라인", "재택/온라인" %>
+        <% elsif !@isOnline %>
+            <%= highlight "오프라인 모임", "오프라인 모임" %>
+        <% end %></div>
+    <% end %>
+    <% if !@isKorean.nil? && (@isKorean == r.isKorean) %>
+      <div>사용 언어:
+        <% if @isKorean %>
+            <%= highlight "한국어", "한국어" %>
+        <% elsif !@isKorean %>
+            <%= highlight "English", "English" %>
+        <% end %></div>
+    <% end %>
+    <% if @skills != [] %>
+      <div><%= highlight "필요한 스킬", "필요한 스킬" %>: <%= highlight r.skills, @skills %></div>
+    <% end %>
+    <% if @tools != [] %>
+      <div><%= highlight "도구", "도구" %>: <%= highlight r.tools, @tools %></div>
+    <% end %>
+    <% if @isClosed && r.isClosed %>
+      <div>마감 여부: <%= highlight "마감", "마감" %></div>
+    <% end %>
+
     <%= link_to "상세보기", r %>
   </div>
 <% end %>
-<div class="fluid ui button" id="show-results">전체보기</div>
+<!-- <div class="fluid ui button" id="show-results">전체보기</div> -->
+<p><%= link_to '메인 화면으로', projects_url %></p>
 
 <script>
   $(document).ready(function() {

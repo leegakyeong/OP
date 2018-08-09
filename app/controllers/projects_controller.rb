@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController 
-    before_action :set_project, only: [:show, :edit, :update, :destroy, :apply, :cancel_apply, :accept, :decline, :kick_user]
+    before_action :set_project, only: [:show, :edit, :update, :destroy, :apply, :cancel_apply, :accept, :decline, :kick_user, :like]
     before_action :authenticate_user!, except: [:show, :index, :search]
 
     def index
@@ -27,32 +27,55 @@ class ProjectsController < ApplicationController
      end
 
     def search
-        keyword = params[:keyword]
-        maxMember = params[:maxMember]
-        isKorean = params[:isKorean]
-        isOnline = params[:isOnline]
-        @results = []
+        # parameters
+        @keyword = params[:keyword]
+        @maxMember = params[:maxMember].to_i
+        @isKorean = params[:isKorean] == "true" if params[:isKorean].present?
+        @isOnline = params[:isOnline] == "true" if params[:isOnline].present?
+        @admin = params[:admin]
+        @isClosed = params[:isClosed] == "1" if !params[:isClosed].nil?
+        @tag = params[:tag]
+        @skills = []
+        @skills.push("%"+params[:skill1]+"%") if !params[:skill1].empty?
+        @skills.push("%"+params[:skill2]+"%") if !params[:skill2].empty?
+        @skills.push("%"+params[:skill3]+"%") if !params[:skill3].empty?
+        @tools = []
+        @tools.push("%"+params[:tool1]+"%") if !params[:tool1].empty?
+        @tools.push("%"+params[:tool2]+"%") if !params[:tool2].empty?
+        @tools.push("%"+params[:tool3]+"%") if !params[:tool3].empty?
+        
+        @results = Project.all
+        keywordSearch = Project.all
 
-        Project.all.each do |p|
-            if p.title.include? keyword or p.admin.name.include? keyword # 왜 or 말고 ||는 안 됨? 
-                if p.maxMember <= maxMember.to_i
-                    if isKorean and isOnline
-                        if p.isKorean.to_s == isKorean and p.isOnline.to_s == isOnline
-                            @results.push(p)
-                        end
-                    elsif isKorean
-                        if p.isKorean.to_s == isKorean
-                            @results.push(p)
-                        end
-                    elsif isOnline
-                        if p.isOnline.to_s == isOnline
-                            @results.push(p)
-                        end
-                    else
-                        @results.push(p)
-                    end
+        # main search: search for projects which include the keyword in [title, description, tags]
+        # code @ models/project.rb
+        keywordSearch = keywordSearch.search_keyword(@keyword).distinct if @keyword.present?
+
+        # advanced search
+        if @maxMember != 20
+            @results = @results.where("maxMember <= ?", @maxMember)
+        end
+        @results = @results.where(isKorean: @isKorean) if !@isKorean.nil?
+        @results = @results.where(isOnline: @isOnline) if !@isOnline.nil?
+        @results = @results.joins(:admin).where("name like ?", "%#{@admin}%") if @admin.present?
+        @results = @results.where((['skills LIKE ?'] * @skills.size).join(' OR '), *@skills) unless @skills.empty?
+        @results = @results.where((['tools LIKE ?'] * @tools.size).join(' OR '), *@tools) unless @tools.empty?
+        @results = @results.where(isClosed: @isClosed) if !@isClosed.nil?
+
+        # user can decide whether to AND/OR keyword search results
+        if params[:orAnd] == "OR"
+            # if any of the advanced search fields is filled
+            if (@maxMember != 20) | !@isKorean.nil? | !@isOnline.nil? | @admin.present? | !@skills.empty? | !@tools.empty? | !@isClosed.nil?
+                # when the keyword search field is empty, search returns all projects by default.
+                # exception in the case where any of the advanced search fields is filled; keyword search result is considered empty.
+                if @keyword.present?
+                    @results = @results | keywordSearch
                 end
+            else
+                @results = keywordSearch
             end
+        else
+            @results = @results.search_keyword(@keyword).distinct if @keyword.present?
         end
     end
     
@@ -147,7 +170,7 @@ class ProjectsController < ApplicationController
             like.destroy_all
         end
 
-        redirect_to action: 'show'
+        redirect_to @project
     end
 
     private

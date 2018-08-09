@@ -1,10 +1,10 @@
 <br>
 <h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
-<div class="ui stackable">
-  <form action='/search' method='POST'>
+<div class="ui stackable", id="this_form">
+  <%= form_tag search_url, method: :post %>
     <div class="ui input huge fluid action">
-      <input type='search' name='keyword'/>
+      <%= search_field_tag 'keyword' %>
       <button class="ui icon button huge">
         <i class="search icon"></i>
       </button>
@@ -16,10 +16,19 @@
       <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
       # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
       <div class="filter-board-attribute">
-        <label>최대 인원(1~20): </label>
-        <input type="range" name="maxMember" min="1" max="20" value="20">
+        <%= label_tag "검색 방식" %>
+        <%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]) %>
       </div>
       <div class="filter-board-attribute">
+        <%= label_tag "책임자 이름: " %>
+        <%= text_field_tag "admin" %>
+      </div>
+      <div class="filter-board-attribute">
+        <%= label_tag "최대 인원(1~20): " %>
+        <%= range_field_tag "maxMember", "20", min: 1, max: 20 %>
+      </div>
+      <div class="filter-board-attribute">
+        <%= label_tag "사용 언어: " %>
         <label>사용 언어: </label>
         <input type="radio" name="isKorean" value="true">한국어
         <input type="radio" name="isKorean" value="false">English
@@ -30,16 +39,20 @@
         <input type="radio" name="isOnline" value="false">오프라인 모임
       </div>
       <div class="filter-board-attribute">
-        <label>필요한 스킬: </label>
+        <label>스킬 (최대 3개 입력 가능): </label>
+        <%= text_field_tag "skill1" %>
+        <%= text_field_tag "skill2" %>
+        <%= text_field_tag "skill3" %>
       </div>
       <div class="filter-board-attribute">
-        <label>도구: </label>
+        <label>도구 (최대 3개 입력 가능): </label>
+        <%= text_field_tag "tool1" %>
+        <%= text_field_tag "tool2" %>
+        <%= text_field_tag "tool3" %>
       </div>
       <div class="filter-board-attribute">
         <label>모집 마감 여부: </label>
-      </div>
-      <div class="filter-board-attribute">
-        <label>태그: </label>
+        <%= check_box_tag "isClosed" %> 마감
       </div>
     </div>
   </form>
@@ -55,7 +68,8 @@
             <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
             <%= p.description %><br>
             <% p.tags.each do |tag| %>
-              <a class="project-tag"><%= tag.content %></a>
+              <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
             <% end %>
           </div>
         <% end %>
@@ -65,14 +79,15 @@
   
   <br>
   <h2>All Projects</h2>
-  <div id="all-projects-box">
-    <% @projects.reverse.each_with_index do |p, i| %>
+  <div id="featured-projects-box">
+    <% @projects.order(created_at: :desc).reverse.each_with_index do |p, i| %>
       <div class="ui segment">
         <%= link_to p.title, p, class: "project-title" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
         <%= p.description %><br>
         <% p.tags.each do |tag| %>
-          <a class="project-tag"><%= tag.content %></a>
+          <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
         <% end %>
       </div>
     <% end %>
@@ -87,5 +102,7 @@
       $("#filter-board").css("visibility") == "hidden" ? $("#filter-board").css("visibility", "visible") : $("#filter-board").css("visibility", "hidden");
     })
   })
+
+  document.getElementById("this_form").style.visibility = 'none';
 </script>
 
