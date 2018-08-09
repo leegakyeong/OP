@@ -13,19 +13,19 @@
     <% if @maxMember != 20 %>
       <div>최대 인원: <%= highlight r.maxMember.to_s, r.maxMember.to_s %>명</div>
     <% end %>
-    <% if !@isOnline.nil? %>
+    <% if !@isOnline.nil? && (@isOnline == r.isOnline) %>
       <div>협업 방식:
         <% if @isOnline %>
             <%= highlight "재택/온라인", "재택/온라인" %>
-        <% else %>
+        <% elsif !@isOnline %>
             <%= highlight "오프라인 모임", "오프라인 모임" %>
         <% end %></div>
     <% end %>
-    <% if !@isKorean.nil? %>
+    <% if !@isKorean.nil? && (@isKorean == r.isKorean) %>
       <div>사용 언어:
         <% if @isKorean %>
             <%= highlight "한국어", "한국어" %>
-        <% else %>
+        <% elsif !@isKorean %>
             <%= highlight "English", "English" %>
         <% end %></div>
     <% end %>
@@ -35,7 +35,7 @@
     <% if @tools != [] %>
       <div><%= highlight "도구", "도구" %>: <%= highlight r.tools, @tools %></div>
     <% end %>
-    <% if @isClosed %>
+    <% if @isClosed && r.isClosed %>
       <div>마감 여부: <%= highlight "마감", "마감" %></div>
     <% end %>
 
