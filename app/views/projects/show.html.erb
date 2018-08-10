@@ -1,4 +1,4 @@
-<p><%= @project.id%>번 프로젝트입니다.</p>
+<br>
 <!-- ui grid!-->
 <div class="ui grid">
     <div class="twelve wide column">
@@ -184,8 +184,6 @@
                         </table>
                     <% end %>
                 </div>
-                <button type="button"><%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"} %></button>
-                <button type="button"><%= link_to "수정", edit_project_url(@project.id) %></button>
             </div>
         <% end %>
     </div>
