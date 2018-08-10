@@ -42,6 +42,10 @@
       </div>
     <% end %>
 
+    <% if %r{/projects/\d}.match(request.fullpath) %> <!-- ==%r{\/projects\/\d\/} -->
+      <div>hello</div>
+    <% end %>
+
     <div class="ui main container">
       <%= yield %>
     </div>
