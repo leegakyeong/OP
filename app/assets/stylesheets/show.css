@@ -1,0 +1,6 @@
+.table {
+    table-layout: fixed ;
+}
+th, td{
+    text-align: center !important;
+}
