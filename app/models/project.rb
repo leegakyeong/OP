@@ -21,4 +21,7 @@ class Project < ActiveRecord::Base
     do_not_validate_attachment_file_type :reference
 
     scope :search_keyword, -> (keyword) { joins(:tags).where("content LIKE ? ", "%#{keyword}%") or where('title LIKE ? OR description LIKE ?', "%#{keyword}%", "%#{keyword}%")  }
+    
+    # project version control
+    has_many :project_versions
 end

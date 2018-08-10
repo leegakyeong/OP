@@ -42,8 +42,10 @@
       </div>
     <% end %>
 
-    <% if %r{/projects/\d}.match(request.fullpath) %> <!-- ==%r{\/projects\/\d\/} -->
-      <div>hello</div>
+    <% if %r{/projects/\d+}.match(request.fullpath) %> <!-- == %r{\/projects\/\d\/} -->
+      <div id="project-version-bar">
+        hello
+      </div>
     <% end %>
 
     <div class="ui main container">
