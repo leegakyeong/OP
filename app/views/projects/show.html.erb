@@ -199,6 +199,7 @@
         event.preventDefault();
         event.stopPropagation();
         const project_id = $(this).data("project-id");
+        
         $.ajax({
             type: "GET",
             dataType: "JSON",
@@ -211,15 +212,5 @@
             }
         })
         })
-    })
-
-    $("#ajax-apply").click(function(event) {
-        $("#ajax-apply.inner").replaceWith("<a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button"
-                                                            data-project-id="<%=@project.id%>">멤버 신청 취소하기</button></a>");
-    })
-
-    $("#ajax-cancel-apply").click(function(event) {
-        $("#ajax-cancel-apply.inner").replaceWith("<a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button" 
-                                                            data-project-id="<%=@project.id%>">멤버 신청하기</button></a>");
     })
 </script>

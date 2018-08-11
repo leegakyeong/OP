@@ -2,7 +2,7 @@
 <h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
 <div class="ui stackable", id="this_form">
-  <%= form_tag search_url, method: :post %>
+  <%= form_tag(search_url, method: :get) %>
     <div class="ui input huge fluid action">
       <%= search_field_tag 'keyword' %>
       <button class="ui icon button huge">
