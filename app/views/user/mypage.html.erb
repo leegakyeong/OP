@@ -1,27 +1,28 @@
 <br>
 <h2 style = "text-align: center;">나의 정보</h2>
 
-<div class = "ui form">
-  <div class = "two fields">
-      <div class="field">
-        <label>Name</label> 
-        <input type = "text" value = "<%= @user.name %>" name = "name" placeholder = "Name"> 
-      </div>
-      <div class="field">
-        <label>E-mail</label> 
-        <input type="text" value = "<%= @user.email %>" name = "email" placeholder = "E-mail"> 
-      </div>
-    </div>
-    <div class="field">
-      <label>Institution</label>  
-      <input type="text" value = "<%= @user.institution %>" name = "institution" placeholder = "Institution"> 
-    </div>
-    <div class="field">
-      <label>Research Interest(s)</label>  
-      <input type="text" value = "<%= @user.research_interests %>" name = "research_interests" placeholder = "Research Interest(s)"> 
-    </div>
-    <div class="field">
-      <label>Introduction</label>  
-      <input type="text" value = "<%= @user.introduction %>" name = "introduction" placeholder = "Introdution"> 
-    </div>
+<div class = "ui segment">
+  <table class="ui very basic table">
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td><strong>E-mail</strong></td>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td><strong>Institution</strong></td>
+      <td><%= @user.institution %></td>
+    </tr>
+    <tr>
+      <td><strong>Research Interest(s)</strong></td>
+      <td><%= @user.research_interests %></td>
+    </tr>
+    <tr>
+      <td><strong>Introduction</strong></td>
+      <td><%= @user.introduction %></td>
+    </tr>
+  </table>
+  <a href = "/mypage/edit"><button class= "ui fluid large button" style = "background-color: #f98d7a;">나의 정보 수정하기</button></a>
 </div>
