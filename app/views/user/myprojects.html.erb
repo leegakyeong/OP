@@ -1,0 +1,26 @@
+<br>
+<h2 class = "text-align: center;">My Projects</h2>
+
+<div class = "ui cards ui grid">
+  <% @my_project.each do |p| %>
+    <div class="four wide column">
+        <div class="ui card">
+          <div class = "content">
+            <div class = "header"><%= link_to p.title, p, class: "project-title" %></div>
+            <div class = "meta"><%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %></div>
+            <% if p.isClosed == true %><a class="ui red label">완료</a>
+            <% else %><a class="ui blue label">진행중</a>
+            <% end %></br>
+            <div class = "description"><%=p.description%></div>
+          </div>
+          <div class = "extra content">
+            <% p.tags.each do |tag| %>
+              <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+              :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  <% end %>
+</div>
+

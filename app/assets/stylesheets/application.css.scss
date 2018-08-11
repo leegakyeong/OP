@@ -52,3 +52,18 @@ body {
         color: $salami-d3;
     }
 }
+
+.ui.label{
+    .showpage{
+        text-align: center;
+    }
+    margin-left:0em;
+}
+.ui.blue.label{
+    margin-left:-1px;
+    margin-top: 3px;
+    
+}
+.ui.red.label{
+    margin-left:0em;
+}

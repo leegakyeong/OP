@@ -19,12 +19,12 @@
                 <% if @project.description.empty? || @project.description.nil? %>-
                 <% else %><%= @project.description%></p>
                 <% end %>
-            </div>
-            <div>
+            </div><br>
+            <div style = "text-align: center;">
                 <% if @project.tags.nil? %>-
                 <% else %>
                     <% @project.tags.each do |tag|%>
-                        <a class="ui black label"><%= tag.content%></a>
+                        <a class="ui label"><%= tag.content%></a>
                     <% end %>
                 <% end %> 
             </div>
@@ -94,7 +94,7 @@
     <div class="four wide column">
         <div class = "ui segment">
             <div class="ui center aligned red statistic">
-                <div class="value">
+                <div class="value" id="like-count">
                     <%= @project.project_likes.distinct.count(:id)%>
                 </div>
                 <div class="label">
@@ -133,19 +133,21 @@
             <div class = "ui buttons">
                 <!-- 좋아요 버튼!-->
                 <% if @project.liking_users.include? current_user%>
-                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui red basic button"> 좋아요 취소 </button></a>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui red basic button" id="ajax-like" data-project-id="<%=@project.id%>">좋아요 취소</button></a>
                 <% else %>
-                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui blue basic button"> 좋아요</button></a>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui blue basic button" id="ajax-like" data-project-id="<%=@project.id%>">좋아요</button></a>
                 <% end %>
                 <!--멤버신청 버튼!-->
                 <% if current_user != @project.admin %>
                     <% if !user_signed_in? %>
                     <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
                         <% if @project.appliers.include? current_user %>
-                            <a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button">멤버 신청 취소하기</button></a>
+                            <span id="ajax-apply"><a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button"
+                                                            data-project-id="<%=@project.id%>">멤버 신청 취소하기</button></a></span>
                         <% elsif @project.members.include? current_user %>
                         <% else %>
-                            <a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button">멤버 신청하기</button></a>
+                            <span id="ajax-cancel-apply"><a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button" 
+                                                            data-project-id="<%=@project.id%>">멤버 신청하기</button></a></span>
                         <% end %>
                     <% end %>
                 <%end%>
@@ -188,3 +190,27 @@
         <% end %>
     </div>
 </div>
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#ajax-like").click(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const project_id = $(this).data("project-id");
+        
+        $.ajax({
+            type: "GET",
+            dataType: "JSON",
+            url: "/projects/"+project_id+"/like",
+            data: {},
+            success: function(data){
+            $("#ajax-like").text() === "좋아요" ? $("#ajax-like").text("좋아요 취소") : $("#ajax-like").text('좋아요');
+            $("#ajax-like").attr("class") == "ui red basic button" ? $("#ajax-like").attr("class", "ui blue basic button") : $("#ajax-like").attr("class", "ui red basic button");
+            $("#ajax-like").text() === "좋아요" ? $("#like-count").text(Number($("#like-count").text())-1) : $("#like-count").text(Number($("#like-count").text())+1);
+            }
+        })
+        })
+    })
+</script>

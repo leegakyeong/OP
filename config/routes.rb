@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get '/mypage/edit' => 'user#edit'
   post '/mypage/edit' => 'user#update'
 
+  # my projects
+  get '/myprojects' => 'user#myprojects'
+
   # user information
   get '/user/:id' => 'projects#user'
 
@@ -31,7 +34,7 @@ Rails.application.routes.draw do
   delete '/projects/:id/:member_id' => 'projects#kick_user'
 
   # search
-  post '/search' => 'projects#search'
+  get '/search' => 'projects#search', as: :search
 
   # project_like
   get '/projects/:id/like' => 'projects#like'
