@@ -170,7 +170,8 @@ class ProjectsController < ApplicationController
             like.destroy_all
         end
 
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     private
