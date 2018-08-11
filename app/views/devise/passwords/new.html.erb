@@ -1,16 +1,23 @@
-<h2>Forgot your password?</h2>
+<div class = "ui center aligned grid">
+  <div class = "column" style = "max-width: 450px;">
+    <h2 class = "ui header" style = "margin-top: 1rem">Forgot your password?</h2>
+    <form class = "ui large form error">
+      <div class = "ui stacked segment" style = "padding: 1em 1em;">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+          <div class="field">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail"%>
+          </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <div class="actions">
+            <%= f.submit "Send me reset password instructions", class: "ui fluid large submit button", style: "background-color: #f98d7a;"%></br>
+          </div>
+        <% end %>
+        <a href="/users/sign_in"><button class = "ui fluid large button">Log in</button></a><br>
+        <a href="/users/sign_up"><button class = "ui fluid large button">Sign up</button></a>
+      </div>
+    </form>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
