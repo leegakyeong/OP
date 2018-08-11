@@ -17,16 +17,34 @@
 
 @import "variables";
 
+
+.ui.inverted.vertical.masthead.center.aligned.segment{
+    background-color: $salami-0;
+}
+
+.ui.fluid.input{
+    width: 60%;
+}
+
+.search_container{
+    display: flex;
+    justify-content: center;
+}
+
+.ui.segment.filter{
+    width: 60%;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+}
 body {
     background-color: $salami-l4 !important;
 }
 
 .ui {
     border: none !important;
-}
-
-.ui.main.container {
-    background-color: rgba(0,0,0,0);
 }
 
 .ui.attached.stackable.menu#bar {

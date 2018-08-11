@@ -5,8 +5,12 @@
     <div class = "ui stacked segment" style = "padding: 1em 1em;">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "ui large form error"}) do |f| %>
         <%= devise_error_messages! %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail", class: "field" %>
-
+          <div class = "field">
+            <%= f.text_field :name, autofocus: true, autocomplete: "email", placeholder: "Name" %>
+          </div>
+          <div class = "field">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail"%>
+          </div>
         <div class="field">
           <% if @minimum_password_length %>
             <div class="ui basic label">

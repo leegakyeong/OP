@@ -13,49 +13,128 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div class="ui attached stackable secondary menu" id="bar">
-      <div class="ui container">
-        <%= link_to "OP", root_url, class: "header item" %>
-        <div class="right menu">
-          <% if user_signed_in? %>
-            <%= link_to "새 프로젝트 만들기", new_project_url, class: "item" %>
-            <div class="item ui dropdown">
-              <i class="user icon ui red circular label"></i>
-              <div class="text"><%= current_user.name %></div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <a class="item" href="/mypage/edit">나의 정보 수정</a>
-                <a class="item" href="/myprojects">내 프로젝트</a>
-                <a class="item" href="/users/sign_out" data-method="DELETE">로그아웃</a>
+  <body class = "pushable">
+    <div class = "pusher">
+      <div class = "ui inverted vertical masthead center aligned segment">
+        <div class ="ui container">
+          <div class="ui large secondary inverted pointing menu">
+            <div class ="left item"><%= link_to "OP", root_url, class: "item"%></div>
+            <div class="right item">
+              <% if user_signed_in? %>
+                <%= link_to "새 프로젝트 만들기", new_project_url, class: "item" %>
+                <div class="item ui dropdown">
+                  <i class="user icon ui white circular label"></i>
+                  <div class="text"><%= current_user.name %></div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <a class="item" href="/mypage/edit">나의 정보 수정</a>
+                    <a class="item" href="/myprojects">내 프로젝트</a>
+                    <a class="item" href="/users/sign_out" data-method="DELETE">로그아웃</a>
+                  </div>
+                </div>
+              <% else %>
+              <%= link_to "Log in", signin_url, class: "item" %>
+              <%= link_to "Sign up", new_user_registration_url, class: "item" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="ui text container">
+          <h1 class="ui inverted header">Open Project</h1>
+          <h2>Find Interesting Projects!</h2><br>
+        </div>
+        <div class="ui stackable", id="this_form">
+          <%= form_tag(search_url, method: :get, class: "search") %>
+            <div class="ui input huge fluid action">
+              <%= search_field_tag 'keyword' %>
+              <button class="ui icon button huge">
+                <i class="search icon"></i>
+              </button>
+              <span id="filter" class="ui icon button huge">
+                <i class="filter icon"></i>
+              </span>
+            </div>
+            <div class = "search_container">
+            <div class="ui segment filter" id="filter-board" style="display: none;">
+              <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
+              # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
+              <div class = "ui form">
+                <table class="ui very basic table">
+                  <tr class="filter-board-attribute">
+                    <td><%= label_tag "검색 방식" %></td>
+                      <td><%= select_tag :orAnd, options_for_select([["OR", "OR", {class: "item"}], ["AND", "AND", {class: "item"}]]), class: "ui dropdown" %></td>
+                      <td><%= label_tag "책임자 이름" %></td>
+                      <td><%= text_field_tag "admin", nil, class: "field" %></td>
+                  </tr>
+                  <tr class="filter-board-attribute">
+                    <td><%= label_tag "최대 인원(1~20)" %></td>
+                    <td><%= number_field_tag "maxMember", "20", min: 1, max: 20 %></td>
+                    <td><%= label_tag "사용 언어" %></td>
+                    <td>
+                      <div class = "field">
+                        <div class = "ui radio checkbox">
+                          <input type="radio" name="isKorean" value="true">
+                          <label>한국어</label>
+                        </div>
+                      </div>
+                      <div class = "field">
+                        <div class = "ui radio checkbox">
+                          <input type="radio" name="isKorean" value="false">
+                          <label>English</label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="filter-board-attribute">
+                    <td><label>협업 방식</label></td>
+                    <td>
+                      <div class = "field">
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="isOnline" value="true">
+                        <label>재택/온라인</label>
+                        </div>
+                      </div>
+                      <div class = "field">
+                        <div class = "ui radio checkbox">
+                          <input type="radio" name="isOnline" value="false">
+                          <label>오프라인 모임</label>
+                        </div>
+                      </div>
+                    </td>
+                    <td><label>모집 마감 여부</label></td>
+                    <td>
+                      <div class = "ui checkbox">
+                        <%= check_box_tag "isClosed" %>
+                        <label>마감</label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="filter-board-attribute">
+                    <td><label>스킬 (최대 3개 입력 가능)</label></td>
+                    <td>
+                      <%= text_field_tag "skill1" %>
+                      <%= text_field_tag "skill2" %>
+                      <%= text_field_tag "skill3" %>
+                    </td>
+                    <td><label>도구 (최대 3개 입력 가능)</label></td>
+                    <td>
+                      <%= text_field_tag "tool1" %>
+                      <%= text_field_tag "tool2" %>
+                      <%= text_field_tag "tool3" %>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
-          <% else %>
-            <%= link_to "로그인", signin_url, class: "item" %>
-            <%= link_to "회원가입", new_user_registration_url, class: "item" %>
-          <% end %>
+            </div>
+          </form>
         </div>
+        <br>
+      </div>
+      <div class="ui main container">
+        <%= yield %>
       </div>
     </div>
-
-    <% if request.fullpath.start_with? '/projects/' %>
-      <div class="ui attached stackable menu" id="project-bar">
-        <div class="ui container">
-          <div class="item">프로젝트 메뉴 바 자리!</div>
-          <% if user_signed_in? and @project.admin == current_user %>
-            <%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"}, class: "item" %>
-            <%= link_to "수정", edit_project_url(@project.id), class: "item" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <%# if  %>
-
-    <div class="ui main container">
-      <%= yield %>
-    </div>
-    <!--여기 색깔이 왜 이렇게 될까-->
     <script>
       $(".ui.dropdown").dropdown();
     </script>
