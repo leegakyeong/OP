@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
     def index
         @projects = Project.all
-        @projects_bypage = Project.page params[:page]
+        @projects_bypage = @projects.order('created_at DESC').page params[:page]
     end  
 
     def new
@@ -113,7 +113,8 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         Application.create(application_hash)
     
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     def cancel_apply
@@ -121,7 +122,8 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
         
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     def user
@@ -142,7 +144,8 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
     
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     def decline
@@ -150,7 +153,8 @@ class ProjectsController < ApplicationController
         application = Application.where(application_hash)
         application.destroy_all
 
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     def kick_user
@@ -158,7 +162,8 @@ class ProjectsController < ApplicationController
         membership = Membership.where(membership_hash)
         membership.destroy_all
         
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     def like
@@ -170,7 +175,8 @@ class ProjectsController < ApplicationController
             like.destroy_all
         end
 
-        redirect_to @project
+        # redirect_to @project
+        render json: {}
     end
 
     private

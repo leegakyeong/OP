@@ -94,7 +94,7 @@
   <br>
   <h2>All Projects</h2>
   <div id="featured-projects-box">
-    <% @projects_bypage.order(created_at: :desc).reverse.each_with_index do |p, i| %>
+    <% @projects_bypage.each_with_index do |p, i| %>
       <div class="ui segment">
         <%= link_to p.title, p, class: "project-title ui header" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
@@ -114,9 +114,3 @@
   $(document).ready(function() {
     $("#filter").on('click', function() {
       $("#filter-board").toggle();
-      // $("#filter-board").css("visibility") == "hidden" ? $("#filter-board").css("visibility", "visible") : $("#filter-board").css("visibility", "hidden");
-    })
-  })
-
-  document.getElementById("this_form").style.visibility = 'none';
-</script>
