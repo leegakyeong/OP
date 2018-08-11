@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <div class="ui attached stackable menu" id="bar">
+    <div class="ui attached stackable secondary menu" id="bar">
       <div class="ui container">
         <%= link_to "OP", root_url, class: "header item" %>
         <div class="right menu">
@@ -35,12 +35,14 @@
         <div class="ui container">
           <div class="item">프로젝트 메뉴 바 자리!</div>
           <% if user_signed_in? and @project.admin == current_user %>
-            <a class="item" href="/project/<%=@project.id%>/edit">수정</a>
-            <a class="item" href="/project/<%=@project.id%>" data-method="DELETE">삭제</a>
+            <%= link_to "삭제", @project, method: :delete, data: {confirm: "삭제하시겠습니까?"}, class: "item" %>
+            <%= link_to "수정", edit_project_url(@project.id), class: "item" %>
           <% end %>
         </div>
       </div>
     <% end %>
+
+    <%# if  %>
 
     <div class="ui main container">
       <%= yield %>
