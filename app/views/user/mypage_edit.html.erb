@@ -1,25 +1,28 @@
-<h1>My Information Edit Page</h1>
+<br>
+<h2 style = "text-align: center;">나의 정보 수정</h2>
 
 <form class="ui form" action='/mypage/edit' method='POST'>
-	<div class="field">
-		<p>Name</p> 
-		<input type = "text" value = "<%= @user.name %>" name = "name"> 
+	<div class = "two fields">
+		<div class="field">
+			<label>Name</label> 
+			<input type = "text" value = "<%= @user.name %>" name = "name" placeholder = "Name"> 
+		</div>
+		<div class="field">
+			<label>E-mail</label> 
+			<input type="text" value = "<%= @user.email %>" name = "email" placeholder = "E-mail"> 
+		</div>
 	</div>
 	<div class="field">
-		<p>Institution</p>  
-		<input type="text" value = "<%= @user.institution %>" name = "institution"> 
+		<label>Institution</label>  
+		<input type="text" value = "<%= @user.institution %>" name = "institution" placeholder = "Institution"> 
 	</div>
 	<div class="field">
-		<p>Research Interest(s)</p>  
-		<input type="text" value = "<%= @user.research_interests %>" name = "research_interests"> 
+		<label>Research Interest(s)</label>  
+		<input type="text" value = "<%= @user.research_interests %>" name = "research_interests" placeholder = "Research Interest(s)"> 
 	</div>
 	<div class="field">
-		<p>E-mail</p> 
-		<input type="text" value = "<%= @user.email %>" name = "email"> 
+		<label>Introduction</label>  
+		<input type="text" value = "<%= @user.introduction %>" name = "introduction" placeholder = "Introdution"> 
 	</div>
-	<div class="field">
-		<p>Introduction</p>  
-		<input type="text" value = "<%= @user.introduction %>" name = "introduction"> 
-	</div>
-	<button>Done</button>
+	<button class= "ui fluid large button" style = "background-color: #f98d7a;">저장하기</button>
 </form>
