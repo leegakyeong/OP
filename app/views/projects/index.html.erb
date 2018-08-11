@@ -2,7 +2,7 @@
 <h1 class="ui center aligned header">흥미로운 프로젝트를 찾아 보세요!</h1>
 
 <div class="ui stackable", id="this_form">
-  <%= form_tag search_url, method: :post %>
+  <%= form_tag(search_url, method: :get) %>
     <div class="ui input huge fluid action">
       <%= search_field_tag 'keyword' %>
       <button class="ui icon button huge">
@@ -18,10 +18,10 @@
       <div class = "ui form">
         <table class="ui very basic table">
           <tr class="filter-board-attribute">
-            <td><%= label_tag "검색 방식"%></td>
-            <td><%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]), {class: "ui dropdown"} %></td>
-            <td><%= label_tag "책임자 이름" %></td>
-            <td><%= text_field_tag "admin", nil, class: "field" %></td>
+            <td><%= label_tag "검색 방식" %></td>
+              <td><%= select_tag :orAnd, options_for_select([["OR", "OR", {class: "item"}], ["AND", "AND", {class: "item"}]]), class: "ui dropdown" %></td>
+              <td><%= label_tag "책임자 이름" %></td>
+              <td><%= text_field_tag "admin", nil, class: "field" %></td>
           </tr>
           <tr class="filter-board-attribute">
             <td><%= label_tag "최대 인원(1~20)" %></td>
