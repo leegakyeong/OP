@@ -40,13 +40,15 @@ body {
 .ui.segment {
     a.project-title {
         color: $salami-d3;
-        font-weight: bold;
     }
     a.project-admin {
-        color: $salami-d2;
+        color: rgba(0, 0, 0, 0.4);
     }
-    a.project-tag {
-        color: $salami-d1;
-        background-color: $salami-l3;
+}
+
+.ui.card {
+    height:100%;
+    a.project-title {
+        color: $salami-d3;
     }
 }

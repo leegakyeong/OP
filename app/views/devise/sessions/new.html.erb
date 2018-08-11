@@ -2,30 +2,25 @@
   <div class = "column" style = "max-width: 450px;">
     <h2 class = "ui header" style = "margin-top: 1rem">Log in</h2>
 
-    <form class = "ui large form">
-      <div class = "ui stacked segment" style = "padding: 1em 1em;">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail" %>
-          </div>
+    <div class = "ui stacked segment" style = "padding: 1em 1em;">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "ui large form error"}) do |f| %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui field", placeholder: "E-mail"%>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "ui field" %>
 
+        <% if devise_mapping.rememberable? -%>
           <div class="field">
-            <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
-          </div>
-
-          <% if devise_mapping.rememberable? -%>
-            <div class="field">
-              <div class = "ui checkbox">
-                <%= f.check_box :remember_me%>
-                <label>Remember me</label>
-              </div>
+            <div class = "ui checkbox">
+              <%= f.check_box :remember_me%>
+              <label>Remember me</label>
             </div>
-          <% end %>
-          <%= f.submit "Log in", class: "ui fluid large submit button", style: "background-color: #f98d7a;"%><br>
+          </div>
         <% end %>
-        <a href="/users/sign_up"><button class = "ui fluid large button">Sign up</button></a><br>
-        <a href="/users/password/new"><button class = "ui fluid large button">Forgot your password?</button></a>
-      </div>
-    </form>
+        <div class="actions">
+          <%= f.submit "Log in", class: "ui fluid large button", style: "background-color: #f98d7a;"%>
+        </div><br>
+      <% end %>
+      <a href="/users/sign_up"><button class = "ui fluid large button">Sign up</button></a><br>
+      <a href="/users/password/new"><button class = "ui fluid large button">Forgot your password?</button></a>
+    </div>
   </div>
 </div>
