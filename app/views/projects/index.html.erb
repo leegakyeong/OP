@@ -19,9 +19,9 @@
         <table class="ui very basic table">
           <tr class="filter-board-attribute">
             <td><%= label_tag "검색 방식" %></td>
-            <td><%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]), class: "ui dropdown" %></td>
-            <td><%= label_tag "책임자 이름" %></td>
-            <td><%= text_field_tag "admin", nil, class: "field" %></td>
+              <td><%= select_tag :orAnd, options_for_select([["OR", "OR", {class: "item"}], ["AND", "AND", {class: "item"}]]), class: "ui dropdown" %></td>
+              <td><%= label_tag "책임자 이름" %></td>
+              <td><%= text_field_tag "admin", nil, class: "field" %></td>
           </tr>
           <tr class="filter-board-attribute">
             <td><%= label_tag "최대 인원(1~20)" %></td>

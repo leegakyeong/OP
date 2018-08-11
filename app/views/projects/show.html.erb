@@ -142,12 +142,12 @@
                     <% if !user_signed_in? %>
                     <% elsif Membership.where(project_id: @project.id, user_id: current_user.id).empty? %>
                         <% if @project.appliers.include? current_user %>
-                            <a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button"
-                                                            id="ajax-apply" data-project-id="<%=@project.id%>">멤버 신청 취소하기</button></a>
+                            <span id="ajax-apply"><a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button"
+                                                            data-project-id="<%=@project.id%>">멤버 신청 취소하기</button></a></span>
                         <% elsif @project.members.include? current_user %>
                         <% else %>
-                            <a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button" 
-                                                            id="ajax-cancel-apply" data-project-id="<%=@project.id%>">멤버 신청하기</button></a>
+                            <span id="ajax-cancel-apply"><a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button" 
+                                                            data-project-id="<%=@project.id%>">멤버 신청하기</button></a></span>
                         <% end %>
                     <% end %>
                 <%end%>
@@ -191,23 +191,35 @@
     </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    $("#ajax-like").click(function(event) {
-	  event.preventDefault();
-      event.stopPropagation();
-	  const project_id = $(this).data("project-id");
 
-	  $.ajax({
-		type: "GET",
-		dataType: "JSON",
-		url: "/projects/"+project_id+"/like",
-		data: {},
-		success: function(data){
-		  $("#ajax-like").text() === "좋아요" ? $("#ajax-like").text("좋아요 취소") : $("#ajax-like").text('좋아요');
-		  $("#ajax-like").attr("class") == "ui red basic button" ? $("#ajax-like").attr("class", "ui blue basic button") : $("#ajax-like").attr("class", "ui red basic button");
-		  $("#ajax-like").text() === "좋아요" ? $("#like-count").text(Number($("#like-count").text())-1) : $("#like-count").text(Number($("#like-count").text())+1);
-		}
-	  })
-	})
+
+<script>
+    $(document).ready(function() {
+        $("#ajax-like").click(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const project_id = $(this).data("project-id");
+        $.ajax({
+            type: "GET",
+            dataType: "JSON",
+            url: "/projects/"+project_id+"/like",
+            data: {},
+            success: function(data){
+            $("#ajax-like").text() === "좋아요" ? $("#ajax-like").text("좋아요 취소") : $("#ajax-like").text('좋아요');
+            $("#ajax-like").attr("class") == "ui red basic button" ? $("#ajax-like").attr("class", "ui blue basic button") : $("#ajax-like").attr("class", "ui red basic button");
+            $("#ajax-like").text() === "좋아요" ? $("#like-count").text(Number($("#like-count").text())-1) : $("#like-count").text(Number($("#like-count").text())+1);
+            }
+        })
+        })
+    })
+
+    $("#ajax-apply").click(function(event) {
+        $("#ajax-apply.inner").replaceWith("<a href="/projects/<%= @project.id%>/apply" data-method="DELETE"><button class = "ui red button"
+                                                            data-project-id="<%=@project.id%>">멤버 신청 취소하기</button></a>");
+    })
+
+    $("#ajax-cancel-apply").click(function(event) {
+        $("#ajax-cancel-apply.inner").replaceWith("<a href="/projects/<%= @project.id%>/apply"><button class = "ui blue button" 
+                                                            data-project-id="<%=@project.id%>">멤버 신청하기</button></a>");
+    })
 </script>
