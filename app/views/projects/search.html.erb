@@ -1,18 +1,10 @@
 <br>
 <h1>검색 결과</h1>
 <% @results.reverse.each_with_index do |r, i| %>
-  <div class="ui segment result" <% if i > 4 %> style="display: none;" <% end %>>
+  <div class="ui segment result" <% if i > 3 %> style="display: none;" <% end %>>
     <%= link_to highlight(r.title, @keyword), r, class: "project-title ui header" %><br>
     <%= link_to highlight(r.admin.name, @admin), "user/#{r.admin.id}", class: "project-admin" %><br>
     <%= highlight r.description, @keyword %><br><br>
-    <% if r.isClosed == true %><a class="ui red label">완료</a>
-    <% else %><a class="ui blue label">진행중</a>
-    <% end %><br>
-    <%= r.description %><br><br>
-    <% r.tags.each do |tag| %>
-      <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-        :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
-    <% end %>
     <% if @maxMember != 20 %>
       <div>최대 인원: <%= highlight r.maxMember.to_s, r.maxMember.to_s %>명</div>
     <% end %>
@@ -43,9 +35,18 @@
     <% if @isClosed && r.isClosed %>
       <div>마감 여부: <%= highlight "마감", "마감" %></div>
     <% end %>
+    <% if r.isClosed == true %><a class="ui red label">완료</a>
+    <% else %><a class="ui blue label">진행중</a>
+    <% end %><br><br>
+    <% r.tags.each do |tag| %>
+      <%= link_to highlight(tag.content, @keyword), search_url(:keyword => tag.content, :maxMember => "20", 
+        :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
+    <% end %>
   </div>
 <% end %>
-<div class="fluid ui button" id="show-results">전체보기</div>
+<% if @results.size > 3 %>
+  <div class="fluid ui button" id="show-results">전체보기</div>
+<% end %>
 
 <script>
   $(document).ready(function() {

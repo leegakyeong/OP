@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   delete '/projects/:id/:member_id' => 'projects#kick_user'
 
   # search
-  post '/search' => 'projects#search'
+  get '/search' => 'projects#search', as: :search
 
   # project_like
   get '/projects/:id/like' => 'projects#like'
