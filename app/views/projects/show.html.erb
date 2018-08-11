@@ -94,7 +94,7 @@
     <div class="four wide column">
         <div class = "ui segment">
             <div class="ui center aligned red statistic">
-                <div class="value">
+                <div class="value" id="like-count">
                     <%= @project.project_likes.distinct.count(:id)%>
                 </div>
                 <div class="label">
@@ -133,9 +133,9 @@
             <div class = "ui buttons">
                 <!-- 좋아요 버튼!-->
                 <% if @project.liking_users.include? current_user%>
-                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui red basic button"> 좋아요 취소 </button></a>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui red basic button" id="ajax-like" data-project-id="<%=@project.id%>">좋아요 취소</button></a>
                 <% else %>
-                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui blue basic button"> 좋아요</button></a>
+                    <a href = "/projects/<%=@project.id%>/like"><button class = "ui blue basic button" id="ajax-like" data-project-id="<%=@project.id%>">좋아요</button></a>
                 <% end %>
                 <!--멤버신청 버튼!-->
                 <% if current_user != @project.admin %>
@@ -188,3 +188,25 @@
         <% end %>
     </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+	$("#ajax-like").click(function(event) {
+	  event.preventDefault();
+      event.stopPropagation();
+	  const project_id = $(this).data("project-id");
+
+	  $.ajax({
+		type: "GET",
+		dataType: "JSON",
+		url: "/projects/"+project_id+"/like",
+		data: {},
+		success: function(data){
+		  $("#ajax-like").text() === "좋아요" ? $("#ajax-like").text("좋아요 취소") : $("#ajax-like").text('좋아요');
+		  $("#ajax-like").attr("class") == "ui red basic button" ? $("#ajax-like").attr("class", "ui blue basic button") : $("#ajax-like").attr("class", "ui red basic button");
+		  $("#ajax-like").text() === "좋아요" ? $("#like-count").text(Number($("#like-count").text())-1) : $("#like-count").text(Number($("#like-count").text())+1);
+		}
+	  })
+	})
+  })
+</script>
