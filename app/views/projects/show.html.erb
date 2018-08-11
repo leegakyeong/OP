@@ -19,12 +19,12 @@
                 <% if @project.description.empty? || @project.description.nil? %>-
                 <% else %><%= @project.description%></p>
                 <% end %>
-            </div>
-            <div>
+            </div><br>
+            <div style = "text-align: center;">
                 <% if @project.tags.nil? %>-
                 <% else %>
                     <% @project.tags.each do |tag|%>
-                        <a class="ui black label"><%= tag.content%></a>
+                        <a class="ui label"><%= tag.content%></a>
                     <% end %>
                 <% end %> 
             </div>

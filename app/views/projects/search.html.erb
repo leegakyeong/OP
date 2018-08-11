@@ -7,7 +7,8 @@
     <%= highlight r.description, @keyword %><br><br>
     <% if r.isClosed == true %><a class="ui red label">완료</a>
     <% else %><a class="ui blue label">진행중</a>
-    <% end %><br><br>
+    <% end %><br>
+    <%= r.description %><br><br>
     <% r.tags.each do |tag| %>
       <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
         :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>

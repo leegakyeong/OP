@@ -12,14 +12,14 @@
         <i class="filter icon"></i>
       </span>
     </div>
-    <div class="ui segment" id="filter-board" style="display: none;">
+    <div class="ui segment filter" id="filter-board" style="display: none;">
       <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
       # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
-      <div class = "ui form ">
+      <div class = "ui form">
         <table class="ui very basic table">
           <tr class="filter-board-attribute">
-            <td><%= label_tag "검색 방식" %></td>
-            <td><%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]), class: "ui dropdown" %></td>
+            <td><%= label_tag "검색 방식"%></td>
+            <td><%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]), {class: "ui dropdown"} %></td>
             <td><%= label_tag "책임자 이름" %></td>
             <td><%= text_field_tag "admin", nil, class: "field" %></td>
           </tr>
@@ -29,14 +29,14 @@
             <td><%= label_tag "사용 언어" %></td>
             <td>
               <div class = "field">
-                <div class = "ui checkbox">
-                  <input type="checkbox" name="isKorean" value="true">
+                <div class = "ui radio checkbox">
+                  <input type="radio" name="isKorean" value="true">
                   <label>한국어</label>
                 </div>
               </div>
               <div class = "field">
-                <div class = "ui checkbox">
-                  <input type="checkbox" name="isKorean" value="false">
+                <div class = "ui radio checkbox">
+                  <input type="radio" name="isKorean" value="false">
                   <label>English</label>
                 </div>
               </div>
@@ -46,14 +46,14 @@
             <td><label>협업 방식</label></td>
             <td>
               <div class = "field">
-                <div class="ui checkbox">
-                <input type="checkbox" name="isOnline" value="true">
+                <div class="ui radio checkbox">
+                <input type="radio" name="isOnline" value="true">
                 <label>재택/온라인</label>
                 </div>
               </div>
               <div class = "field">
-                <div class = "ui checkbox">
-                  <input type="checkbox" name="isOnline" value="false">
+                <div class = "ui radio checkbox">
+                  <input type="radio" name="isOnline" value="false">
                   <label>오프라인 모임</label>
                 </div>
               </div>
@@ -62,7 +62,7 @@
             <td>
               <div class = "ui checkbox">
                 <%= check_box_tag "isClosed" %>
-                <label>마감</
+                <label>마감</label>
               </div>
             </td>
           </tr>
@@ -95,6 +95,9 @@
           <div class = "content">
             <div class = "header"><%= link_to p.title, p, class: "project-title" %></div>
             <div class = "meta"><%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %></div>
+            <% if p.isClosed == true %><a class="ui red label">완료</a>
+            <% else %><a class="ui blue label">진행중</a>
+            <% end %></br>
             <div class = "description"><%=p.description%></div>
           </div>
           <div class = "extra content">
@@ -117,6 +120,9 @@
       <div class="ui segment">
         <%= link_to p.title, p, class: "project-title ui header" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
+        <% if p.isClosed == true %><a class="ui red label">완료</a>
+        <% else %><a class="ui blue label">진행중</a>
+        <% end %></br>
         <%= p.description %><br><br>
         <% p.tags.each do |tag| %>
           <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
