@@ -3,12 +3,9 @@
     <h2 class = "ui header" style = "margin-top: 1rem">Log in</h2>
 
     <div class = "ui stacked segment" style = "padding: 1em 1em;">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "ui large form error") do |f| %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui field", placeholder: "E-mail"%>
-
-        <div class="field">
-          <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
-        </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "ui large form error"}) do |f| %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "ui field", placeholder: "E-mail"%>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "ui field" %>
 
         <% if devise_mapping.rememberable? -%>
           <div class="field">

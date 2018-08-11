@@ -3,10 +3,9 @@
     <h2 class = "ui header" style = "margin-top: 1rem">Sign up</h2>
 
     <div class = "ui stacked segment" style = "padding: 1em 1em;">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "ui large form error") do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "ui large form error"}) do |f| %>
         <%= devise_error_messages! %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail", class: "field" %>
-
 
         <div class="field">
           <% if @minimum_password_length %>
