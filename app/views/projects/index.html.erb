@@ -5,55 +5,64 @@
   <%= form_tag search_url, method: :post %>
     <div class="ui input huge fluid action">
       <%= search_field_tag 'keyword' %>
-      <button class="ui icon button huge">
+      <button class="ui icon blue button huge">
         <i class="search icon"></i>
       </button>
-      <span id="filter" class="ui icon button huge">
+      <span id="filter" class="ui icon blue button huge">
         <i class="filter icon"></i>
       </span>
     </div>
-    <div class="ui segment" id="filter-board" style="position: fixed; visibility: hidden; z-index: 2;"> <!--display: none;-->
+    <div class="ui segment" id="filter-board" style="display: none;">
       <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
       # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
-      <div class="filter-board-attribute">
-        <%= label_tag "검색 방식" %>
-        <%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]) %>
-      </div>
-      <div class="filter-board-attribute">
-        <%= label_tag "책임자 이름: " %>
-        <%= text_field_tag "admin" %>
-      </div>
-      <div class="filter-board-attribute">
-        <%= label_tag "최대 인원(1~20): " %>
-        <%= range_field_tag "maxMember", "20", min: 1, max: 20 %>
-      </div>
-      <div class="filter-board-attribute">
-        <%= label_tag "사용 언어: " %>
-        <label>사용 언어: </label>
-        <input type="radio" name="isKorean" value="true">한국어
-        <input type="radio" name="isKorean" value="false">English
-      </div>
-      <div class="filter-board-attribute">
-        <label>협업 방식: </label>
-        <input type="radio" name="isOnline" value="true">재택/온라인
-        <input type="radio" name="isOnline" value="false">오프라인 모임
-      </div>
-      <div class="filter-board-attribute">
-        <label>스킬 (최대 3개 입력 가능): </label>
-        <%= text_field_tag "skill1" %>
-        <%= text_field_tag "skill2" %>
-        <%= text_field_tag "skill3" %>
-      </div>
-      <div class="filter-board-attribute">
-        <label>도구 (최대 3개 입력 가능): </label>
-        <%= text_field_tag "tool1" %>
-        <%= text_field_tag "tool2" %>
-        <%= text_field_tag "tool3" %>
-      </div>
-      <div class="filter-board-attribute">
-        <label>모집 마감 여부: </label>
-        <%= check_box_tag "isClosed" %> 마감
-      </div>
+      <table class="ui very basic table">
+        <tr class="filter-board-attribute">
+          <td><%= label_tag "검색 방식" %></td>
+          <td><%= select_tag :orAnd, options_for_select([["OR", "OR"], ["AND", "AND"]]) %></td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><%= label_tag "책임자 이름" %></td>
+          <td><%= text_field_tag "admin" %></td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><%= label_tag "최대 인원(1~20): " %></td>
+          <td><%= range_field_tag "maxMember", "20", min: 1, max: 20 %></td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><%= label_tag "사용 언어" %></td>
+          <td>
+            <input type="radio" name="isKorean" value="true">한국어
+            <input type="radio" name="isKorean" value="false">English
+          </td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><label>협업 방식</label></td>
+          <td>
+            <input type="radio" name="isOnline" value="true">재택/온라인
+            <input type="radio" name="isOnline" value="false">오프라인 모임
+          </td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><label>스킬 (최대 3개 입력 가능)</label></td>
+          <td>
+            <%= text_field_tag "skill1" %>
+            <%= text_field_tag "skill2" %>
+            <%= text_field_tag "skill3" %>
+          </td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><label>도구 (최대 3개 입력 가능)</label></td>
+          <td>
+            <%= text_field_tag "tool1" %>
+            <%= text_field_tag "tool2" %>
+            <%= text_field_tag "tool3" %>
+          </td>
+        </tr>
+        <tr class="filter-board-attribute">
+          <td><label>모집 마감 여부</label></td>
+          <td><%= check_box_tag "isClosed" %> 마감</td>
+        </tr>
+      </table>
     </div>
   </form>
 </div>
@@ -69,7 +78,7 @@
             <%= p.description %><br>
             <% p.tags.each do |tag| %>
               <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui black label", method: :post %>
             <% end %>
           </div>
         <% end %>
@@ -87,7 +96,7 @@
         <%= p.description %><br>
         <% p.tags.each do |tag| %>
           <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui black label", method: :post %>
         <% end %>
       </div>
     <% end %>
@@ -98,8 +107,8 @@
 <script>
   $(document).ready(function() {
     $("#filter").on('click', function() {
-      // $("#filter-board").toggle();
-      $("#filter-board").css("visibility") == "hidden" ? $("#filter-board").css("visibility", "visible") : $("#filter-board").css("visibility", "hidden");
+      $("#filter-board").toggle();
+      // $("#filter-board").css("visibility") == "hidden" ? $("#filter-board").css("visibility", "visible") : $("#filter-board").css("visibility", "hidden");
     })
   })
 

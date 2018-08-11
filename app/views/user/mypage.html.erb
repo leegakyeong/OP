@@ -21,3 +21,12 @@
 
 <p>여기에 참여하고 있는 프로젝트 목록이 들어가도 좋을 것 같네요.</p>
 
+<% comment do %>
+<%= link_to p.title, p, class: "project-title" %><br>
+            <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
+            <%= p.description %><br>
+            <% p.tags.each do |tag| %>
+              <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag", method: :post %>
+            <% end %>
+<% end %>
