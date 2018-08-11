@@ -19,4 +19,9 @@ class UserController < ApplicationController
         @user.save
         redirect_to action: 'mypage'
     end
+
+    def myprojects
+        @my_project = Project.where(admin_id: current_user.id)
+        render 'myprojects'
+    end
 end
