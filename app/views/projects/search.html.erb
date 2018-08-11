@@ -2,9 +2,9 @@
 <h1>검색 결과</h1>
 <% @results.reverse.each_with_index do |r, i| %>
   <div class="ui segment result" <% if i > 4 %> style="display: none;" <% end %>>
-    <%= link_to r.title, r, class: "project-title ui header" %><br>
-    <%= link_to r.admin.name, "user/#{r.admin.id}", class: "project-admin" %><br>
-    <%= r.description %><br><br>
+    <%= link_to highlight(r.title, @keyword), r, class: "project-title ui header" %><br>
+    <%= link_to highlight(r.admin.name, @admin), "user/#{r.admin.id}", class: "project-admin" %><br>
+    <%= highlight r.description, @keyword %><br><br>
     <% if r.isClosed == true %><a class="ui red label">완료</a>
     <% else %><a class="ui blue label">진행중</a>
     <% end %><br><br>

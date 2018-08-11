@@ -193,23 +193,6 @@
 
 <script>
   $(document).ready(function() {
-	$("#ajax-apply").click(function(event) {
-	  event.preventDefault();
-      event.stopPropagation();
-	  const project_id = $(this).data("project-id");
-
-	  $.ajax({
-		type: "GET",
-		dataType: "JSON",
-		url: "/projects/"+project_id+"/apply",
-		data: {},
-		success: function(data){
-            $("ajax-apply").toggle();
-            $("ajax-cancel-apply").toggle();
-		}
-	  })
-	})
-
     $("#ajax-like").click(function(event) {
 	  event.preventDefault();
       event.stopPropagation();
@@ -227,27 +210,4 @@
 		}
 	  })
 	})
-
-    $("#ajax-cancel-apply").click(function(event) {
-	  event.preventDefault();
-      event.stopPropagation();
-	  const project_id = $(this).data("project-id");
-
-	  $.ajax({
-		type: "DELETE",
-		dataType: "JSON",
-		url: "/projects/"+project_id+"/apply",
-		data: {},
-		success: function(data){
-            if ($("#ajax-apply").text() === "멤버 신청 취소하기")  {
-                $("#ajax-apply").text("멤버 신청하기");
-            }
-            if ($("#ajax-apply").attr("class") == "ui red basic button") {
-                $("#ajax-apply").attr("class", "ui blue basic button");
-            }
-		}
-	  })
-	})
-  })
-
 </script>
