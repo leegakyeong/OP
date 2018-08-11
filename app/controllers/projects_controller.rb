@@ -129,8 +129,9 @@ class ProjectsController < ApplicationController
     def user
         user_id = params[:id]
         @user = User.find(user_id)
-        @projects = Project.where(admin_id: user_id)
         @projects = Project.page params[:page]
+        @projects = @projects.where(admin_id: user_id)
+        # @projects = Project.page params[:page]
     end
 
     def accept
