@@ -67,42 +67,48 @@
   </form>
 </div>
 
-  <h2>Featured Projects</h2>
-  <div id="featured-projects-box">
-    <div class="ui grid">
-      <% @projects.sort_by{ |p| p.project_likes.where(created_at: Time.current.all_month).length }.reverse.each_with_index do |p, i| %>
-        <% if i < 4 %>
-          <div class="four wide column ui segment">
-            <%= link_to p.title, p, class: "project-title" %><br>
-            <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
-            <%= p.description %><br>
+<h2>Featured Projects</h2>
+<div class = "ui cards ui grid">
+  <% @projects.sort_by{ |p| p.project_likes.where(created_at: Time.current.all_month).length }.reverse.each_with_index do |p, i| %>
+    <div class="four wide column">
+      <% if i < 4 %>
+        <div class="ui card">
+          <div class = "content">
+            <div class = "header"><%= link_to p.title, p, class: "project-title" %></div>
+            <div class = "meta"><%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %></div>
+            <div class = "description"><%=p.description%></div>
+          </div>
+          <div class = "extra content">
             <% p.tags.each do |tag| %>
               <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui black label", method: :post %>
+              :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui label", style: "margin-bottom: 5px;", method: :post %>
             <% end %>
           </div>
-        <% end %>
+        </div>
       <% end %>
     </div>
-  </div>
+  <% end %>
+</div>
+
   
   <br>
   <h2>All Projects</h2>
   <div id="featured-projects-box">
     <% @projects_bypage.order(created_at: :desc).reverse.each_with_index do |p, i| %>
       <div class="ui segment">
-        <%= link_to p.title, p, class: "project-title" %><br>
+        <%= link_to p.title, p, class: "project-title ui header" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
-        <%= p.description %><br>
+        <%= p.description %><br><br>
         <% p.tags.each do |tag| %>
           <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui black label", method: :post %>
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "project-tag ui label",  method: :post %>
         <% end %>
       </div>
     <% end %>
   </div>
   <%= paginate @projects_bypage %>
   <br><br>
+
 
 <script>
   $(document).ready(function() {
@@ -114,4 +120,3 @@
 
   document.getElementById("this_form").style.visibility = 'none';
 </script>
-
