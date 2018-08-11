@@ -49,6 +49,16 @@ Project.create(
     isOnline: false, maxMember: 2,
     skills: 'c++, c, java, javascript, python, r', tools: 'powerpoint, latex, git',
     description: 'apple banana carrot deer electricity fairy')
+Project.create(
+    title: 'goat', admin_id: 3, isKorean: true, 
+    isOnline: true, maxMember: 16,
+    skills: 'sleeping, not sleeping', tools: 'jelly, haribo, coffee',
+    description: 'hello my name is jaewon kim. nice to meet you.')
+Project.create(
+    title: 'haribo', admin_id: 2, isKorean: true, 
+    isOnline: false, maxMember: 12,
+    skills: 'meong, singing, dancing, clubbing, sitting, chill', tools: 'airpod, mac, ipad, imac, macbook pro, keyboard, tv',
+    description: 'omg i don\'t know what to write here.')
 
 Project.find(1).tags << Tag.create(project_id: 1, content: "tag1")
 Project.find(1).tags << Tag.create(project_id: 1, content: "tag2")
@@ -71,19 +81,32 @@ Project.find(5).tags << Tag.create(project_id: 5, content: "electrical engineeri
 Project.find(6).tags << Tag.create(project_id: 6, content: "fairy tale")
 Project.find(6).tags << Tag.create(project_id: 6, content: "tinker bell")
 Project.find(6).tags << Tag.create(project_id: 6, content: "peter pan")
+Project.find(7).tags << Tag.create(project_id: 7, content: "despacito")
+Project.find(7).tags << Tag.create(project_id: 7, content: "gakyeong zzang")
+Project.find(8).tags << Tag.create(project_id: 8, content: "yuri zzang")
+Project.find(8).tags << Tag.create(project_id: 8, content: "gakyeong zzang")
+Project.find(8).tags << Tag.create(project_id: 8, content: "mutsa zzang")
 
 Application.create(user_id: 3, project_id: 1)
 Application.create(user_id: 3, project_id: 2)
 Application.create(user_id: 3, project_id: 4)
 Application.create(user_id: 2, project_id: 2)
 Application.create(user_id: 1, project_id: 5)
+Application.create(user_id: 1, project_id: 3)
+Application.create(user_id: 2, project_id: 1)
 Membership.create(user_id: 1, project_id: 4)
-Membership.create(user_id: 1, project_id: 3)
 Membership.create(user_id: 2, project_id: 5)
-Membership.create(user_id: 2, project_id: 1)
+Membership.create(user_id: 3, project_id: 3)
 ProjectLike.create(user_id: 1, project_id: 1)
 ProjectLike.create(user_id: 1, project_id: 2)
 ProjectLike.create(user_id: 2, project_id: 1)
-ProjectLike.create(user_id: 3, project_id: 1)
+ProjectLike.create(user_id: 2, project_id: 5)
 ProjectLike.create(user_id: 3, project_id: 2)
+ProjectLike.create(user_id: 3, project_id: 4)
+ProjectLike.create(user_id: 3, project_id: 8)
+ProjectLike.create(user_id: 1, project_id: 5)
+ProjectLike.create(user_id: 2, project_id: 3)
+ProjectLike.create(user_id: 2, project_id: 4)
+ProjectLike.create(user_id: 2, project_id: 5)
+
 
