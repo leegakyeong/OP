@@ -78,7 +78,7 @@ class ProjectsController < ApplicationController
             @results = @results.search_keyword(@keyword).distinct if @keyword.present?
         end
     end
-    
+
     def show
     end
 

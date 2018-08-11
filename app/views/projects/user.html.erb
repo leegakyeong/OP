@@ -1,25 +1,82 @@
 <br>
-<h1>신청자 정보</h1>
-<div><strong>이름: </strong><%= @user.name%></div>
-<div><strong>소속: </strong><%= @user.institution%></div>
-<div><strong>관심 연구 분야: </strong> <%= @user.research_interests%></div>
-<div><strong>이메일: </strong> <%= @user.email %></div>
-<div><strong>자기소개: </strong> <%= @user.introduction%></div>
+<h2 style = "text-align: center;"><%=@user.name%>님의 페이지입니다</h2>
 
-<h2><strong>제안한 프로젝트</strong></h2>
-<div>
-    <% @projects.each do |p| %>
-        <div><strong>제목:</strong> <%= link_to p.title, p %>
-    <% end %>
-    <%= paginate @projects %>
+<div class = "ui segment">
+  <table class="ui very basic table">
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td><strong>E-mail</strong></td>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <td><strong>Institution</strong></td>
+      <td><%= @user.institution %></td>
+    </tr>
+    <tr>
+      <td><strong>Research Interest(s)</strong></td>
+      <td><%= @user.research_interests %></td>
+    </tr>
+    <tr>
+      <td><strong>Introduction</strong></td>
+      <td><%= @user.introduction %></td>
+    </tr>
+  </table>
 </div>
 
-<h2><strong>참여 중인 프로젝트</strong></h2>
-<div>
+<br>
+<h2 class = "text-align: center;">제안한 프로젝트</h2>
+
+<div class = "ui cards ui grid">
+    <% Project.where(admin_id: @user.id).each do |p| %>
+        <div class="four wide column">
+            <div class="ui card">
+                <div class = "content">
+                    <div class = "header"><%= link_to p.title, p, class: "project-title" %></div>
+                    <div class = "meta"><%= link_to p.admin.name, "#{p.admin.id}", class: "project-admin" %></div>
+                    <% if p.isClosed == true %><a class="ui red label">완료</a>
+                    <% else %><a class="ui blue label">진행중</a>
+                    <% end %></br>
+                <div class = "description"><%=p.description%></div>
+                </div>
+                <div class = "extra content">
+                    <% p.tags.each do |tag| %>
+                    <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                    :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+
+<br>
+<h2 class = "text-align: center;">참여중인 프로젝트</h2>
+
+<div class = "ui cards ui grid">
     <% Membership.where(user_id: @user.id).each do |m| %>
-        <div><strong>제목:</strong> <%= link_to Project.find(m.project_id).title, project_url(m.project_id) %>
+        <div class="four wide column">
+            <div class="ui card">
+                <div class = "content">
+                    <div class = "header"><%= link_to Project.find(m.project_id).title, Project.find(m.project_id), class: "project-title" %></div>
+                    <div class = "meta"><%= link_to Project.find(m.project_id).admin.name, "#{Project.find(m.project_id).admin.id}", class: "project-admin" %></div>
+                    <% if Project.find(m.project_id).isClosed == true %><a class="ui red label">완료</a>
+                    <% else %><a class="ui blue label">진행중</a>
+                    <% end %></br>
+                    <div class = "description"><%=Project.find(m.project_id).description%></div>
+                </div>
+                <div class = "extra content">
+                    <% Project.find(m.project_id).tags.each do |tag| %>
+                    <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
+                    :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
     <% end %>
 </div>
 
-<p><%= link_to '메인 화면으로', projects_url %></p>
 
