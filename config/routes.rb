@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get '/mypage/edit' => 'user#edit'
   post '/mypage/edit' => 'user#update'
 
+  # my projects
+  get '/myprojects' => 'user#myprojects'
+
   # user information
   get '/user/:id' => 'projects#user'
 
