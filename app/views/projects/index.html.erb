@@ -17,7 +17,7 @@
           <div class = "extra content">
             <% p.tags.each do |tag| %>
               <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-              :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :post %>
+              :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;", method: :get %>
             <% end %>
           </div>
         </div>
@@ -39,7 +39,7 @@
         <%= p.description %><br><br>
         <% p.tags.each do |tag| %>
           <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
-                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;",method: :post %>
+                :skill1 => "", :skill2 => "", :skill3 => "", :tool1 => "", :tool2 => "", :tool3 => ""), class: "ui label", style: "margin-bottom: 5px;",method: :get %>
         <% end %>
       </div>
     <% end %>

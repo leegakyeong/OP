@@ -4,15 +4,15 @@ class CreateProjects < ActiveRecord::Migration[5.1]
       # t.belongs_to :user
       t.integer  :admin_id, foreign_key: true, null: false
       t.string   :title, null: false
-      t.integer  :maxMember, foreign_key: true
+      t.integer  :maxMember
       t.string   :skills
       t.string   :description, null: false
-      t.boolean  :isKorean, foreign_key: true
-      t.boolean  :isOnline, foreign_key: true
+      t.boolean  :isKorean
+      t.boolean  :isOnline
       t.string   :tools
       t.string   :tag_string
       t.references  :tag, index: true, foreign_key: true
-      t.boolean  :isClosed, foreign_key: true
+      t.boolean  :isClosed
 
       t.timestamps  
     end
