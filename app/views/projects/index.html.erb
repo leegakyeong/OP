@@ -95,6 +95,9 @@
           <div class = "content">
             <div class = "header"><%= link_to p.title, p, class: "project-title" %></div>
             <div class = "meta"><%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %></div>
+            <% if p.isClosed == true %><a class="ui red label">완료</a>
+            <% else %><a class="ui blue label">진행중</a>
+            <% end %></br>
             <div class = "description"><%=p.description%></div>
           </div>
           <div class = "extra content">
@@ -117,6 +120,9 @@
       <div class="ui segment">
         <%= link_to p.title, p, class: "project-title ui header" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
+        <% if p.isClosed == true %><a class="ui red label">완료</a>
+        <% else %><a class="ui blue label">진행중</a>
+        <% end %></br>
         <%= p.description %><br><br>
         <% p.tags.each do |tag| %>
           <%= link_to tag.content, search_url(:keyword => tag.content, :maxMember => "20", 
