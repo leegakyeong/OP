@@ -43,8 +43,8 @@
           <h1 class="ui inverted header">Open Project</h1>
           <h2>Find Interesting Projects!</h2><br>
         </div>
-        <div class="ui stackable", id="this_form">
-          <%= form_tag(search_url, method: :get, class: "search") %>
+        <div class="ui stackable main container", id="this_form">
+          <%= form_tag(search_url, method: :get) %>
             <div class="ui input huge fluid action">
               <%= search_field_tag 'keyword' %>
               <button class="ui icon button huge">
@@ -54,7 +54,6 @@
                 <i class="filter icon"></i>
               </span>
             </div>
-            <div class = "search_container">
             <div class="ui segment filter" id="filter-board" style="display: none;">
               <!--프로젝트명이랑 책임자 이름은 그냥 입력해서 검색하게 함.
               # 들어가면 태그로 인식하게 하기?! 정규표현식 써야 하나 어떻게 하는지 찾아 보기-->
@@ -125,7 +124,6 @@
                   </tr>
                 </table>
               </div>
-            </div>
             </div>
           </form>
         </div>
