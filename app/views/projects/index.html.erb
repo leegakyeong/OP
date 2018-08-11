@@ -70,7 +70,7 @@
   <h2>Featured Projects</h2>
   <div id="featured-projects-box">
     <div class="ui grid">
-      <% @projects.reverse.each_with_index do |p, i| %>
+      <% @projects.sort_by{ |p| p.project_likes.where(created_at: Time.current.all_month).length }.reverse.each_with_index do |p, i| %>
         <% if i < 4 %>
           <div class="four wide column ui segment">
             <%= link_to p.title, p, class: "project-title" %><br>
@@ -89,7 +89,7 @@
   <br>
   <h2>All Projects</h2>
   <div id="featured-projects-box">
-    <% @projects.order(created_at: :desc).reverse.each_with_index do |p, i| %>
+    <% @projects_bypage.order(created_at: :desc).reverse.each_with_index do |p, i| %>
       <div class="ui segment">
         <%= link_to p.title, p, class: "project-title" %><br>
         <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
@@ -101,7 +101,7 @@
       </div>
     <% end %>
   </div>
-  <%= paginate @projects %>
+  <%= paginate @projects_bypage %>
   <br><br>
 
 <script>

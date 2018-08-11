@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
     def index
         @projects = Project.all
-        @projects = Project.page params[:page]
+        @projects_bypage = Project.page params[:page]
     end  
 
     def new
