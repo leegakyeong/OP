@@ -2,33 +2,30 @@
   <div class = "column" style = "max-width: 450px;">
     <h2 class = "ui header" style = "margin-top: 1rem">Sign up</h2>
 
-      <div class = "ui stacked segment" style = "padding: 1em 1em;">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "ui large form error"}) do |f| %>
-          <%= devise_error_messages! %>
+    <div class = "ui stacked segment" style = "padding: 1em 1em;">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "ui large form error"}) do |f| %>
+        <%= devise_error_messages! %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail", class: "field" %>
 
-          <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "E-mail" %>
-          </div>
+        <div class="field">
+          <% if @minimum_password_length %>
+            <div class="ui basic label">
+              <em><%= @minimum_password_length %> characters minimum</em>
+            </div>
+          <% end %>
+          <%= f.password_field :password, ggsautocomplete: "off", placeholder: "Password"%>
+          
+        </div>
 
-          <div class="field">
-            <% if @minimum_password_length %>
-              <div class="ui basic label">
-                <em><%= @minimum_password_length %> characters minimum</em>
-              </div>
-            <% end %>
-            <%= f.password_field :password, autocomplete: "off", placeholder: "Password"%>
-            
-          </div>
+        <div class="field">
+          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
+        </div>
 
-          <div class="field">
-            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
-          </div>
-
-          <div class="actions">
-            <%= f.submit "Sign up" ,class: "ui fluid large submit button", style: "background-color: #f98d7a;"%></br>
-          </div>
-        <% end %>
-        <a href="/users/sign_in"><button class = "ui fluid large button">Log in</button></a>
-      </div>
+        <div class="actions">
+          <%= f.submit "Sign up" ,class: "ui fluid large button", style: "background-color: #f98d7a;"%></br>
+        </div>
+      <% end %>
+      <a href="/users/sign_in"><button class = "ui fluid large button">Log in</button></a>
+    </div>
   </div>
 </div>

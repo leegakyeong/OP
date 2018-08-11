@@ -20,11 +20,15 @@
         <div class="right menu">
           <% if user_signed_in? %>
             <%= link_to "새 프로젝트 만들기", new_project_url, class: "item" %>
-            <a class="item" href="/mypage">
+            <div class="item ui dropdown">
               <i class="user icon ui red circular label"></i>
-              <%= current_user.name %>
-            </a>
-            <%= link_to "로그아웃", destroy_user_session_url, method: :delete, class: "item" %>
+              <div class="text"><%= current_user.name %></div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <a class="item" href="/mypage">mypage</a>
+                <a class="item" href="/users/sign_out" data-method="DELETE">로그아웃</a>
+              </div>
+            </div>
           <% else %>
             <%= link_to "로그인", signin_url, class: "item" %>
             <%= link_to "회원가입", new_user_registration_url, class: "item" %>
@@ -50,5 +54,9 @@
     <div class="ui main container">
       <%= yield %>
     </div>
+    <!--여기 색깔이 왜 이렇게 될까-->
+    <script>
+      $(".ui.dropdown").dropdown();
+    </script>
   </body>
 </html>

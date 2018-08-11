@@ -8,19 +8,6 @@
 
 <button type="button"><%= link_to "내 정보 수정하기", mypage_edit_url %></button>
 
-<h2><strong>My Projects</strong></h2>
-<div class="ui grid">
-    <% @my_project.each do |p| %>
-        <div class="four wide column ui segments" style="margin: 1em 0em 1em 1em;">
-            <div class="four wide ui segment"><%= p.title %></div>
-            <div class="four wide ui segment"><%= p.description%></div>
-            <div class="four wide ui segment"><%= link_to "바로가기", p %></div>
-        </div>
-    <% end %>
-</div>
-
-<p>여기에 참여하고 있는 프로젝트 목록이 들어가도 좋을 것 같네요.</p>
-
 <% comment do %>
 <%= link_to p.title, p, class: "project-title" %><br>
             <%= link_to p.admin.name, "user/#{p.admin.id}", class: "project-admin" %><br>
